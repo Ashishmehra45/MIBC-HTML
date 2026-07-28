@@ -1,0 +1,172 @@
+<div class="main-slider-container"
+                    style="position: relative; width: 100%; background: #f0eeea; height: 550px; overflow: hidden; border-radius: 8px;">
+
+                    <style>
+                        /* Container Slide */
+                        @keyframes fullContainerSlide {
+                            0% {
+                                transform: translateX(100%);
+                                z-index: 1;
+                            }
+
+                            5% {
+                                transform: translateX(0%);
+                                z-index: 2;
+                            }
+
+                            50% {
+                                transform: translateX(0%);
+                                z-index: 2;
+                            }
+
+                            55% {
+                                transform: translateX(-100%);
+                                z-index: 1;
+                            }
+
+                            100% {
+                                transform: translateX(-100%);
+                                z-index: 1;
+                            }
+                        }
+
+                        /* Image Slide inside Card */
+                        @keyframes slideNoBlink {
+                            0% {
+                                transform: translateX(100%);
+                                z-index: 1;
+                            }
+
+                            5% {
+                                transform: translateX(0%);
+                                z-index: 2;
+                            }
+
+                            50% {
+                                transform: translateX(0%);
+                                z-index: 2;
+                            }
+
+                            55% {
+                                transform: translateX(-100%);
+                                z-index: 1;
+                            }
+
+                            100% {
+                                transform: translateX(-100%);
+                                z-index: 1;
+                            }
+                        }
+
+                        /* Dots Sync Animation */
+                        @keyframes dotSync {
+
+                            0%,
+                            50%,
+                            100% {
+                                background: transparent;
+                                opacity: 0.4;
+                                transform: scale(1);
+                            }
+
+                            5%,
+                            45% {
+                                background: #FFD468;
+                                opacity: 1;
+                                transform: scale(1.3);
+                            }
+                        }
+                    </style>
+
+                    <div class="full-slide"
+                        style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px; animation: fullContainerSlide 10s infinite; backface-visibility: hidden;">
+                        <div class="row align-items-center justify-content-center" style="width: 100%;">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="thumbnail team-linkedin-wrapper"
+                                    style="position: relative; overflow: hidden; height: 400px; width: 300px; background: #000; border-radius: 8px; margin: auto;">
+                                    <a href="https://www.linkedin.com/in/ravi-k-tiwari-04b39410/" target="_blank">
+                                        <div class="slide-item"
+                                            style="position: absolute; width: 100%; height: 100%; animation: slideNoBlink 10s infinite;">
+                                            <img src="assets/images/team/raviSir.png"
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="slide-item"
+                                            style="position: absolute; width: 100%; height: 100%; animation: slideNoBlink 10s infinite -5s;">
+                                            <img src="assets/images/team/max.jpg"
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-6 col-12 d-flex align-items-center">
+                                <div class="section-title text-left pl--30">
+                                    <div style="padding-left: 25px; border-left: 4px solid #FFD468;">
+                                        <p
+                                            style="font-size: 22px; line-height: 1.6; font-style: italic; color: #1c1c1c; margin-bottom: 25px;">
+                                            “The Indo-Mexican economic partnership continues to evolve as businesses
+                                            from both countries explore new opportunities in trade, investment, and
+                                            innovation.”
+                                        </p>
+                                    </div>
+                                    <div class="author-info" style="margin-left: 29px; margin-top: 20px;">
+                                        <h4 style="margin-bottom: 5px; font-weight: 700; color: #000;">Ravi K. Tiwari
+                                        </h4>
+                                        <span
+                                            style="color: #65676b; font-size: 16px; text-transform: uppercase; font-weight: 600;">Chief
+                                            Executive Officer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="full-slide"
+                        style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px; animation: fullContainerSlide 10s infinite -5s; backface-visibility: hidden;">
+                        <div class="row align-items-center justify-content-center" style="width: 100%;">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="thumbnail team-linkedin-wrapper"
+                                    style="position: relative; overflow: hidden; height: 400px; width: 300px; background: #000; border-radius: 8px; margin: auto;">
+                                    <div class="slide-item"
+                                        style="position: absolute; width: 100%; height: 100%; animation: slideNoBlink 10s infinite;">
+                                        <img src="assets/images/team/raviSir.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <div class="slide-item"
+                                        style="position: absolute; width: 100%; height: 100%; animation: slideNoBlink 10s infinite -5s;">
+                                        <img src="assets/images/team/max.jpg"
+                                            style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-6 col-12 d-flex align-items-center">
+                                <div class="section-title text-left pl--30">
+                                    <div style="padding-left: 25px; border-left: 4px solid #FFD468;">
+                                        <p
+                                            style="font-size: 22px; line-height: 1.6; font-style: italic; color: #1c1c1c; margin-bottom: 25px;">
+                                            “Our mission is to provide world-class business solutions and foster
+                                            international collaboration to drive sustainable growth across diverse
+                                            industries.”
+                                        </p>
+                                    </div>
+                                    <div class="author-info" style="margin-left: 29px; margin-top: 20px;">
+                                        <h4 style="margin-bottom: 5px; font-weight: 700; color: #000;">Global Business
+                                            Hub</h4>
+                                        <span
+                                            style="color: #65676b; font-size: 16px; text-transform: uppercase; font-weight: 600;">Strategic
+                                            Partner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider-dots"
+                        style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 100;">
+                        <div class="dot"
+                            style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; animation: dotSync 10s infinite;">
+                        </div>
+                        <div class="dot"
+                            style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; animation: dotSync 10s infinite -5s;">
+                        </div>
+                    </div>
+                </div>

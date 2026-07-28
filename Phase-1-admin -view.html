@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIBC Full Database View</title>
+    <!-- Include html2pdf library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #1a1b23;
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .total-records {
+            background-color: #2c2f3a;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #b0b3b8;
+            border: 1px solid #3f4350;
+        }
+
+        .export-btn {
+            background-color: #e5b85a;
+            color: #1a1b23;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .export-btn:hover { background-color: #d1a44a; }
+
+        .table-container {
+            flex: 1;
+            overflow: auto;
+            padding: 0;
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+            min-width: 1500px;
+        }
+
+        th, td {
+            border: 1px solid #e0e4e8;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #eaf2f8;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .sub-header th {
+            font-size: 11px;
+            background-color: #f1f5f9;
+        }
+
+        tr:hover td { background-color: #f8fafc; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .btn-del {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-del:hover { background-color: #dc2626; }
+
+        .btn-pdf {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-pdf:hover { background-color: #2563eb; }
+        .btn-pdf:disabled { background-color: #93c5fd; cursor: not-allowed; }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover { text-decoration: underline; }
+
+        .loading-text {
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>MIBC Full Database View</h1>
+        <div class="nav-controls">
+            <div class="total-records" id="totalRecords">Total Records: 0</div>
+            <button class="export-btn" onclick="exportTableToCSV('MIBC_Phase_1_Database.csv')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export CSV
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="dataTable">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody">
+                <tr><td colspan="100%" class="loading-text">Loading database records...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function cleanTextLayout(text) {
+            if (!text) return text;
+            return text
+                .replace(/([a-z])([A-Z])/g, '$1 $2')
+                .replace(/,([^ ])/g, ', $1')
+                .replace(/([a-z])([A-Z])/g, '$1 $2');
+        }
+
+        const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const API_BASE_URL = isLocal ? 'http://localhost:5001' : 'https://mibc-backend-4.onrender.com';
+        let tableData = [];
+        let excludeFields = ['_id', '__v', 'createdAt', 'updatedAt'];
+
+        async function fetchLeads() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/Phase-1-leads`);
+                const result = await response.json();
+
+                if (result.success && result.data.length > 0) {
+                    tableData = result.data;
+                    document.getElementById('totalRecords').innerText = `Total Records: ${result.count}`;
+                    generateTable(tableData);
+                } else {
+                    document.getElementById('tableBody').innerHTML = '<tr><td colspan="100%" class="loading-text">No records found in the database.</td></tr>';
+                    document.getElementById('totalRecords').innerText = `Total Records: 0`;
+                }
+            } catch (error) {
+                console.error('Error fetching leads:', error);
+                document.getElementById('tableBody').innerHTML = '<tr><td colspan="100%" class="loading-text" style="color:#ef4444;">Failed to load data. Please check backend connection.</td></tr>';
+            }
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            const pad = (num) => num.toString().padStart(2, '0');
+            return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        }
+
+        function formatCellData(data) {
+            if (typeof data === 'string' && data.includes('@') && !data.includes(' ')) {
+                return `<a href="mailto:${data}">${data}</a>`;
+            }
+            if (Array.isArray(data)) return data.join(', ');
+            return data || '-';
+        }
+
+        function formatDataForPDFText(data) {
+            if (data === null || data === undefined) return '-';
+            if (Array.isArray(data)) return data.join(', ');
+            return String(data);
+        }
+
+        function generateTable(data) {
+            const tableHead = document.getElementById('tableHead');
+            const tableBody = document.getElementById('tableBody');
+            const dynamicKeys = Object.keys(data[0]).filter(key => !excludeFields.includes(key));
+
+            let headHTML = `
+                <tr>
+                    <th rowspan="2" style="width: 100px; text-align: center;">Action</th>
+                    <th rowspan="2">Submitted On</th>
+                    <th colspan="${dynamicKeys.length}" style="font-size: 11px; padding: 6px 14px;">A. Questionnaire Data</th>
+                </tr>
+                <tr class="sub-header">
+            `;
+
+            dynamicKeys.forEach(key => {
+                let readableHeader = key.replace(/([A-Z])/g, ' $1').trim();
+                readableHeader = readableHeader.charAt(0).toUpperCase() + readableHeader.slice(1);
+                headHTML += `<th>${readableHeader}</th>`;
+            });
+            headHTML += `</tr>`;
+            tableHead.innerHTML = headHTML;
+
+            let bodyHTML = '';
+            data.forEach(row => {
+                bodyHTML += `<tr>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-pdf" id="btn-pdf-${row._id}" onclick="generateUserPDF('${row._id}')">PDF</button>
+                            <button class="btn-pdf" style="background-color: #10b981;" id="btn-merge-${row._id}" onclick="generateMergedPDF('${row._id}')">Merge PDF</button>
+                            <button class="btn-del" onclick="deleteLead('${row._id}')">Del</button>
+                        </div>
+                    </td>
+                    <td>${formatDate(row.createdAt)}</td>
+                `;
+
+                dynamicKeys.forEach(key => {
+                    bodyHTML += `<td>${formatCellData(row[key])}</td>`;
+                });
+                bodyHTML += `</tr>`;
+            });
+            tableBody.innerHTML = bodyHTML;
+        }
+
+        async function deleteLead(id) {
+            if (confirm('Are you sure you want to delete this record? This action cannot be undone.')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/Phase-1-leads/${id}`, { method: 'DELETE' });
+                    const result = await response.json();
+                    if (result.success) { fetchLeads(); }
+                    else { alert('Error deleting record: ' + result.message); }
+                } catch (error) {
+                    console.error('Delete error:', error);
+                    alert('Failed to delete the record.');
+                }
+            }
+        }
+
+        // --- SINGLE PDF LOGIC ---
+        async function generateUserPDF(id) {
+            const btn = document.getElementById(`btn-pdf-${id}`);
+            btn.innerText = "Wait...";
+            btn.disabled = true;
+            try {
+                const rowData = tableData.find(r => r._id === id);
+                if (!rowData) throw new Error("Row data not found.");
+
+                const emailKey = Object.keys(rowData).find(k => k.toLowerCase().includes('email'));
+                const respondentEmail = emailKey ? rowData[emailKey] : null;
+
+                let companyName = "Not Available";
+                let contactName = "Not Available";
+
+                if (respondentEmail) {
+                    try {
+                        const companyRes = await fetch(`${API_BASE_URL}/api/company-details?email=${encodeURIComponent(respondentEmail)}`);
+                        if (companyRes.ok) {
+                            const companyResult = await companyRes.json();
+                            if (companyResult.success && companyResult.data) {
+                                companyName = companyResult.data.companyName || companyName;
+                                contactName = companyResult.data.contactName || contactName;
+                            }
+                        }
+                    } catch (fetchErr) {
+                        console.warn("Secondary schema fetch failed.", fetchErr);
+                    }
+                }
+
+                let pdfFilename = "Respondent_Report.pdf";
+                if (companyName !== "Not Available" && contactName !== "Not Available") {
+                    pdfFilename = `${companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${contactName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+                } else if (respondentEmail) {
+                    pdfFilename = `${respondentEmail.replace(/[^a-zA-Z0-9@.-]/g, '_')}_Responses.pdf`;
+                }
+
+                const dynamicKeys = Object.keys(rowData).filter(key => !excludeFields.includes(key));
+                let htmlTemplate = `
+            <div style="font-family: Arial, sans-serif; color: #1a1a1a; max-width: 100%; box-sizing: border-box; padding: 30px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="font-family: Georgia, serif; font-size: 24px; font-weight: bold; letter-spacing: 3px; margin: 0; color: #1a1a1a;">MÉXICO-INDIA</h1>
+                    <p style="font-size: 9px; font-weight: 600; letter-spacing: 5px; margin: 4px 0 0 0; color: #444;">BUSINESS COUNCIL</p>
+                    <hr style="width: 80px; border: none; border-top: 1px solid #ccc; margin: 8px auto;">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <div style="font-size: 10px; font-weight: bold; color: #A68A56; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
+                        TEQUILA ACCELERATOR - COHORT 1 - THE INDIA INTENT QUESTIONNAIRE
+                    </div>
+                    <h2 style="font-family: Georgia, serif; font-size: 22px; font-weight: bold; color: #1a1a1a; margin: 0 0 10px 0; line-height: 1.3;">
+                        Respondent Summary — ${companyName}
+                    </h2>
+                    <p style="font-size: 12px; margin: 4px 0; color: #333;">Respondent: ${contactName} &middot; ${respondentEmail || 'N/A'}</p>
+                    <p style="font-size: 12px; margin: 4px 0; color: #333;">Submitted: ${formatDate(rowData.createdAt)} &middot; Confidential, between the respondent and MIBC</p>
+                </div>
+                <hr style="border: none; border-top: 1.5px solid #A68A56; margin-bottom: 20px;">
+                <div style="font-size: 11px; font-weight: bold; color: #A68A56; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">
+                    RESPONSES
+                </div>
+        `;
+
+                dynamicKeys.forEach((key, index) => {
+                    let questionLabel = key.replace(/([A-Z])/g, ' $1').trim();
+                    questionLabel = questionLabel.charAt(0).toUpperCase() + questionLabel.slice(1);
+                    const rawAnswer = formatDataForPDFText(rowData[key]);
+                    const answerText = cleanTextLayout(rawAnswer);
+                    htmlTemplate += `
+                <div style="margin-bottom: 22px; page-break-inside: avoid;">
+                    <div style="font-weight: bold; font-size: 13px; margin-bottom: 5px; color: #1a1a1a;">
+                        ${index + 1}. ${questionLabel}
+                    </div>
+                    <div style="font-size: 13px; color: #444; padding-left: 18px; line-height: 1.4;">
+                        ${answerText}
+                    </div>
+                </div>
+            `;
+                });
+                htmlTemplate += `</div>`;
+
+                const opt = {
+                    margin: [0.2, 0.2, 1.0, 0.2],
+                    filename: pdfFilename,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#FDFBF7' },
+                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+
+                await html2pdf().set(opt).from(htmlTemplate).toPdf().get('pdf').then(function (pdf) {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        pdf.setFontSize(8);
+                        pdf.setTextColor(80, 80, 80);
+                        pdf.text("Ravi K. Tiwari, CEO - ceo@mexicoindia.org - www.mexicoindia.org - linkedin.com/company/mibcorg", pageWidth / 2, pageHeight - 0.7, { align: 'center' });
+                        pdf.setTextColor(166, 138, 86);
+                        pdf.text("THE TEQUILA ACCELERATOR - COHORT 1", pageWidth / 2, pageHeight - 0.5, { align: 'center' });
+                        pdf.setTextColor(80, 80, 80);
+                        pdf.text('Page ' + i, pageWidth - 0.8, pageHeight - 0.5);
+                    }
+                }).save();
+            } catch (error) {
+                console.error("PDF Generation Error:", error);
+                alert("Failed to generate PDF. Check console for details.");
+            } finally {
+                btn.innerText = "PDF";
+                btn.disabled = false;
+            }
+        }
+
+// --- MERGED PDF LOGIC (FULLY UPDATED FOR PAGE-BREAKS, ALIGNMENT & PART 2) ---
+async function generateMergedPDF(id) {
+    const btn = document.getElementById(`btn-merge-${id}`);
+    btn.innerText = "Merging...";
+    btn.disabled = true;
+
+    try {
+        const rowData = tableData.find(r => r._id === id);
+        if (!rowData) throw new Error("Row data not found.");
+
+        const emailKey = Object.keys(rowData).find(k => k.toLowerCase().includes('email'));
+        const respondentEmail = emailKey ? rowData[emailKey] : null;
+
+        let companyName = "Not Available";
+        let contactName = "Not Available";
+        let secondDbData = null; // Dusre database ka data yahan aayega
+
+        // 1. Dusre Database se data fetch karna
+        if (respondentEmail) {
+            try {
+                const companyRes = await fetch(`${API_BASE_URL}/api/full-company-details?email=${encodeURIComponent(respondentEmail)}`);
+                if (companyRes.ok) {
+                    const companyResult = await companyRes.json();
+                    if (companyResult.success && companyResult.data) {
+                        companyName = companyResult.data.companyName || companyName;
+                        contactName = companyResult.data.contactName || contactName;
+                        secondDbData = companyResult.data.fullRecord; // Pura record extract kiya
+                    }
+                }
+            } catch (fetchErr) {
+                console.warn("Secondary schema fetch failed.", fetchErr);
+            }
+        }
+
+        let pdfFilename = "Merged_Report.pdf";
+        if (companyName !== "Not Available" && contactName !== "Not Available") {
+            pdfFilename = `${companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${contactName.replace(/[^a-zA-Z0-9]/g, '_')}_Merged.pdf`;
+        }
+
+        // HTML WRAPPER 
+        let htmlTemplate = `
+            <div style="font-family: Arial, sans-serif; color: #1a1a1a; max-width: 100%; box-sizing: border-box;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="font-family: Georgia, serif; font-size: 24px; font-weight: bold; letter-spacing: 3px; margin: 0; color: #1a1a1a;">MÉXICO-INDIA</h1>
+                    <p style="font-size: 9px; font-weight: 600; letter-spacing: 5px; margin: 4px 0 0 0; color: #444;">BUSINESS COUNCIL</p>
+                    <hr style="width: 80px; border: none; border-top: 1px solid #ccc; margin: 8px auto;">
+                </div>
+        `;
+
+        // ==========================================
+        // PART 1: INTENT FORM (CURRENT DB)
+        // ==========================================
+        htmlTemplate += `
+                <div style="margin-bottom: 25px;">
+                    <div style="font-size: 10px; font-weight: bold; color: #A68A56; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; text-align: left;">
+                        PART 1: INTENT QUESTIONNAIRE (PHASE 1)
+                    </div>
+                    <h2 style="font-family: Georgia, serif; font-size: 22px; font-weight: bold; color: #1a1a1a; margin: 0 0 10px 0; text-align: left;">
+                        Respondent Summary — ${companyName}
+                    </h2>
+                </div>
+                <hr style="border: none; border-top: 1.5px solid #A68A56; margin-bottom: 20px;">
+        `;
+
+        const phase1Keys = Object.keys(rowData).filter(key => !excludeFields.includes(key));
+        phase1Keys.forEach((key, index) => {
+            let questionLabel = key.replace(/([A-Z])/g, ' $1').trim();
+            questionLabel = questionLabel.charAt(0).toUpperCase() + questionLabel.slice(1);
+            
+            let rawAnswer = formatDataForPDFText(rowData[key]);
+            let cleanAnswer = cleanTextLayout(rawAnswer);
+
+            htmlTemplate += `
+                <div style="margin-bottom: 22px; page-break-inside: avoid; display: block;">
+                    <div style="font-weight: bold; font-size: 13px; margin-bottom: 6px; color: #1a1a1a; text-align: left;">
+                        ${index + 1}. ${questionLabel}
+                    </div>
+                    <div style="font-size: 13px; color: #444; padding-left: 14px; border-left: 2px solid #A68A56; line-height: 1.5; white-space: pre-wrap; text-align: left;">
+                        ${cleanAnswer}
+                    </div>
+                </div>
+            `;
+        });
+
+        // ==========================================
+        // PART 2: QUESTIONNAIRE (SECOND DB) - RESTORED!
+        // ==========================================
+        if (secondDbData) {
+            htmlTemplate += `
+                <div style="page-break-before: always; clear: both; padding-top: 20px;"></div>
+                
+                <div style="margin-bottom: 25px;">
+                    <div style="font-size: 10px; font-weight: bold; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; text-align: left;">
+                        PART 2: COMPLETE COMPANY PROFILE
+                    </div>
+                    <h2 style="font-family: Georgia, serif; font-size: 22px; font-weight: bold; color: #1a1a1a; margin: 0 0 10px 0; text-align: left;">
+                        Full Database Record — ${companyName}
+                    </h2>
+                </div>
+                <hr style="border: none; border-top: 1.5px solid #2563eb; margin-bottom: 20px;">
+            `;
+
+            const excludeSecondDb = ['_id', '__v', 'password', 'token', 'createdAt', 'updatedAt'];
+            const phase2Keys = Object.keys(secondDbData).filter(key => !excludeSecondDb.includes(key));
+
+            phase2Keys.forEach((key, index) => {
+                let label = key.replace(/([A-Z])/g, ' $1').trim();
+                label = label.charAt(0).toUpperCase() + label.slice(1);
+
+                let val = secondDbData[key];
+                let finalDisplayVal = '';
+
+                // Handle Cloudinary Links
+                if (typeof val === 'string' && val.startsWith('http')) {
+                    finalDisplayVal = `<a href="${val}" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 500;">View File Attachment</a>`;
+                } else if (typeof val === 'object' && val !== null) {
+                    finalDisplayVal = JSON.stringify(val, null, 2);
+                } else {
+                    finalDisplayVal = cleanTextLayout(String(val || '-'));
+                }
+
+                htmlTemplate += `
+                    <div style="margin-bottom: 22px; page-break-inside: avoid; display: block;">
+                        <div style="font-weight: bold; font-size: 13px; margin-bottom: 6px; color: #1a1a1a; text-align: left;">
+                            ${index + 1}. ${label}
+                        </div>
+                        <div style="font-size: 13px; color: #444; padding-left: 14px; border-left: 2px solid #2563eb; line-height: 1.5; white-space: pre-wrap; text-align: left; word-break: break-word;">
+                            ${finalDisplayVal}
+                        </div>
+                    </div>
+                `;
+            });
+        } else {
+            // Agar second database mein kuch nahi mila toh ye dikhayega naye page par
+            htmlTemplate += `
+                <div style="page-break-before: always; padding-top: 30px;"></div>
+                <div style="text-align: center; color: #ef4444; font-weight: bold; margin-top: 50px;">
+                    No additional records found in the secondary database for this email.
+                </div>
+            `;
+        }
+
+        htmlTemplate += `</div>`; 
+
+        // 2. MASTER FIX: Configuration options for pagebreak and margins
+        const opt = {
+            margin: [0.5, 0.5, 1.0, 0.5], // Top, Left, Bottom, Right
+            filename: pdfFilename,
+            image: { type: 'jpeg', quality: 1.0 },
+            // pagebreak mode 'avoid-all' prevents cutting text in half!
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                backgroundColor: '#FDFBF7' 
+            },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        // 3. Generate Single Merged PDF
+        await html2pdf().set(opt).from(htmlTemplate).toPdf().get('pdf').then(function (pdf) {
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                
+                pdf.setFontSize(8);
+                pdf.setTextColor(80, 80, 80);
+                pdf.text("Ravi K. Tiwari, CEO - ceo@mexicoindia.org - www.mexicoindia.org", pageWidth / 2, pageHeight - 0.6, { align: 'center' });
+                
+                pdf.setTextColor(166, 138, 86);
+                pdf.text("MERGED DOCUMENT - MIBC", pageWidth / 2, pageHeight - 0.4, { align: 'center' });
+                
+                pdf.setTextColor(80, 80, 80);
+                pdf.text('Page ' + i, pageWidth - 0.6, pageHeight - 0.4);
+            }
+        }).save();
+    } catch (error) {
+        console.error("PDF Merge Error:", error);
+        alert("Failed to merge PDF. Check console for details.");
+    } finally {
+        btn.innerText = "Merge PDF";
+        btn.disabled = false;
+    }
+}
+
+     function exportTableToCSV(filename) {
+    // 1. Agar data load nahi hua hai toh pehle check karenge
+    if (!tableData || tableData.length === 0) {
+        alert("No records available to export.");
+        return;
+    }
+
+    let csv = [];
+    
+    // 2. Headers generate karna (Bina 'Action' column ke, ekdum seedhi line me)
+    const dynamicKeys = Object.keys(tableData[0]).filter(key => !excludeFields.includes(key));
+    let headers = ["Submitted On"]; // Pehla column
+    
+    dynamicKeys.forEach(key => {
+        let readableHeader = key.replace(/([A-Z])/g, ' $1').trim();
+        readableHeader = readableHeader.charAt(0).toUpperCase() + readableHeader.slice(1);
+        headers.push(readableHeader);
+    });
+    
+    // Header row ko list me add kiya
+    csv.push('"' + headers.join('","') + '"');
+
+    // 3. Database se aaye huye PURE data ko direct CSV me likhna
+    tableData.forEach(row => {
+        let rowData = [];
+        
+        // Date ko format karke sabse aage daalna
+        rowData.push(formatDate(row.createdAt));
+        
+        // Baki saare columns ko loop karke add karna
+        dynamicKeys.forEach(key => {
+            let val = row[key];
+            if (Array.isArray(val)) {
+                val = val.join(', '); // Agar koi list hai toh comma se separate kar do
+            }
+            
+            // Excel me format na bigde isliye quotes ko handle kiya
+            val = String(val || '').replace(/"/g, '""'); 
+            rowData.push(val);
+        });
+        
+        // Pura row list me add kar diya
+        csv.push('"' + rowData.join('","') + '"');
+    });
+
+    // 4. Excel me text kharab na ho (Spanish letters ke liye \uFEFF zaruri hai)
+    let csvFile = new Blob(["\uFEFF" + csv.join("\n")], { type: "text/csv;charset=utf-8;" });
+    
+    // File download trigger karna
+    let downloadLink = document.createElement("a");
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
+        fetchLeads();
+    </script>
+</body>
+</html>

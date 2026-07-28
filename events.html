@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-style-mode" content="1">
+    <title>Delegation Facilitation | MIBC</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=2026">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/animation.css">
+    <link rel="stylesheet" href="assets/css/plugins/feature.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnify.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick-theme.css">
+    <link rel="stylesheet" href="assets/css/plugins/lightbox.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <main class="page-wrapper">
+
+        <header class="rainbow-header header-default header-not-transparent header-sticky"
+            style="background-color: rgba(0, 0, 0, 0); height: 90px; display: flex; align-items: center; width: 100%; z-index: 999; overflow: visible;">
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1250px; margin: 0 auto; padding: 0px 15px;">
+
+                <div class="logo" style="flex-shrink: 0; position: static;">
+                    <a href="index.html">
+                        <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo"
+                            style="max-height: 60px;">
+                        <img class="logo-dark" src="assets/images/logo/logo-dark.png" alt="MIBC Logo"
+                            style="max-height: 60px;">
+                    </a>
+                </div>
+
+                <div class="header-right"
+                    style="display: flex; align-items: center; justify-content: flex-end; flex: 1;">
+
+                    <nav class="mainmenu-nav d-none d-lg-block" style="position: static; margin-right: 15px;">
+                        <ul class="mainmenu"
+                            style="display: flex; align-items: center; margin: 0; padding: 0; list-style: none; gap: 15px;">
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="index.html">Home</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="./about.html">About</a></li>
+
+                            <li class="has-droupdown has-menu-child-item">
+                                <a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="service.html">Services</a>
+                                <ul class="submenu" style="min-width: 250px !important; text-align: left;">
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="investment-facilitation.html">Investment Facilitation</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="trade-promotion.html">Trade Promotion</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="delegation-facilitation.html">Delegation Facilitation</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="intelligence-advocacy.html">Intelligence & Advocacy</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-droupdown has-menu-child-item">
+                                <a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="initiativee.html">Initiatives</a>
+                                <ul class="submenu" style="min-width: 220px !important; text-align: left;">
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="tequila-accelerator.html">Tequila Accelerator</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="india-mexico-connect.html">India–México Launchpad</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="events.html">Events</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="sectors.html">Sectors</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="membership.html">Membership</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; position: static !important; transform: none !important;">
+
+                        <div class="header-btn"
+                            style="margin: 0 !important; padding: 0 !important; position: static !important; display: block !important;">
+                            <a class="btn-default btn-small round" target="_blank" href="membership.html"
+                                style="white-space: nowrap; display: inline-block;">JOIN</a>
+                        </div>
+
+                        <div id="my_switcher" class="my_switcher"
+                            style="margin: 0 !important; padding: 0 !important; position: relative !important; width: 44px !important; height: 44px !important; background-color: #a57f44 !important; border-radius: 50% !important; display: block !important; flex-shrink: 0; cursor: pointer;">
+                            <ul
+                                style="margin: 0; padding: 0; list-style: none; width: 100%; height: 100%; position: relative;">
+                                <li
+                                    style="margin: 0 !important; padding: 0 !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <a href="javascript: void(0);" data-theme="light" class="setColor light"
+                                        style="text-decoration: none;">
+                                        <img class="sun-image" src="assets/images/icons/sun-01.svg" alt="Sun"
+                                            style="width: 20px; height: 20px; display: block;">
+                                    </a>
+                                </li>
+                                <li
+                                    style="margin: 0 !important; padding: 0 !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <a href="javascript: void(0);" data-theme="dark" class="setColor dark"
+                                        style="text-decoration: none;">
+                                        <img class="Victor Image" src="assets/images/icons/vector.svg" alt="Moon"
+                                            style="width: 20px; height: 20px; display: block;">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="hamberger-menu d-block d-lg-none" style="margin-left: 5px;">
+                            <button class="hamberger-button"
+                                style="background: none; border: none; padding: 5px; cursor: pointer;">
+                                <i class="feather-menu" style="font-size: 24px; color: #000; font-weight: bold;"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="popup-mobile-menu">
+            <div class="inner" style="padding: 20px; background: #fff;">
+                <div class="header-top"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+
+                    <div class="logo">
+                        <a href="index.html">
+                            <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo"
+                                style="max-height: 40px; width: auto;">
+                            <img class="logo-dark" src="assets/images/logo/logo-dark.png" alt="MIBC Logo"
+                                style="max-height: 40px; width: auto;">
+                        </a>
+                    </div>
+
+                    <div class="close-menu">
+                        <button class="close-button"
+                            style="background: #f8f8f8; border: none; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                            <i class="feather-x" style="font-size: 18px; color: #333;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="mainmenu" style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="index.html">Home</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="about.html">About</a></li>
+                    <li class="has-droupdown has-menu-child-item"
+                        style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;">
+                        <a href="service.html">Services</a>
+                        <ul class="submenu" style="padding-left: 15px; margin-top: 10px;">
+                            <li><a href="investment-facilitation.html">Investment Facilitation</a></li>
+                            <li><a href="trade-promotion.html">Trade Promotion</a></li>
+                            <li><a href="delegation-facilitation.html">Delegation Facilitation</a></li>
+                            <li><a href="intelligence-advocacy.html">Intelligence & Advocacy</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-droupdown has-menu-child-item"
+                        style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;">
+                        <a href="initiativee.html">Initiatives</a>
+                        <ul class="submenu" style="padding-left: 15px; margin-top: 10px;">
+                            <li><a href="tequila-accelerator.html">Tequila Accelerator</a></li>
+                            <li><a href="india-mexico-connect.html">India–México Launchpad</a></li>
+                            <li><a href="events.html">Events</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="sectors.html">Sectors</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="membership.html">Membership</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="rainbow-gradient-circle"></div>
+            <div class="rainbow-gradient-circle theme-pink"></div>
+        </div>
+
+        <!-- PAGE HEADER / BANNER -->
+        <div class="post-page-banner rainbow-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 text-center">
+                        <div class="content">
+                            <h1 class="theme-gradient" style="color: #A98842;">
+                                Events
+                            </h1>
+                            <p style="color: #000;" class="description">
+                                Explore our events designed to foster collaboration, share insights,
+                                and drive bilateral trade and investment between México and India.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENTS SECTION -->
+        <div class="main-content">
+            <div class="rainbow-blog-area rainbow-section-gap">
+                <div class="container">
+                    <div class="row row--30">
+
+                        <!-- LEFT COLUMN (Events List) -->
+                        <div class="col-lg-12">
+                            <div class="row mt_dec--30">
+
+                                 <style>
+   
+    
+    .gold-gradient-modal .modal-header .modal-title {
+        color: #8a6d3b; /* Deep Gold color */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Fixed Size Image Box */
+    .fixed-image-container {
+        width: 100%;
+        height: 450px; /* Aap apne hisab se height fix kar sakte hain */
+        overflow: hidden;
+        background-color: #f1f1f1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+
+    .fixed-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Isse image box ke bahar nahi jayegi aur stretch nahi hogi */
+    }
+
+    /* Custom Gold Buttons for Slider */
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: #d4af37;
+        border-radius: 50%;
+        padding: 20px;
+    }
+</style>
+
+<div class="col-lg-12 mt--30">
+    <div class="rainbow-card box-card-style-default card-list-view">
+        <div class="inner">
+            <div class="thumbnail">
+                <a class="image" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#eventGalleryModal">
+                    <img src="assets/images/popu-banner.jpg" alt="Virtual Roundtable with Mexican Companies">
+                </a>
+            </div>
+            <div class="content">
+                <h4 class="title">
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#eventGalleryModal">
+                        Virtual Roundtable with Mexican Companies in India
+                    </a>
+                </h4>
+
+                <ul class="rainbow-meta-list">
+                    <li style="color: #000;"><strong>Date:</strong> April 29, 2026 | 11:00 AM </li>
+                    <li style="color: #000; padding: 5px;"> <strong>Location:</strong> Virtual Session</li>
+                </ul>
+
+                <p style="color: #000;" class="descriptiion">
+                    Organized by The Consulate General of Mexico in Mumbai in partnership with the Mexico-India Business Council...
+                </p>
+
+                <!-- Trigger Button -->
+                <button class="btn-default btn-small mt--10 border-0" style=" color: #ffffff; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#eventGalleryModal">
+                    View Event images
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure with White-Gold Theme -->
+<div class="modal fade gold-gradient-modal" id="eventGalleryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Event Highlights</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Slider -->
+                <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Image 1 -->
+                        <div class="carousel-item active">
+                            <div class="fixed-image-container">
+                                <img src="assets/images/roundtable/01.jpeg" alt="Mexican Trade Talk">
+                            </div>
+                        </div>
+                        <!-- Image 2 -->
+                        <div class="carousel-item">
+                            <div class="fixed-image-container">
+                                <img src="assets/images/roundtable/02.jpeg" alt="Business Meeting">
+                            </div>
+                        </div>
+                        <!-- Image 3 -->
+                        <div class="carousel-item">
+                            <div class="fixed-image-container">
+                                <img src="assets/images/roundtable/03.jpeg" alt="Strategic Partnership">
+                            </div>
+                        </div>
+                        <!-- Image 4 -->
+                        <div class="carousel-item">
+                            <div class="fixed-image-container">
+                                <img src="assets/images/roundtable/04.jpeg" alt="Virtual Roundtable">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                <!-- Event 1 -->
+                                <div class="col-lg-12 mt--30">
+                                    <div class="rainbow-card box-card-style-default card-list-view">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a class="image" href="#">
+                                                    <img src="assets/images/banner/it-events.jpg"
+                                                        alt="India–México Forum">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+
+                                                <h4 class="title">
+                                                    <a href="#">
+                                                        IT & Digital Services CEO Roundtable
+
+                                                    </a>
+                                                </h4>
+
+                                                <ul class="rainbow-meta-list">
+                                                    <li style="color: #000;"><strong>Date:</strong> December 16, 2026
+                                                    </li>
+
+                                                    <li style="color: #000;"><strong>Location:</strong> Consulate of
+                                                        Mexico, Mumbai, India
+                                                    </li>
+                                                </ul>
+
+                                                <p style="color: #000;" class="descriptiion">
+                                                    Organised with the Consulate General of México in Mumbai, this
+                                                    closed-door CEO Roundtable convenes senior technology leaders,
+                                                    digital services firms, and policy stakeholders to explore
+                                                    India–México collaboration in IT services, nearshoring, and digital
+                                                    transformation. The session features opening remarks from the Consul
+                                                    General, a moderated executive discussion, and curated peer exchange
+                                                    focused on market entry.
+                                                </p>
+
+                                                <a class="btn-default btn-small mt--10" href="events-gallary.html">
+                                                    View Events images
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Event 2 -->
+                                <div class="col-lg-12 mt--30">
+                                    <div class="rainbow-card box-card-style-default card-list-view">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a class="image" href="#">
+                                                    <img src="assets/images/banner/pharma-events.jpg"
+                                                        alt="Pharmaceuticals CEO Roundtable">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+
+                                                <h4 class="title">
+                                                    <a href="#">
+                                                        Pharmaceuticals & LATAM Market Access CEO Roundtable
+                                                    </a>
+                                                </h4>
+
+                                                <ul class="rainbow-meta-list">
+                                                    <li style="color: #000;"><strong>Date:</strong> December 16, 2026
+                                                    </li>
+                                                    <li style="color: #000;"><strong>Location:</strong> Consulate of
+                                                        Mexico, Mumbai, India
+                                                    </li>
+                                                </ul>
+
+                                                <p style="color: #000;" class="descriptiion">
+                                                    In partnership with the Consulate General of México in Mumbai, this
+                                                    closed-door discussion brings together senior pharmaceutical leaders
+                                                    to examine regulatory pathways, manufacturing collaboration, and
+                                                    market access opportunities in the India–México healthcare corridor.
+                                                </p>
+
+                                                <a class="btn-default btn-small mt--10" href="events-gallary.html">
+                                                    View Events images
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Event 3 -->
+                                <div class="col-lg-12 mt--30">
+                                    <div class="rainbow-card box-card-style-default card-list-view">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a class="image" href="#">
+                                                    <img src="assets/images/banner/automotive-events.jpg"
+                                                        alt="Automotive CEO Roundtable">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+
+                                                <h4 class="title">
+                                                    <a href="#">
+                                                        Automotive & Manufacturing CEO Roundtable
+                                                    </a>
+                                                </h4>
+
+                                                <ul class="rainbow-meta-list">
+                                                    <li style="color: #000;"><strong>Date:</strong> December 16, 2026
+                                                    </li>
+                                                    <li style="color: #000;"><strong>Location:</strong> Consulate of
+                                                        Mexico, Mumbai, India
+                                                    </li>
+                                                </ul>
+
+                                                <p style="color: #000;" class="descriptiion">
+                                                    This invitation-only roundtable convenes automotive and
+                                                    manufacturing executives to discuss supply-chain integration, EV
+                                                    components, nearshoring, and bilateral investment opportunities
+                                                    across the India–México manufacturing ecosystem.
+                                                </p>
+
+                                                <a class="btn-default btn-small mt--10" href="events-gallary.html">
+                                                    View Events images
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Event 4 -->
+                                <div class="col-lg-12 mt--30">
+                                    <div class="rainbow-card box-card-style-default card-list-view">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a class="image" href="#">
+                                                    <img src="assets/images/banner/food-beverage-events.jpg"
+                                                        alt="Food & Beverages CEO Roundtable">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+
+                                                <h4 class="title">
+                                                    <a href="#">
+                                                        Food & Beverages CEO Roundtable
+                                                    </a>
+                                                </h4>
+
+                                                <ul class="rainbow-meta-list">
+                                                    <li style="color: #000;"><strong>Date:</strong> December 16, 2026
+                                                    </li>
+                                                    <li style="color: #000;"><strong>Location:</strong> Consulate of
+                                                        Mexico, Mumbai, India
+                                                    </li>
+                                                </ul>
+
+                                                <p style="color: #000;" class="descriptiion">
+                                                    A focused executive dialogue bringing Mexico’s finest to India’s
+                                                    premium market, convening leaders from the food, beverages, and
+                                                    processing sectors to explore trade expansion, premium product
+                                                    access, and growth opportunities across India and Mexico’s consumer
+                                                    markets.
+                                                </p>
+
+                                                <a class="btn-default btn-small mt--10" href="events-gallary.html">
+                                                    View Events images
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Annual Calendar -->
+                                <div class="col-lg-12 mt--30">
+                                    <div class="rainbow-card box-card-style-default card-list-view">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a class="image" href="#">
+                                                    <img src="assets/images/banner/annualeventcalendar.jpg"
+                                                        alt="Annual Event Calendar">
+                                                </a>
+                                            </div>
+
+                                            <div class="content">
+                                                <h4 class="title">
+                                                    <a href="#">Annual Event Calendar</a>
+                                                </h4>
+
+                                                <ul class="rainbow-meta-list">
+                                                    <li style="color: #000;">Updated Annually</li>
+                                                </ul>
+
+                                                <p style="color: #000;" class="descriptiion">
+                                                    A structured annual cycle of high-level bilateral engagements
+                                                    curated by MIBC.
+                                                </p>
+
+                                                <ul class="mt--10">
+                                                    <li style="color: #000;"><strong>Economic Partnership
+                                                            Forum:</strong> Annual flagship
+                                                        summit</li>
+                                                    <li style="color: #000;"><strong>Sector Roundtables:</strong>
+                                                        Quarterly deep dives</li>
+                                                    <li style="color: #000;"><strong>Trade Delegations:</strong> Curated
+                                                        missions in both
+                                                        directions</li>
+                                                    <li style="color: #000;"><strong>CEO Dialogues:</strong> Exclusive
+                                                        senior leadership
+                                                        forums</li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              
+
+                                <!-- Load More Button -->
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="rainbow-footer footer-style-default variation-two">
+
+
+            <div class="rainbow-callto-action clltoaction-style-default style-7">
+                <div class="container">
+                    <div class="row row--0 align-items-center content-wrapper">
+
+
+                        <div class="col-lg-8 col-md-8">
+                            <div class="inner">
+                                <div class="content text-left">
+                                    <div class="logo">
+                                        <a href="index.html">
+                                            <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo">
+                                            <img class="logo-dark" src="assets/images/logo/logo-dark.png"
+                                                alt="MIBC Logo">
+                                        </a>
+                                    </div>
+
+                                    <p style="color: #000;" class="subtitle" data-sal="slide-up" data-sal-duration="400"
+                                        data-sal-delay="150">
+                                        Bridging Two Emerging Giants
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4" data-sal="slide-up" data-sal-duration="400" data-sal-delay="150">
+                            <div class="call-to-btn text-left mt_sm--20 text-lg-right">
+                                <a class="btn-default" href="membership.html">Join MIBC
+                                    <i class="feather-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Columns -->
+            <style>
+                /* Social Icons Animation */
+                .social-btn {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                }
+
+                .social-btn:hover {
+                    transform: translateY(-5px);
+                    border-color: #a68b53 !important;
+                    color: #a68b53 !important;
+                    box-shadow: 0 5px 15px rgba(166, 139, 83, 0.3) !important;
+                }
+
+                .social-btn:active {
+                    transform: scale(0.9);
+                }
+
+                /* Footer Links Animation */
+                .footer-link-item {
+                    display: inline-block;
+                    /* Animation movement ke liye zaroori hai */
+                    transition: all 0.3s ease !important;
+                }
+
+                .footer-link-item:hover {
+                    color: #a68b53 !important;
+                    /* Golden Color */
+                    transform: translateX(8px);
+                    /* Halka sa right side slide hoga */
+                }
+            </style>
+
+            <div class="footer-wrapper" style="padding: 60px 0; background-color: #F5F8FA; font-family: sans-serif;">
+                <div class="footer-container"
+                    style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 20px;">
+
+                    <div class="footer-column" style="flex: 1; min-width: 150px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Council</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="about.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">About</a></li>
+                            <li style="margin-bottom: 12px;"><a href="#" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Leadership</a></li>
+                            <li style="margin-bottom: 12px;"><a href="sectors.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Sectors</a></li>
+                            <li style="margin-bottom: 12px;"><a href="membership.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Membership</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 1.2; min-width: 180px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Services</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="investment-facilitation.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Investment
+                                    Facilitation</a></li>
+                            <li style="margin-bottom: 12px;"><a href="trade-promotion.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Trade Promotion</a>
+                            </li>
+                            <li style="margin-bottom: 12px;"><a href="delegation-facilitation.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Delegation
+                                    Facilitation</a></li>
+                            <li style="margin-bottom: 12px;"><a href="intelligence-advocacy.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Intelligence &
+                                    Advocacy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 1.2; min-width: 180px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Initiatives
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="tequila-accelerator.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Tequila Accelerator</a>
+                            </li>
+                            <li style="margin-bottom: 12px;"><a href="india-mexico-connect.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">India–México
+                                    Launchpad</a></li>
+                            <li style="margin-bottom: 12px;"><a href="events.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Events</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 0.8; min-width: 120px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Connect</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="contact.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Contact</a></li>
+                            <li style="margin-bottom: 12px;"><a href="#" class="footer-link-item"
+                                    style="text-decoration: none; color: #000; font-size: 14px;">Newsletter</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 2; min-width: 300px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Stay Updated
+                        </h4>
+                        <p style="font-size: 14px; color: #000; line-height: 1.5; margin-bottom: 20px;">Subscribe to
+                            bilateral opportunities and corridor intelligence.</p>
+
+                        <form action="#"
+                            style="display: flex; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                            <input type="email" placeholder="Your email address"
+                                style="border: none; padding: 12px 15px; flex: 1; outline: none; font-size: 14px;">
+                            <button type="submit"
+                                style="background-color: #a68b53; color: white; border: none; padding: 0 20px; font-weight: 600; cursor: pointer;">Subscribe</button>
+                        </form>
+
+                        <div style="display: flex; gap: 10px;">
+                            <ul class="social-icon social-default justify-content-start mt--20">
+                                <li><a
+                                        href="https://www.facebook.com/profile.php?id=61585155789482&mibextid=wwXIfr&rdid=utlTtLC5yBxzHktj&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1M59t97zvS%2F%3Fmibextid%3DwwXIfr#">
+                                        <i class="feather-facebook"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/mibcorg/"><i
+                                            class="feather-linkedin"></i></a></li>
+                                <li>
+                                    <a href="https://x.com/InfoMexicoindia?t=Lq6NKCydqXHSH-U5oqnMcw&s=09"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                </li>
+
+                                <li><a href="https://www.instagram.com/official_mibc"><i
+                                            class="feather-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer Area  -->
+
+        <!-- Start Copy Right Area -->
+        <div class="copyright-area copyright-style-one">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <!-- Left Links -->
+                    <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+                        <div class="copyright-left">
+                            <ul class="ft-menu link-hover">
+                                <li><a style="color: #000;" href="#">Privacy Policy</a></li>
+                                <li><a style="color: #000;" href="#">Terms & Conditions</a></li>
+                                <li><a style="color: #000;" href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Text -->
+                    <div class="col-lg-6 col-md-4 col-sm-12 col-12">
+                        <div class="copyright-right text-center text-lg-end">
+                            <p style="color: #000;" class="copyright-text">
+                                © 2026 México–India Business Council. All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Copy Right Area -->
+
+
+        <!-- End Copy Right Area  -->
+    </main>
+    <!-- All Scripts  -->
+    <!-- Start Top To Bottom Area  -->
+    <div class="rainbow-back-top">
+        <i class="feather-arrow-up"></i>
+    </div>
+    <!-- End Top To Bottom Area  -->
+    <!-- JS
+============================================ -->
+    <script src="assets/js/vendor/modernizr.min.js"></script>
+    <script src="assets/js/vendor/jquery.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <script src="assets/js/vendor/waypoint.min.js"></script>
+    <script src="assets/js/vendor/wow.min.js"></script>
+    <script src="assets/js/vendor/counterup.min.js"></script>
+    <script src="assets/js/vendor/feather.min.js"></script>
+    <script src="assets/js/vendor/sal.min.js"></script>
+    <script src="assets/js/vendor/masonry.js"></script>
+    <script src="assets/js/vendor/imageloaded.js"></script>
+    <script src="assets/js/vendor/magnify.min.js"></script>
+    <script src="assets/js/vendor/lightbox.js"></script>
+    <script src="assets/js/vendor/slick.min.js"></script>
+    <script src="assets/js/vendor/easypie.js"></script>
+    <script src="assets/js/vendor/text-type.js"></script>
+    <script src="assets/js/vendor/jquery.style.swicher.js"></script>
+    <script src="assets/js/vendor/js.cookie.js"></script>
+    <script src="assets/js/vendor/jquery-one-page-nav.js"></script>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

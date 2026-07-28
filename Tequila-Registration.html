@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Closed - MIBC</title>
+    <style>
+        :root {
+            --primary: #121321;
+            --accent: #C5A059;
+            --bg: #F8FAFC;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .closed-container {
+            background: white;
+            max-width: 500px;
+            width: 100%;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(18, 19, 33, 0.08);
+            text-align: center;
+            border-top: 6px solid var(--accent);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(197, 160, 89, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--accent);
+        }
+
+        .icon-box svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* New Contact Info Styles */
+        .contact-info {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .contact-heading {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-email {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: #a38245;
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="closed-container">
+        <!-- Lock/Closed Icon -->
+        <div class="icon-box">
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5ZM12 15.75a1.5 1.5 0 0 1-1.5-1.5h3a1.5 1.5 0 0 1-1.5 1.5Z" clip-rule="evenodd" />
+            </svg>
+        </div>
+
+        <h1>Registration Closed</h1>
+        
+        <p class="description">Thank you for your interest in the MIBC program. The deadline for submitting applications has now passed, and we are no longer accepting new registrations.</p>
+
+        <!-- Updated Contact Section -->
+        <div class="contact-info">
+            <div class="contact-heading">Contact Us</div>
+            <a href="mailto:info@mexicoindia.org" class="contact-email">info@mexicoindia.org</a>
+        </div>
+
+        <div class="footer-text">
+            &copy; 2026 MIBC. All rights reserved.
+        </div>
+    </div>
+
+</body>
+</html>

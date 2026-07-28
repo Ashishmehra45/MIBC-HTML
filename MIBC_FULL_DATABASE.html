@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIBC Database Hub</title>
+
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ================= BASE STYLES & VARIABLES ================= */
+        :root {
+            --primary-gold: #A98842;
+            --primary-gold-hover: #8f7131;
+            --bg-color: #faf9f6;
+            --sidebar-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ================= SIDEBAR STYLES ================= */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-header h2 span {
+            color: var(--primary-gold);
+        }
+
+        .sidebar-menu {
+            padding: 20px 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .menu-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            padding-left: 8px;
+        }
+
+        .menu-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+        }
+
+        .menu-btn:hover {
+            background-color: #f3f4f6;
+            color: var(--text-main);
+        }
+
+        .menu-btn.active {
+            background-color: rgba(169, 136, 66, 0.1);
+            color: var(--primary-gold);
+        }
+
+        /* ================= MAIN CONTENT STYLES ================= */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .top-header {
+            height: 80px;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background-color: #f9fafb;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-gold);
+            background-color: #ffffff;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Loader */
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--primary-gold);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(169, 136, 66, 0.2);
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Sections & Cards */
+        .section-block {
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-header h3 {
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .badge {
+            background-color: #f3f4f6;
+            color: var(--text-muted);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(169, 136, 66, 0.4);
+            box-shadow: 0 12px 24px rgba(169, 136, 66, 0.1);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            background-color: #f9fafb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .card:hover .icon-box {
+            background-color: rgba(169, 136, 66, 0.1);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .card:hover .card-title {
+            color: var(--primary-gold);
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .top-header {
+                padding: 0 20px;
+                gap: 16px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i data-lucide="database" style="color: #A98842;"></i>
+            <h2>MIBC <span>HUB</span></h2>
+            <button class="hamburger" id="closeSidebar" style="margin-left: auto;">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="sidebar-menu" id="sidebarMenu">
+            <div class="menu-label">Directories</div>
+            <!-- Menu items will be injected here via API/JS -->
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="top-header">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="hamburger" id="openSidebar">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h1 class="header-title" id="pageTitle">Loading...</h1>
+            </div>
+            <div class="search-box">
+
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-area" id="contentArea">
+            <!-- Loader initially visible -->
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <h4>Fetching Database...</h4>
+            </div>
+
+            <!-- Cards will be injected here -->
+            <div id="dataContainer" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT & API LOGIC ================= -->
+    <script>
+        // 1. YOUR API URL GOES HERE (Blank means it will use Dummy Data below)
+        const REAL_API_URL = "";
+
+        // 2. DUMMY DATA (Fallback if API URL is blank)
+        const DUMMY_DB_DATA = {
+            "tequila": {
+                "title": "Tequila Accelerator",
+                "icon": "coffee",
+                "sections": [
+                    {
+                        "subtitle": "All Links",
+                        "items": [
+                            {
+                                "name": "Tequila Short Form DATABASE",
+                                "url": "https://mexicoindia.org/AdminRegitration.html", "type": "link",
+                                "desc": "This is the short form database for Tequila Accelerator."
+                            },
+                            {
+                                "name": "Tequila Long Form DATABASE",
+                                "url": "https://mexicoindia.org/questionnaire.html",
+                                "type": "link",
+                                "desc": "This is the long form database for Tequila Accelerator."
+                            },
+                            {
+                                "name": "Tequila Phase 1 Questionnaire",
+                                "url": "https://mexicoindia.org/Taquila_Phase_1_Questionnaire.html",
+                                "type": "link",
+                                "desc": "This is the Phase 1 questionnaire for Tequila Accelerator."
+                            },
+                            {
+                                "name": "Tequila Phase 1 Admin View Database",
+                                "url": "https://mexicoindia.org/Phase-1-admin%20-view.html",
+                                "type": "link",
+                                "desc": "This is the long form database for Tequila Accelerator."
+                            },
+                            {
+                                "name": "Tequila Phase 2 Questionnaire",
+                                "url": "https://mexicoindia.org/Phase_2_Questionnaire.html",
+                                "type": "link",
+                                "desc": "This is the Phase 2 questionnaire for Tequila Accelerator."
+                            },
+                            {
+                                "name": "Tequila Phase 2 Admin View Database",
+                                "url": "https://mexicoindia.org/Phase-2-admin.html",
+                                "type": "link",
+                                "desc": "This is the Phase 2 admin view database for Tequila Accelerator."
+                            }
+
+                        ]
+                    },
+                    {
+                        "subtitle": "Documents (Docs)",
+                        "items": [
+                            {
+                                "name": "Taquila_Accelator/Brochure - Teq Acc",
+                                "url": "./assets/pdf/Taquila_Accelator/Brochure - Teq Acc.pdf", "type": "pdf",
+                                "desc": "Official Tequila Accelerator program brochure."
+                            },
+                            {
+                                "name": "Launch Tequila_Accelerator_Exporter_Questionnaire",
+                                "url": "./assets/pdf/Taquila_Accelator/Launch Tequila_Accelerator_Exporter_Questionnaire.pdf",
+                                "type": "doc",
+                                "desc": "Exporter onboarding questionnaire."
+                            },
+                            {
+                                "name": "MIBC_Brand_Selection_Criteria_V3",
+                                "url": "./assets/pdf/Taquila_Accelator/MIBC_Brand_Selection_Criteria_V3.pdf",
+                                "type": "doc",
+                                "desc": "Brand eligibility and selection criteria."
+                            },
+                            {
+                                "name": "Phase-1 India Intent Questionnaire",
+                                "url": "./assets/pdf/Taquila_Accelator/Phase-1 India Intent Questionnaire.pdf",
+                                "type": "doc",
+                                "desc": "Phase 1 business intent questionnaire."
+                            },
+                            {
+                                "name": "Tequila Accelerator Phase 1 PPT",
+                                "url": "./assets/pdf/Taquila_Accelator/Tequila Accelerator Phase 1 (1).pptx",
+                                "type": "doc",
+                                "desc": "Phase 1 accelerator presentation."
+                            },
+                            {
+                                "name": "Tequila_Accelerator_Phasewise",
+                                "url": "./assets/pdf/Taquila_Accelator/Tequila_Accelerator_Phasewise.pdf",
+                                "type": "doc",
+                                "desc": "Phase-wise accelerator roadmap."
+                            },
+                            {
+                                "name": " 01",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_01_India_in_Numbers.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 02",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_02_Bottle_Strength_Pack.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 03",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_03_Mexican_Paper_Trail.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 04",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_04_India_Gate.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            }   ,
+                            {
+                                "name": " 05",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_05_Landed_Cost_Equation.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 06",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_06_State_Map.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 07",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_07_Protecting_Your_Marca.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 08",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_08_What_Year_One_Costs.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 09",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_09_Importers_Lens.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " 10",
+                                "url": "./assets/pdf/Taquila_Accelator/India_File_10_Readiness_Score.pdf",
+                                "type": "doc",
+                                "desc": "THE INDIA FILES"
+                            },
+                            {
+                                "name": " India File 11 Phase2 Submission",
+                                "url": "./assets/pdf/Taquila_Accelator/India-File-11-Phase2-Submission-Pack.pdf",
+                                "type": "doc",
+                                "desc": "India File 11 Phase2 Submission Pack"
+
+                            },
+                            {
+                                "name": " MIBC Pricing Template",
+                                "url": "./assets/pdf/Taquila_Accelator/MIBC-Pricing-Template .xlsx",
+                                "type": "Excel",
+                                "desc": "MIBC Pricing Template Excel Sheet"
+                            },
+                            {
+                                "name": " Tequila Accelerator Session 3 Presentation",
+                                "url": "./assets/pdf/Taquila_Accelator/Tequila-Accelerator-Session-3-Presentation.pptx",
+                                "type": "Doc",
+                                "desc": "Tequila Accelerator Session 3 Presentation"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "membership": {
+                "title": "Membership Info",
+                "icon": "briefcase",
+                "sections": [
+                    {
+                        "subtitle": "Important Links",
+                        "items": [
+                            { "name": "Apply for Membership", "url": "https://mexicoindia.org/membership-plan.html", "type": "link", "desc": "Application form for new members." },
+                            { "name": "Responses of Membership", "url": "https://mexicoindia.org/admin.html", "type": "link", "desc": "Official response to membership applications. And Queries." },
+                            { "name": "Membership Documents", "url": "https://mexicoindia.org/assets/pdf/MIBC_Membership_plans.pdf", "type": "link", "desc": "Official membership documents For Members." }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // State Variables
+        let databaseState = {};
+        let activeCategory = "tequila"; // Default load category
+
+        // Initialize App
+        async function initApp() {
+            // Re-initialize icons
+            lucide.createIcons();
+
+            // Fetch Data
+            databaseState = await fetchDatabaseData();
+
+            // Render UI
+            renderSidebar();
+            renderContent(activeCategory);
+
+            // Hide Loader, Show Content
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('dataContainer').style.display = 'block';
+        }
+
+        // ================= API FETCH FUNCTION =================
+        async function fetchDatabaseData() {
+            try {
+                if (REAL_API_URL !== "") {
+                    // Yahan teri original API call hogi
+                    const response = await fetch(REAL_API_URL);
+                    const data = await response.json();
+                    return data;
+                } else {
+                    // Dummy delay to simulate network request (500ms)
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(DUMMY_DB_DATA);
+                        }, 500);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to load database from API. Using local fallback.");
+                return DUMMY_DB_DATA;
+            }
+        }
+
+        // ================= RENDER SIDEBAR =================
+        function renderSidebar() {
+            const menuContainer = document.getElementById('sidebarMenu');
+            // Keep the label, remove old buttons
+            menuContainer.innerHTML = '<div class="menu-label">Directories</div>';
+
+            for (const key in databaseState) {
+                const category = databaseState[key];
+                const btn = document.createElement('button');
+                btn.className = `menu-btn ${key === activeCategory ? 'active' : ''}`;
+
+                // Icon HTML
+                btn.innerHTML = `
+                    <i data-lucide="${category.icon}"></i>
+                    ${category.title}
+                `;
+
+                // Click Event
+                btn.onclick = () => {
+                    activeCategory = key;
+                    renderSidebar(); // Re-render to update active class
+                    renderContent(activeCategory);
+                    // Close sidebar on mobile
+                    document.getElementById('sidebar').classList.remove('open');
+                };
+
+                menuContainer.appendChild(btn);
+            }
+            lucide.createIcons(); // render new icons
+        }
+
+        // ================= RENDER MAIN CONTENT =================
+        function renderContent(categoryKey) {
+            const data = databaseState[categoryKey];
+            document.getElementById('pageTitle').innerText = data.title;
+            const container = document.getElementById('dataContainer');
+            container.innerHTML = ""; // clear old data
+
+            data.sections.forEach(section => {
+                // Section Block
+                const sectionBlock = document.createElement('div');
+                sectionBlock.className = 'section-block';
+
+                // Section Header
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                header.innerHTML = `
+                    <h3>${section.subtitle}</h3>
+                    <span class="badge">${section.items.length}</span>
+                `;
+                sectionBlock.appendChild(header);
+
+                // Cards Grid
+                const grid = document.createElement('div');
+                grid.className = 'cards-grid';
+
+                section.items.forEach(item => {
+                    // Logic for Icon colors based on type
+                    let iconName = 'external-link';
+                    let iconColor = '#9ca3af';
+                    let mainIcon = 'link';
+
+                    if (item.type === 'pdf') {
+                        iconName = 'download';
+                        mainIcon = 'file-text';
+                        iconColor = '#ef4444'; // Red for PDF
+                    } else if (item.type === 'doc') {
+                        iconName = 'download';
+                        mainIcon = 'file-text';
+                        iconColor = '#3b82f6'; // Blue for Doc
+                    } else {
+                        mainIcon = 'link';
+                        iconColor = '#A98842'; // Gold for links
+                    }
+
+                    const card = document.createElement('a');
+                    card.href = item.url;
+                    card.target = '_blank';
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <div class="card-top">
+                            <div class="icon-box">
+                                <i data-lucide="${mainIcon}" style="color: ${iconColor};"></i>
+                            </div>
+                            <i data-lucide="${iconName}" style="color: #d1d5db; width: 18px; height: 18px;"></i>
+                        </div>
+                        <h4 class="card-title">${item.name}</h4>
+                        <p class="card-desc">${item.desc}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                sectionBlock.appendChild(grid);
+                container.appendChild(sectionBlock);
+            });
+
+            lucide.createIcons(); // render card icons
+        }
+
+
+
+        // ================= MOBILE SIDEBAR TOGGLE =================
+        document.getElementById('openSidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.add('open');
+        });
+        document.getElementById('closeSidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+        });
+
+        // Start the app when window loads
+        window.onload = initApp;
+
+    </script>
+</body>
+
+</html>

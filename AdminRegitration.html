@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dashboard - MIBC Registrations</title>
+    <style>
+        /* --- Clean & Simple Premium Dashboard Styles --- */
+        :root {
+            --dark-blue: #1e2330;
+            --gold: #c5a059;
+            --bg-color: #F8F9FA;
+            --text-main: #333333;
+            --border-color: #E2E8F0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Simple Header */
+        .header {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .count-badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .export-btn {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 9px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            background-color: #dcb36b;
+            transform: translateY(-1px);
+        }
+
+        .export-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Table Container */
+        .container {
+            margin: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden; 
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto; 
+        }
+
+        /* Simple Premium Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            white-space: nowrap; 
+            font-size: 14px;
+        }
+
+        thead {
+            background-color: #F1F5F9;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            padding: 16px;
+            color: var(--dark-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            border-right: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            color: #475569;
+        }
+
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+
+        /* Zebra Striping */
+        tbody tr:nth-child(even) {
+            background-color: #F8FAFC;
+        }
+
+        tbody tr:hover {
+            background-color: #E2E8F0;
+        }
+
+        /* Links & Highlights */
+        a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .status-text {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .center-msg {
+            text-align: center;
+            padding: 40px;
+            color: #64748B;
+            font-size: 15px;
+        }
+
+        /* Delete Button Styles */
+        .delete-btn {
+            background-color: #EF4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: #DC2626;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Tequila Accelerator - Data View</h1>
+        <div class="header-actions">
+            <div class="count-badge" id="totalCount">Loading Data...</div>
+            <button class="export-btn" onclick="exportTableToExcel()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+                Export to Excel
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-scroll">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Registration Date & Time</th>
+                        <th>Full Name</th>
+                        <th>Position / Title</th>
+                        <th>Email</th>
+                        <th>WhatsApp / Phone</th>
+                        <th>Programme Track</th>
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="8" class="center-msg">Fetching records... ⏳</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const tableBody = document.getElementById('tableBody');
+        const totalCount = document.getElementById('totalCount');
+
+        // --- Custom Toast Popup ---
+        function showPopup(message, type = 'success') {
+            const existingPopup = document.getElementById('custom-popup');
+            if (existingPopup) existingPopup.remove();
+
+            const popup = document.createElement('div');
+            popup.id = 'custom-popup';
+            popup.innerText = message;
+
+            Object.assign(popup.style, {
+                position: 'fixed', top: '24px', right: '24px', padding: '16px 24px',
+                backgroundColor: type === 'success' ? '#10B981' : '#EF4444',
+                color: '#ffffff', borderRadius: '6px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)', fontFamily: 'system-ui',
+                fontWeight: '500', fontSize: '14px', zIndex: '9999', opacity: '0',
+                transform: 'translateY(-20px)', transition: 'all 0.3s ease-in-out'
+            });
+
+            document.body.appendChild(popup);
+            setTimeout(() => { popup.style.opacity = '1'; popup.style.transform = 'translateY(0)'; }, 10);
+            setTimeout(() => { 
+                popup.style.opacity = '0'; popup.style.transform = 'translateY(-20px)';
+                setTimeout(() => popup.remove(), 300);
+            }, 3000);
+        }
+
+        // --- Determine Backend URL ---
+        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") 
+            ? "http://localhost:5001" 
+            : "https://mibc-backend-4.onrender.com";
+
+        // --- Fetch Data API ---
+        async function fetchRegistrations() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/tequila-interest`); 
+                const result = await response.json();
+
+                if (result.success) {
+                    renderTable(result.data);
+                    totalCount.textContent = `Total Records: ${result.count || result.data.length}`;
+                } else {
+                    showError(result.message || "Failed to load data.");
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                showError("Server Error. Please check backend.");
+            }
+        }
+
+        // --- Delete Registration Logic ---
+        async function deleteRegistration(id) {
+            if (!confirm("Are you sure you want to delete this record?")) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/tequila-interest/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showPopup("🗑️ Registration deleted successfully!", "success");
+                    fetchRegistrations(); // Refresh table automatically
+                } else {
+                    showPopup(result.message || "❌ Failed to delete.", "error");
+                }
+            } catch (error) {
+                console.error("Delete error:", error);
+                showPopup("❌ Server Error. Could not delete.", "error");
+            }
+        }
+
+        // --- Render Simple Table Rows ---
+        function renderTable(data) {
+            if (!data || data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="8" class="center-msg">No registrations found yet.</td></tr>`;
+                totalCount.textContent = `Total Records: 0`;
+                return;
+            }
+
+            tableBody.innerHTML = ''; 
+
+            data.forEach((entry, index) => {
+                let dateTimeStr = "N/A";
+                if (entry.createdAt) {
+                    const dateObj = new Date(entry.createdAt);
+                    dateTimeStr = dateObj.toLocaleString('en-US', { 
+                        day: '2-digit', month: 'short', year: 'numeric', 
+                        hour: '2-digit', minute: '2-digit', hour12: true 
+                    });
+                }
+
+                const row = document.createElement('tr');
+                
+                // Map only the relevant data columns
+                row.innerHTML = `
+                    <td style="font-weight:bold;">${index + 1}</td>
+                    <td>${dateTimeStr}</td>
+                    <td class="status-text">${entry.fullName || '-'}</td>
+                    <td>${entry.position || '-'}</td>
+                    <td><a href="mailto:${entry.email}">${entry.email || '-'}</a></td>
+                    <td>${entry.phone || '-'}</td>
+                    <td>${entry.preference || entry.programmeTrack || '-'}</td>
+                    <td><button class="delete-btn" onclick="deleteRegistration('${entry._id}')">Delete</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // --- Export to Excel (CSV Format) ---
+        function exportTableToExcel() {
+            const table = document.getElementById("dataTable");
+            let csv = [];
+            
+            for (let i = 0; i < table.rows.length; i++) {
+                let row = [], cols = table.rows[i].querySelectorAll("td, th");
+                
+                if(cols.length === 1 && cols[0].colSpan > 1) {
+                    continue;
+                }
+
+                // Loop till cols.length - 1 to AVOID exporting the "Action/Delete" column
+                for (let j = 0; j < cols.length - 1; j++) {
+                    let data = cols[j].innerText.replace(/"/g, '""');
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(","));
+            }
+
+            if(csv.length <= 1) {
+                showPopup("No data to export!", "error");
+                return;
+            }
+
+            const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+            const downloadLink = document.createElement("a");
+            downloadLink.download = "MIBC_Registrations_Filtered.csv";
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            showPopup("Exported successfully!", "success");
+        }
+
+        function showError(message) {
+            tableBody.innerHTML = `<tr><td colspan="8" class="center-msg" style="color:#EF4444;">⚠️ ${message}</td></tr>`;
+            totalCount.textContent = "Error";
+            showPopup("Failed to fetch data.", "error");
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchRegistrations);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>The Compliance Evidence Questionnaire · Phase 2 · Tequila Accelerator · MIBC</title>
+    <!--
+  ============================================================
+  MIBC · TEQUILA ACCELERATOR · COHORT 1
+  PHASE 2 · THE COMPLIANCE EVIDENCE QUESTIONNAIRE
+  ============================================================
+  DEPLOY IN 4 STEPS:
+  1) Create a Google Sheet named "Phase 2 Compliance Evidence".
+  2) Extensions -> Apps Script, paste the SCRIPT block (bottom of
+     this file, inside the long comment), Save.
+  3) Deploy -> New deployment -> Web app -> Execute as: Me,
+     Who has access: Anyone. Copy the /exec web-app URL.
+  4) Paste that URL into the ENDPOINT constant in the <script>
+     near the bottom of this file. Save. Upload to the website.
+
+  DOCUMENTS: this form collects FACTS and LINKS only. Actual files
+  (label artwork, IMPI certificate, CoA) are gathered by reply-email
+  to ceo@mexicoindia.org, matched on the same email address.
+  This is deliberate: full-resolution files, no mobile upload
+  failures, ten-minute form.
+  ============================================================
+-->
+    <style>
+        :root {
+            --ivory: #FBF8F1;
+            --ink: #25211C;
+            --secondary: #494338;
+            --bronze: #8A6D3C;
+            --bronze-deep: #6D552F;
+            --card: #F3E8D2;
+            --border: #D8CDB6;
+            --muted: #898276;
+            --paper: #FAF3E3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--ivory);
+            color: var(--ink);
+            font-family: Calibri, "Segoe UI", system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 22px 96px
+        }
+
+
+        .wordmark .sub {
+            display: block;
+            font-family: Calibri, sans-serif;
+            font-weight: normal;
+            letter-spacing: .42em;
+            font-size: 10.5px;
+            color: var(--secondary);
+            margin-top: 2px
+        }
+
+        .rule {
+            height: 1px;
+            background: var(--bronze);
+            width: 132px;
+            margin: 12px auto 0;
+            opacity: .55
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 30px 0 26px;
+            margin-top: 26px
+        }
+
+        .kicker {
+            font-size: 11px;
+            letter-spacing: .32em;
+            color: var(--bronze);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 14px
+        }
+
+        h1 {
+            font-family: "Bookman Old Style", Georgia, serif;
+            font-weight: normal;
+            font-size: 33px;
+            line-height: 1.18;
+            color: var(--ink);
+            margin-bottom: 14px
+        }
+
+        .dek {
+            font-size: 15px;
+            color: var(--secondary);
+            max-width: 640px;
+            line-height: 1.6
+        }
+
+        .dek strong {
+            color: var(--ink);
+            font-weight: bold
+        }
+
+        /* ---------- Part ---------- */
+        .part {
+            margin-top: 40px
+        }
+
+        .part-head {
+            border-left: 3px solid var(--bronze);
+            padding-left: 15px;
+            margin-bottom: 6px
+        }
+
+        .part-num {
+            font-size: 11px;
+            letter-spacing: .24em;
+            color: var(--bronze);
+            font-weight: bold
+        }
+
+        .part-title {
+            font-family: "Bookman Old Style", Georgia, serif;
+            font-size: 21px;
+            color: var(--ink);
+            line-height: 1.25;
+            margin-top: 2px
+        }
+
+        .part-note {
+            font-size: 13.5px;
+            color: var(--muted);
+            font-style: italic;
+            padding-left: 18px;
+            margin: 8px 0 20px
+        }
+
+        /* ---------- Question ---------- */
+        .q {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 19px 20px;
+            margin-bottom: 15px
+        }
+
+        .q-label {
+            font-size: 15.5px;
+            font-weight: bold;
+            color: var(--ink);
+            line-height: 1.4
+        }
+
+        .q-label .req {
+            color: var(--bronze-deep);
+            margin-left: 3px
+        }
+
+        .q-help {
+            font-size: 13px;
+            color: var(--secondary);
+            margin-top: 6px;
+            line-height: 1.5
+        }
+
+        .q-help.evidence {
+            color: var(--bronze-deep);
+            font-weight: bold
+        }
+
+        input[type=text],
+        input[type=email],
+        input[type=url],
+        textarea {
+            width: 100%;
+            margin-top: 12px;
+            padding: 11px 13px;
+            font-family: Calibri, sans-serif;
+            font-size: 15px;
+            color: var(--ink);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            outline: none;
+            transition: border-color .15s
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--bronze)
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 74px
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #b3ab97
+        }
+
+        .opts {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 9px 11px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .opt:hover {
+            background: #fff
+        }
+
+        .opt input {
+            margin-top: 3px;
+            accent-color: var(--bronze);
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px
+        }
+
+        .opt span {
+            font-size: 14.5px;
+            color: var(--secondary);
+            line-height: 1.45
+        }
+
+        /* ---------- Evidence banner ---------- */
+        .evidence-banner {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 16px 18px;
+            margin-top: 14px;
+            display: flex;
+            gap: 13px;
+            align-items: flex-start
+        }
+
+        .evidence-banner .mark {
+            font-family: "Bookman Old Style", serif;
+            font-size: 20px;
+            color: var(--bronze-deep);
+            line-height: 1;
+            flex-shrink: 0
+        }
+
+        .evidence-banner p {
+            font-size: 13px;
+            color: var(--secondary);
+            line-height: 1.55
+        }
+
+        .evidence-banner strong {
+            color: var(--ink)
+        }
+
+        /* ---------- Submit ---------- */
+        .submit-block {
+            margin-top: 38px;
+            text-align: center
+        }
+
+        button[type=submit] {
+            font-family: Calibri, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: .06em;
+            color: var(--ivory);
+            background: var(--ink);
+            border: none;
+            padding: 15px 46px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background .15s
+        }
+
+        button[type=submit]:hover {
+            background: var(--bronze-deep)
+        }
+
+        button[type=submit]:disabled {
+            opacity: .55;
+            cursor: default
+        }
+
+        .submit-note {
+            font-size: 12.5px;
+            color: var(--muted);
+            margin-top: 14px;
+            line-height: 1.5
+        }
+
+        /* ---------- Footer ---------- */
+        .foot {
+            margin-top: 52px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        .foot a {
+            color: var(--bronze-deep);
+            text-decoration: none
+        }
+
+        /* ---------- Status / thank-you ---------- */
+        #status {
+            display: none;
+            text-align: center;
+            padding: 60px 20px
+        }
+
+        #status h2 {
+            font-family: "Bookman Old Style", serif;
+            font-size: 28px;
+            color: var(--ink);
+            margin-bottom: 14px
+        }
+
+        #status p {
+            font-size: 15px;
+            color: var(--secondary);
+            max-width: 520px;
+            margin: 0 auto 10px;
+            line-height: 1.6
+        }
+
+        .err {
+            color: #8a2f2f !important;
+            font-weight: bold
+        }
+
+        @media(max-width:560px) {
+            h1 {
+                font-size: 27px
+            }
+
+            .wrap {
+                padding: 0 16px 72px
+            }
+
+            .part-title {
+                font-size: 19px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div style="text-align:center;  margin-top:40px; margin-bottom:20px">
+            <img src="./assets/images/logo/logo-dark.png" style="width:100%; max-width:200px; " alt="">
+
+        </div>
+
+
+        <!-- ============ FORM ============ -->
+        <form id="qform">
+
+            <div class="hero">
+                <div class="kicker">Tequila Accelerator · Cohort 1 · Phase 2</div>
+                <h1>The Compliance Evidence Questionnaire</h1>
+                <p class="dek">Phase 1 asked what you intend. Phase 2 asks for <strong>evidence</strong>: the documents,
+                    numbers and files that turn a plan into a shipment. We will not re-ask anything you have already
+                    told us. Where a question needs a file, you send it by one reply-email; this form takes about ten
+                    minutes.</p>
+                <p class="dek" style="margin-top:12px">This form is the <strong>evidence half</strong> of your Phase 2
+                    submission. The document half, your folder of files, is set out in <strong>India File 11, the Phase
+                        2 Submission Pack</strong>. Together they are one submission with two doors.</p>
+            </div>
+
+            <!-- BEFORE WE BEGIN -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">BEFORE WE BEGIN</div>
+                    <div class="part-title">One field, so we know it is you</div>
+                </div>
+                <p class="part-note">We match your evidence to everything already on file. Use the same email as your
+                    earlier questionnaires.</p>
+                <div class="q">
+                    <label class="q-label" for="company_name">Your company / legal entity name<span
+                            class="req">*</span></label>
+                    <div class="q-help">As it appears on your Exporter Questionnaire, so your evidence files to the
+                        right house.</div>
+                    <input type="text" id="company_name" name="company_name" required
+                        placeholder="Nombre de la empresa">
+                </div>
+
+                <div class="q">
+                    <label class="q-label" for="email">Your email<span class="req">*</span></label>
+                    <div class="q-help">The address you used for the Exporter and India Intent questionnaires.</div>
+                    <input type="email" id="email" name="email" required placeholder="nombre@sucasa.mx">
+                </div>
+            </div>
+
+            <!-- PART 1 · YOUR TRADEMARK, AS EVIDENCE -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">PART 1 OF 5</div>
+                    <div class="part-title">Your trademark, as evidence</div>
+                </div>
+                <p class="part-note">You told us your India filing status in Phase 1. Now the Mexican side, because it
+                    gates your export certificate.</p>
+
+                <div class="q">
+                    <label class="q-label">IMPI registration number for your marca<span class="req">*</span></label>
+                    <div class="q-help">Your Mexican trademark. The CAET export certificate cannot be issued without it,
+                        so this is the first thing we verify. Enter the registration number, or the application number
+                        if pending.</div>
+                    <input type="text" name="impi_number" required
+                        placeholder="e.g. Registro 1234567, or 'Solicitud 2345678, pending'">
+                </div>
+
+                <div class="q">
+                    <label class="q-label">IMPI status<span class="req">*</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="impi_status"
+                                value="Registered, certificate in hand" required><span>Registered · I hold the
+                                certificate</span></label>
+                        <label class="opt"><input type="radio" name="impi_status"
+                                value="Filed, in examination"><span>Filed · in examination</span></label>
+                        <label class="opt"><input type="radio" name="impi_status" value="Not yet filed"><span>Not yet
+                                filed</span></label>
+                        <label class="opt"><input type="radio" name="impi_status"
+                                value="Held by another party"><span>Held by another party (bottler,
+                                partner)</span></label>
+                    </div>
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Convenio de Corresponsabilidad<span class="req">*</span></label>
+                    <div class="q-help">If another distillery bottles your brand, a Convenio ties your marca to their
+                        NOM. It matters for who can legally export your bottle.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="convenio"
+                                value="We bottle ourselves, not applicable" required><span>We bottle ourselves · not
+                                applicable</span></label>
+                        <label class="opt"><input type="radio" name="convenio"
+                                value="Yes, a Convenio is in place"><span>A third party bottles us · Convenio is in
+                                place</span></label>
+                        <label class="opt"><input type="radio" name="convenio"
+                                value="Third party bottles us, no Convenio yet"><span>A third party bottles us · no
+                                Convenio yet</span></label>
+                        <label class="opt"><input type="radio" name="convenio" value="Unsure"><span>Unsure · guide
+                                me</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 2 · YOUR EXPORT FILE -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">PART 2 OF 5</div>
+                    <div class="part-title">Your export file</div>
+                </div>
+                <p class="part-note">The documents a shipment needs. We are checking you can produce each one, not just
+                    that it exists somewhere.</p>
+
+                <div class="q">
+                    <label class="q-label">CAET, the per-shipment export certificate<span class="req">*</span></label>
+                    <div class="q-help">Issued per shipment by category, class, strength and brand, with a four-size
+                        maximum. Its precondition is your IMPI mark above.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="caet" value="Have issued CAET before"
+                                required><span>We have issued a CAET before</span></label>
+                        <label class="opt"><input type="radio" name="caet"
+                                value="Eligible but never issued"><span>Eligible, but never issued one</span></label>
+                        <label class="opt"><input type="radio" name="caet"
+                                value="Not yet eligible (no IMPI mark)"><span>Not yet eligible · no IMPI
+                                mark</span></label>
+                        <label class="opt"><input type="radio" name="caet" value="Need guidance"><span>Need
+                                guidance</span></label>
+                    </div>
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Certificate of Analysis (CoA), per batch<span class="req">*</span></label>
+                    <div class="q-help">India's importer needs a lab CoA for the consignment. Confirm you can supply one
+                        per batch on request.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="coa" value="Yes, routinely per batch"
+                                required><span>Yes · we produce one routinely per batch</span></label>
+                        <label class="opt"><input type="radio" name="coa" value="Yes, on request from our lab"><span>Yes
+                                · on request from our lab</span></label>
+                        <label class="opt"><input type="radio" name="coa" value="Not currently, need guidance"><span>Not
+                                currently · need guidance</span></label>
+                    </div>
+                </div>
+
+                <div class="q">
+                    <label class="q-label">SAT Padrón Sectorial, confirmed with your broker<span
+                            class="req">*</span></label>
+                    <div class="q-help">In Phase 1 you told us your enrolment status. Please confirm it with your
+                        customs broker now, because a broker check catches a lapsed or category-wrong registration
+                        before it stops a shipment.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="padron"
+                                value="Broker confirmed, active for alcoholic beverages" required><span>Broker confirmed
+                                · active for alcoholic beverages</span></label>
+                        <label class="opt"><input type="radio" name="padron"
+                                value="Enrolled, not yet re-confirmed with broker"><span>Enrolled · not yet re-confirmed
+                                with broker</span></label>
+                        <label class="opt"><input type="radio" name="padron" value="Not enrolled or unsure"><span>Not
+                                enrolled, or unsure · need guidance</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 3 · YOUR LABEL, AS IT PHYSICALLY SHIPS -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">PART 3 OF 5</div>
+                    <div class="part-title">Your label, as it physically ships</div>
+                </div>
+                <p class="part-note">This builds your label adaptation review. India's additions go on a rear
+                    over-label; we need to see what your bottle carries today.</p>
+
+                <div class="q">
+                    <label class="q-label">Send your current label artwork by email<span class="req">*</span></label>
+                    <div class="q-help evidence">Send front and back artwork for your lead SKU with your Phase 2 folder
+                        (see File 11), to ceo@mexicoindia.org or the drive link your office receives, files named
+                        Brand_Document. Print-ready if possible. Then confirm below.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="artwork_sent"
+                                value="Sent, print-ready (AI/PDF/INDD)" required><span>Sent · print-ready file (AI, PDF
+                                or INDD)</span></label>
+                        <label class="opt"><input type="radio" name="artwork_sent"
+                                value="Sent, image only (JPG/PNG)"><span>Sent · image only (JPG or PNG)</span></label>
+                        <label class="opt"><input type="radio" name="artwork_sent"
+                                value="Will send within 48 hours"><span>Will send within 48 hours</span></label>
+                    </div>
+                </div>
+
+                <div class="q">
+                    <label class="q-label">What your label already states<span class="req">*</span></label>
+                    <div class="q-help">Tick everything printed on your bottle today. This tells us what the India
+                        over-label must add versus what is already there.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="checkbox" name="label_has" value="NOM number"><span>NOM
+                                number</span></label>
+                        <label class="opt"><input type="checkbox" name="label_has" value="ABV / Alc. Vol."><span>Alcohol
+                                strength (ABV / Alc. Vol.)</span></label>
+                        <label class="opt"><input type="checkbox" name="label_has" value="Volume in ml"><span>Net
+                                content in ml</span></label>
+                        <label class="opt"><input type="checkbox" name="label_has"
+                                value="Country of origin (Producto de México)"><span>Country of origin (Producto de
+                                México)</span></label>
+                        <label class="opt"><input type="checkbox" name="label_has"
+                                value="Allergen / sulfite statement"><span>Allergen or sulfite statement</span></label>
+                        <label class="opt"><input type="checkbox" name="label_has"
+                                value="Responsible-drinking mark"><span>Any responsible-drinking mark</span></label>
+                    </div>
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Rear-label space for India's over-label<span class="req">*</span></label>
+                    <div class="q-help">India adds a rear over-label: Standard Drink declaration, statutory warning,
+                        importer details and MRP. It needs clear space on a workable surface.</div>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="rear_space"
+                                value="Yes, clear flat rear space on glass" required><span>Yes · clear flat rear space,
+                                standard glass</span></label>
+                        <label class="opt"><input type="radio" name="rear_space"
+                                value="Limited space, rear largely used"><span>Limited · rear is largely used
+                                already</span></label>
+                        <label class="opt"><input type="radio" name="rear_space"
+                                value="Unusual surface (ceramic, embossed, irregular)"><span>Unusual surface · ceramic,
+                                embossed or irregular</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 4 · PROOF YOU SELL -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">PART 4 OF 5</div>
+                    <div class="part-title">Proof you sell at home</div>
+                </div>
+                <p class="part-note">Indian importers check this first. One verifiable proof point is worth more than
+                    any description.</p>
+
+                <div class="q">
+                    <label class="q-label">One home-market proof point<span class="req">*</span></label>
+                    <div class="q-help evidence">A link an importer could open: a retailer listing, your distributor's
+                        page, an award, or press. Paste one URL. If you have none online, name your largest current
+                        account instead.</div>
+                    <input type="url" name="proof_link" placeholder="https://... or the name of your largest account">
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Home-market annual volume, last full year<span class="req">*</span></label>
+                    <div class="q-help">Your own market or existing exports, whichever is larger. Cases of any size,
+                        approximate is fine. This is a proof of scale, not a commitment.</div>
+                    <input type="text" name="home_volume" required
+                        placeholder="e.g. 'about 2,400 cases in 2025, Mexico + USA'">
+                </div>
+            </div>
+
+            <!-- PART 5 · YOUR PRICE FLOOR -->
+            <div class="part">
+                <div class="part-head">
+                    <div class="part-num">PART 5 OF 5</div>
+                    <div class="part-title">Your price floor</div>
+                </div>
+                <p class="part-note">This is the bridge to Phase 3, where we build your landed-cost model. We take the
+                    anchor now; the full model comes later.</p>
+
+                <div class="q">
+                    <label class="q-label">Global Suggested Retail Price (GSRP) for your lead SKU<span
+                            class="req">*</span></label>
+                    <div class="q-help">The shelf price you protect for this SKU in your strongest market today. Your
+                        currency. This anchors where India can realistically sit.</div>
+                    <input type="text" name="gsrp" required
+                        placeholder="e.g. 'USD 42 in the USA' or 'MXN 780 in Mexico'">
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Any India price already quoted to anyone<span class="req">*</span></label>
+                    <div class="q-help">If you have named a price to any Indian contact, tell us, so we do not build a
+                        model that contradicts an anchor already in the market. If none, say so.</div>
+                    <input type="text" name="india_quoted" required
+                        placeholder="e.g. 'None yet' or 'quoted ~₹6,000 to one importer in June'">
+                </div>
+
+                <div class="q">
+                    <label class="q-label">Anything else before your compliance review? (optional)</label>
+                    <textarea name="notes"
+                        placeholder="Optional. Anything about your documents, label or price we should know before 1:1 No. 2."></textarea>
+                </div>
+
+                <div class="evidence-banner">
+                    <span class="mark">§</span>
+                    <p><strong>Your folder completes this.</strong> Send your label artwork, and the rest of your Phase
+                        2 folder from File 11 (IMPI certificate, a sample CoA, your English brand deck, bottle
+                        photography), to <strong>ceo@mexicoindia.org</strong> or the drive link your office receives,
+                        from the same address you used here. Your evidence and your files are matched by that email, and
+                        together they build your Compliance File for consultation No. 2.</p>
+                </div>
+            </div>
+
+            <div class="submit-block">
+                <button type="submit" id="submitBtn">Submit my evidence</button>
+                <p class="submit-note">Confidential, between your house and MIBC. Please submit before your second
+                    consultation.</p>
+            </div>
+
+        </form>
+
+        <!-- ============ THANK YOU / STATUS ============ -->
+        <div id="status">
+            <h2 id="status-title">Recibido.</h2>
+            <p id="status-msg"></p>
+        </div>
+
+        <!-- ============ FOOTER ============ -->
+        <div class="foot">
+            Ravi K. Tiwari, CEO &middot; <a href="mailto:ceo@mexicoindia.org">ceo@mexicoindia.org</a> &middot;
+            <a href="https://www.mexicoindia.org">www.mexicoindia.org</a> &middot;
+            <a href="https://linkedin.com/company/mibcorg">linkedin.com/company/mibcorg</a><br>
+            The Tequila Accelerator &middot; Cohort 1 &middot; Phase 2 · Compliance &amp; Market Navigation
+        </div>
+
+    </div>
+
+    <script>
+        // Helper function provided by you
+        function cleanTextLayout(text) {
+            if (!text) return text;
+            return text
+                .replace(/([a-z])([A-Z])/g, '$1 $2')
+                .replace(/,([^ ])/g, ', $1')
+                .replace(/([a-z])([A-Z])/g, '$1 $2');
+        }
+
+        // Dynamic API URL setup
+        const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const API_BASE_URL = isLocal ? 'http://localhost:5001' : 'https://mibc-backend-4.onrender.com';
+
+        // Handle Form Submission
+        document.getElementById('qform').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Stop page reload
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "Submitting...";
+            submitBtn.disabled = true;
+
+            // Gather form data
+            const formData = new FormData(this);
+            const dataObj = {};
+
+            for (let [key, value] of formData.entries()) {
+                // Handle the multiple checkboxes for 'label_has'
+                if (key === 'label_has') {
+                    dataObj[key] = formData.getAll('label_has');
+                } else {
+                    dataObj[key] = value;
+                }
+            }
+
+            try {
+                // Send POST request to the backend
+                const response = await fetch(`${API_BASE_URL}/api/phase_2`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataObj)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Your Phase 2 evidence has been submitted successfully!');
+                    this.reset(); // Clear the form
+                } else {
+                    alert('Submission failed: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('An error occurred while connecting to the server. Please try again.');
+            } finally {
+                // Reset button state
+                submitBtn.innerText = "Submit my evidence";
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

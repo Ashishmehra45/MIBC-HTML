@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Mexico India Business Council",
+    "url": "https://mexicoindia.org/",
+    "logo": "https://mexicoindia.org/assets/images/logo/logo.png",
+    "sameAs": [
+    "https://www.linkedin.com/company/mibcorg/",
+    "https://www.instagram.com/official_mibc"
+    ]
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-style-mode" content="1">
+
+    <title>Mexico India Business Council (MIBC) | Trade Promotion & Investment Facilitation</title>
+
+    <meta name="description"
+        content="The Mexico–India Business Council (MIBC) is the institutional platform for bilateral trade promotion, investment facilitation and market entry between Mexico and India.">
+
+    <meta name="keywords"
+        content="Mexico India trade, Mexico India investment, Mexico India Business Council, bilateral trade Mexico India, India Mexico business">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://mexicoindia.org/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mexico India Business Council">
+    <meta property="og:description"
+        content="Trade promotion and investment facilitation platform between Mexico and India">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mexicoindia.org/">
+    <meta property="og:image" content="https://mexicoindia.org/assets/images/logo/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/animation.css">
+    <link rel="stylesheet" href="assets/css/plugins/feature.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnify.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick-theme.css">
+    <link rel="stylesheet" href="assets/css/plugins/lightbox.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2026">
+    <style>
+        /* Animation Definitions */
+
+
+        /* Applying Animations to Classes */
+        .animate-title {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-description {
+            opacity: 0;
+            /* Initial state for animation */
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .animate-buttons {
+            opacity: 0;
+            /* Initial state for animation */
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+
+        /* Subtle Floating effect for the gradient text */
+        .theme-gradient {
+            display: inline-block;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Hover effect for buttons to make them interactive */
+        .btn-default:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        /* =========================================
+    Welcome Popup Styles
+    ========================================= */
+        .mibc-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            /* Header se bhi upar dikhane ke liye */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .mibc-popup-overlay.show-popup {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mibc-popup-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            background: transparent;
+            border-radius: 10px;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .mibc-popup-overlay.show-popup .mibc-popup-content {
+            transform: scale(1);
+        }
+
+        .mibc-popup-img {
+            max-width: 100%;
+            max-height: 85vh;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .mibc-close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #d4a322;
+            /* MIBC Theme Gold */
+            color: #fff;
+            border: 2px solid #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100000;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .mibc-close-btn:hover {
+            background: #000;
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <style>
+        /* Popup Overlay */
+        .tq-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 35, 48, 0.85);
+            /* Dark transparent blue */
+            backdrop-filter: blur(6px);
+            /* Glass effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            /* Ensures it stays on top */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Show state */
+        .tq-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Popup Box */
+        .tq-popup-box {
+            background: #ffffff;
+            width: 90%;
+            max-width: 480px;
+            padding: 50px 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(197, 160, 89, 0.3);
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .tq-popup-overlay.active .tq-popup-box {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Close Button */
+        .tq-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .tq-popup-close:hover {
+            color: #1e2330;
+        }
+
+        /* Typography */
+        .tq-popup-subtitle {
+            color: #c5a059;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
+        }
+
+        .tq-popup-title {
+            color: #1e2330;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            font-family: 'Georgia', serif;
+            line-height: 1.3;
+        }
+
+        .tq-popup-desc {
+            color: #4b5563;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+
+        /* Action Button */
+        .tq-popup-btn {
+            display: block;
+            width: 100%;
+            background-color: #1e2330;
+            color: #c5a059;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 18px 0;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            box-shadow: 0 8px 15px rgba(30, 35, 48, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tq-popup-btn:hover {
+            background-color: #c5a059;
+            color: #1e2330;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(197, 160, 89, 0.3);
+        }
+    </style>
+
+
+
+
+    <main class="page-wrapper">
+        <header class="rainbow-header header-default header-not-transparent header-sticky"
+            style="background-color: rgba(0, 0, 0, 0); height: 90px; display: flex; align-items: center; width: 100%; z-index: 999; overflow: visible;">
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1250px; margin: 0 auto; padding: 0px 15px;">
+
+                <div class="logo" style="flex-shrink: 0; position: static;">
+                    <a href="index.html">
+                        <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo"
+                            style="max-height: 60px;">
+                        <img class="logo-dark" src="assets/images/logo/logo-dark.png" alt="MIBC Logo"
+                            style="max-height: 60px;">
+                    </a>
+                </div>
+
+                <div class="header-right"
+                    style="display: flex; align-items: center; justify-content: flex-end; flex: 1;">
+
+                    <nav class="mainmenu-nav d-none d-lg-block" style="position: static; margin-right: 15px;">
+                        <ul class="mainmenu"
+                            style="display: flex; align-items: center; margin: 0; padding: 0; list-style: none; gap: 15px;">
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="index.html">Home</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="./about.html">About</a></li>
+
+                            <li class="has-droupdown has-menu-child-item">
+                                <a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="service.html">Services</a>
+                                <ul class="submenu" style="min-width: 250px !important; text-align: left;">
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="investment-facilitation.html">Investment Facilitation</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="trade-promotion.html">Trade Promotion</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="delegation-facilitation.html">Delegation Facilitation</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="intelligence-advocacy.html">Intelligence & Advocacy</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has-droupdown has-menu-child-item">
+                                <a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="initiativee.html">Initiatives</a>
+                                <ul class="submenu" style="min-width: 220px !important; text-align: left;">
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="tequila-accelerator.html">Tequila Accelerator</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="india-mexico-connect.html">India–México Launchpad</a></li>
+                                    <li><a style="white-space: nowrap !important; color: #000000;"
+                                            href="events.html">Events</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="sectors.html">Sectors</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="membership.html">Membership</a></li>
+                            <li><a style="color: #000000; text-decoration: none; white-space: nowrap;"
+                                    href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; position: static !important; transform: none !important;">
+
+                        <div class="header-btn"
+                            style="margin: 0 !important; padding: 0 !important; position: static !important; display: block !important;">
+                            <a class="btn-default btn-small round" target="_blank" href="membership.html"
+                                style="white-space: nowrap; display: inline-block;">JOIN</a>
+                        </div>
+
+                        <div id="my_switcher" class="my_switcher"
+                            style="margin: 0 !important; padding: 0 !important; position: relative !important; width: 44px !important; height: 44px !important; background-color: #a57f44 !important; border-radius: 50% !important; display: block !important; flex-shrink: 0; cursor: pointer;">
+                            <ul
+                                style="margin: 0; padding: 0; list-style: none; width: 100%; height: 100%; position: relative;">
+                                <li
+                                    style="margin: 0 !important; padding: 0 !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <a href="javascript: void(0);" data-theme="light" class="setColor light"
+                                        style="text-decoration: none;">
+                                        <img class="sun-image" src="assets/images/icons/sun-01.svg" alt="Sun"
+                                            style="width: 20px; height: 20px; display: block;">
+                                    </a>
+                                </li>
+                                <li
+                                    style="margin: 0 !important; padding: 0 !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <a href="javascript: void(0);" data-theme="dark" class="setColor dark"
+                                        style="text-decoration: none;">
+                                        <img class="Victor Image" src="assets/images/icons/vector.svg" alt="Moon"
+                                            style="width: 20px; height: 20px; display: block;">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="hamberger-menu d-block d-lg-none" style="margin-left: 5px;">
+                            <button class="hamberger-button"
+                                style="background: none; border: none; padding: 5px; cursor: pointer;">
+                                <i class="feather-menu" style="font-size: 24px; color: #000; font-weight: bold;"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="popup-mobile-menu">
+            <div class="inner" style="padding: 20px; background: #fff;">
+                <div class="header-top"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+
+                    <div class="logo">
+                        <a href="index.html">
+                            <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo"
+                                style="max-height: 40px; width: auto;">
+                            <img class="logo-dark" src="assets/images/logo/logo-dark.png" alt="MIBC Logo"
+                                style="max-height: 40px; width: auto;">
+                        </a>
+                    </div>
+
+                    <div class="close-menu">
+                        <button class="close-button"
+                            style="background: #f8f8f8; border: none; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                            <i class="feather-x" style="font-size: 18px; color: #333;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="mainmenu" style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="index.html">Home</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="about.html">About</a></li>
+                    <li class="has-droupdown has-menu-child-item"
+                        style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;">
+                        <a href="service.html">Services</a>
+                        <ul class="submenu" style="padding-left: 15px; margin-top: 10px;">
+                            <li><a href="investment-facilitation.html">Investment Facilitation</a></li>
+                            <li><a href="trade-promotion.html">Trade Promotion</a></li>
+                            <li><a href="delegation-facilitation.html">Delegation Facilitation</a></li>
+                            <li><a href="intelligence-advocacy.html">Intelligence & Advocacy</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-droupdown has-menu-child-item"
+                        style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;">
+                        <a href="initiativee.html">Initiatives</a>
+                        <ul class="submenu" style="padding-left: 15px; margin-top: 10px;">
+                            <li><a href="tequila-accelerator.html">Tequila Accelerator</a></li>
+                            <li><a href="india-mexico-connect.html">India–México Launchpad</a></li>
+                            <li><a href="events.html">Events</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="sectors.html">Sectors</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="membership.html">Membership</a></li>
+                    <li style="margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px;"><a
+                            href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="rainbow-gradient-circle"></div>
+            <div class="rainbow-gradient-circle theme-pink"></div>
+        </div>
+        <div class="slider-area slider-style-1 variation-default height-850"
+            style="position: relative; overflow: hidden;">
+
+            <style>
+                /* Desktop ke liye (Aapka purana 80% wala style) */
+                .bg-video {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 80%;
+                    object-fit: cover;
+                    z-index: -1;
+                }
+
+                /* 📱 Mobile ke liye Media Query */
+                @media (max-width: 768px) {
+                    .bg-video {
+                        height: 25vh !important;
+                        /* Mobile par height puri 100% screen lega */
+                        object-position: center;
+                        /* Video dono side se barabar katega aur center me rahega */
+
+                    }
+
+                }
+            </style>
+
+            <video autoplay muted loop playsinline class="bg-video">
+                <source src="assets/images/services/BUSINESS cOUNCIL.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+
+
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+
+            <div class="container"
+                style="position: relative; z-index: 1; width: 100%; height: 100%; margin-top: 100px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="inner text-center">
+
+
+
+
+                            <style>
+                                /* =========================================
+        🖥️ SIRF DESKTOP (Screen size 769px ya usse badi)
+        ========================================= */
+                                @media (min-width: 769px) {
+                                    .responsive-btn-group {
+                                        margin-top: 30%;
+                                        display: flex;
+                                        justify-content: center;
+                                        gap: 20px;
+                                    }
+
+                                    .responsive-btn-group a {
+                                        width: 240px;
+                                        height: 55px;
+                                        background-color: #4d4a4a65 !important;
+                                        text-align: center;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+
+                                /* =========================================
+        📱 BADE MOBILE / TABLET (Screen size 481px se 768px tak)
+        ========================================= */
+                                @media (min-width: 481px) and (max-width: 768px) {
+                                    .responsive-btn-group {
+                                        margin-top: -30%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        /* Buttons ek ke niche ek lane ke liye */
+                                        align-items: center;
+                                        gap: 10px;
+                                        /* Thoda bada gap kyunki screen thodi badi hai */
+                                    }
+
+                                    .responsive-btn-group a {
+                                        width: 300px;
+                                        height: 40px;
+                                        /* Tablet/Bade mobile ke hisaab se height */
+                                        background-color: #4d4a4a65 !important;
+                                        text-align: center;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+
+                                /* =========================================
+        📱 CHHOTE MOBILE (Screen size 480px ya usse choti)
+        ========================================= */
+                                @media (max-width: 440px) {
+                                    .responsive-btn-group {
+                                        margin-top: -36%;
+                                        display: flex;
+
+                                        /* Buttons ek ke niche ek lane ke liye */
+                                        align-items: center;
+                                        gap: 5px;
+                                        /* Chhote phone ke hisaab se kam gap */
+                                    }
+
+                                    .responsive-btn-group a {
+                                        width: 280px;
+                                        /* Chhote phone ki screen patli hoti hai, isliye width 280px ki hai */
+                                        height: 35px;
+                                        background-color: #4d4a4a65 !important;
+                                        text-align: center;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+                            </style>
+
+                            <div class="button-group animate-buttons responsive-btn-group">
+                                <a class="btn-medium btn-icon btn-border" style="background-color:#46443956; "
+                                    href="service.html">
+                                    Explore Services <i class="feather-arrow-right"></i>
+                                </a>
+                                <a class="btn-medium btn-icon btn-border b-2" style="background-color: #46443956; "
+                                    href="contact.html">
+                                    Contact Us <i class="feather-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rainbow-tab-area">
+            <div class="container" style="margin-top: -5%;">
+                <div class="row ">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700"
+                            data-sal-delay="100">
+                            <h4 class="subtitle ">
+                                <span class="theme-gradient">Our Approach</span>
+                            </h4>
+                            <h2 class="title w-600 mb--20">What We Deliver</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row--30 align-items-center">
+                    <div class="col-lg-12">
+                        <div class="rainbow-default-tab style-three">
+                            <ul class="nav nav-tabs tab-button" id="myTab" role="tablist">
+                                <li class="nav-item tabs__tab" role="presentation">
+                                    <button class="nav-link active" id="service-tab" data-bs-toggle="tab"
+                                        data-bs-target="#service" type="button" role="tab" aria-controls="service"
+                                        aria-selected="true">Investment Facilitation</button>
+                                </li>
+                                <li class="nav-item tabs__tab" role="presentation">
+                                    <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about"
+                                        type="button" role="tab" aria-controls="about" aria-selected="false">Trade
+                                        Promotion</button>
+                                </li>
+                                <li class="nav-item tabs__tab" role="presentation">
+                                    <button class="nav-link" id="contact2-tab" data-bs-toggle="tab"
+                                        data-bs-target="#contact2" type="button" role="tab" aria-controls="contact2"
+                                        aria-selected="false">Intelligence & Advocacy</button>
+                                </li>
+                            </ul>
+
+
+
+
+                            <div class="TabBar rainbow-tab-content tab-content" id="myTabContent">
+
+                                <!-- Investment Facilitation -->
+                                <div class="tab-pane fade show active" id="service" role="tabpanel"
+                                    aria-labelledby="service-tab">
+                                    <div class="inner">
+                                        <div class="row row--30 align-items-stretch justify-content-center">
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                                                    <div class="image">
+                                                        <a href="investment-facilitation.html">
+                                                            <img src="assets/images/services/End-To-End.jpeg"
+                                                                alt="Investment Support"
+                                                                style="width: 100%; height: 220px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 20px; margin-bottom: 15px;">
+                                                            <a href="investment-facilitation.html"
+                                                                style="color: #17171f;">End-to-End Investment
+                                                                Support</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000000; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;">
+                                                            We help companies enter Mexico or India through a structured
+                                                            investment pathway. Our team manages everything from
+                                                            incorporation to Launch execution, ensuring smooth market
+                                                            entry.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small"
+                                                                href="investment-facilitation.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                                                    <div class="image">
+                                                        <a href="#">
+                                                            <img src="assets/images/services/site.jpeg"
+                                                                alt="Feasibility study"
+                                                                style="width: 100%; height: 220px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 20px; margin-bottom: 15px;">
+                                                            <a href="investment-facilitation.html"
+                                                                style="color: #17171f;">Feasibility & Site
+                                                                Selection</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000000; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;">
+                                                            We provide location analysis, incentive mapping, and cost
+                                                            modelling to help companies identify the most competitive
+                                                            site and make confident investment decisions.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small"
+                                                                href="investment-facilitation.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                                                    <div class="image">
+                                                        <a href="investment-facilitation.html">
+                                                            <img src="assets/images/services/Entity setup & launch.jpeg"
+                                                                alt="Entity setup"
+                                                                style="width: 100%; height: 220px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 20px; margin-bottom: 15px;">
+                                                            <a href="investment-facilitation.html"
+                                                                style="color: #17171f;">Entity Setup &
+                                                                Launch</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000000; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;">
+                                                            We support your regulatory compliance, talent acquisition &
+                                                            onboarding, and early operational setup to ensure a seamless
+                                                            and successful launch in the target market.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small"
+                                                                href="investment-facilitation.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <style>
+                                        /* Sabhi boxes ke liye stable hover lift effect */
+                                        .card-box.card-style-1:hover {
+                                            transform: translateY(-10px);
+                                            box-shadow: 0 20px 40px rgba(212, 163, 34, 0.15) !important;
+                                        }
+
+                                        /* Ensuring Flex behaviors work across browsers */
+                                        .flex-grow-1 {
+                                            flex-grow: 1 !important;
+                                        }
+
+                                        .mt-auto {
+                                            margin-top: auto !important;
+                                        }
+                                    </style>
+                                </div>
+
+                                <!-- Trade Promotion -->
+                                <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                    <div class="inner">
+                                        <div class="row row--30 align-items-stretch">
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="trade-promotion.html">
+                                                            <img src="assets/images/services/Bilateral Trade.jpeg"
+                                                                alt="Trade Acceleration"
+                                                                style="width: 100%; height: 200px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 19px; margin-bottom: 15px;">
+                                                            <a href="trade-promotion.html"
+                                                                style="color: #17171f;">Bilateral Trade Acceleration</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.6; flex-grow: 1; margin-bottom: 25px;">
+                                                            We help exporters expand into Mexico and India by connecting
+                                                            them with qualified buyers, navigating regulatory
+                                                            requirements, and coordinating targeted trade missions.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small" href="trade-promotion.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="trade-promotion.html">
+                                                            <img src="assets/images/services/4st.jpg"
+                                                                alt="Market Intelligence"
+                                                                style="width: 100%; height: 200px; object-fit: contain;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 19px; margin-bottom: 15px;">
+                                                            <a href="trade-promotion.html"
+                                                                style="color: #17171f;">Market Intelligence</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.6; flex-grow: 1; margin-bottom: 25px;">
+                                                            We offer buyer identification, regulatory insights, and
+                                                            tariff analysis to help exporters understand demand. Our
+                                                            network includes importers, distributors, and channel
+                                                            partners.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small" href="trade-promotion.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="trade-promotion.html">
+                                                            <img src="assets/images/services/3st.jpg" alt="Matchmaking"
+                                                                style="width: 100%; height: 200px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 25px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 19px; margin-bottom: 15px;">
+                                                            <a href="trade-promotion.html"
+                                                                style="color: #17171f;">Matchmaking & Missions</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.6; flex-grow: 1; margin-bottom: 25px;">
+                                                            We deliver curated B2B introductions, manage trade
+                                                            delegations, and support exhibitions to unlock credible
+                                                            commercial opportunities between México and India.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small" href="trade-promotion.html"
+                                                                style="background: #d4a322; color: #fff; border: none; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <style>
+                                        /* Sabhi boxes ko clean lift effect dene ke liye */
+                                        .card-box.card-style-1 {
+                                            transition: transform 0.4s ease, box-shadow 0.4s ease;
+                                        }
+
+                                        .card-box.card-style-1:hover {
+                                            transform: translateY(-10px);
+                                            box-shadow: 0 15px 35px rgba(212, 163, 34, 0.12) !important;
+                                        }
+
+                                        /* Global Flex alignment fix */
+                                        .flex-grow-1 {
+                                            flex-grow: 1 !important;
+                                        }
+
+                                        .mt-auto {
+                                            margin-top: auto !important;
+                                        }
+                                    </style>
+                                </div>
+
+                                <!-- Intelligence & Advocacy -->
+                                <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+                                    <div class="inner">
+                                        <div class="row row--30 align-items-stretch">
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="intelligence-advocacy.html">
+                                                            <img src="assets/images/services/5st (1).jpg"
+                                                                alt="Delegation Facilitation"
+                                                                style="width: 100%; height: 180px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 20px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 18px; margin-bottom: 12px;">
+                                                            <a href="intelligence-advocacy.html"
+                                                                style="color: #17171f;">Delegation Strategy &
+                                                                Facilitation</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.5; flex-grow: 1; margin-bottom: 20px;">
+                                                            We design and execute government and business delegations
+                                                            with high-level meetings, strategic visits, and impactful
+                                                            bilateral engagement.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small mibc-no-hover"
+                                                                href="intelligence-advocacy.html"
+                                                                style="background: #d4a322; color: #fff; border: none; cursor: default; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="intelligence-advocacy.html">
+                                                            <img src="assets/images/services/6st (1).jpg"
+                                                                alt="Policy Representation"
+                                                                style="width: 100%; height: 180px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 20px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 18px; margin-bottom: 12px;">
+                                                            <a href="intelligence-advocacy.html"
+                                                                style="color: #17171f;">Policy Engagement &
+                                                                Representation</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.5; flex-grow: 1; margin-bottom: 20px;">
+                                                            We represent member interests through policy submissions,
+                                                            consultations, and engagement with ministries and industry
+                                                            bodies.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small mibc-no-hover"
+                                                                href="intelligence-advocacy.html"
+                                                                style="background: #d4a322; color: #fff; border: none; cursor: default; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb--30 d-flex">
+                                                <div class="card-box card-style-1 text-left w-100 d-flex flex-column"
+                                                    style="background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                                                    <div class="image">
+                                                        <a href="intelligence-advocacy.html">
+                                                            <img src="assets/images/services/8st.jpg"
+                                                                alt="Commercial Intelligence"
+                                                                style="width: 100%; height: 180px; object-fit: cover;">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content flex-grow-1 d-flex flex-column"
+                                                        style="padding: 20px;">
+                                                        <h4 class="title"
+                                                            style="font-weight: 700; font-size: 18px; margin-bottom: 12px;">
+                                                            <a href="intelligence-advocacy.html"
+                                                                style="color: #17171f;">Commercial Intelligence &
+                                                                Insights</a>
+                                                        </h4>
+                                                        <p
+                                                            style="color: #000; font-size: 14px; line-height: 1.5; flex-grow: 1; margin-bottom: 20px;">
+                                                            We deliver timely intelligence, tender alerts, and
+                                                            regulatory updates to help businesses anticipate changes and
+                                                            act confidently.
+                                                        </p>
+                                                        <div class="mt-auto">
+                                                            <a class="btn-default btn-small mibc-no-hover"
+                                                                href="intelligence-advocacy.html"
+                                                                style="background: #d4a322; color: #fff; border: none; cursor: default; display: inline-block;">Learn
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <style>
+                                        /* Card Hover Animation (Subtle Lift) */
+                                        .card-box.card-style-1 {
+                                            transition: transform 0.4s ease, box-shadow 0.4s ease;
+                                        }
+
+                                        .card-box.card-style-1:hover {
+                                            transform: translateY(-8px);
+                                            box-shadow: 0 15px 35px rgba(212, 163, 34, 0.1) !important;
+                                        }
+
+                                        /* Button Static State (Hover logic disable) */
+                                        .btn-default.btn-small.mibc-no-hover:hover {
+                                            transform: none !important;
+                                            background-color: #d4a322 !important;
+                                            /* Wahi gold color rahega */
+                                            color: #fff !important;
+                                            box-shadow: none !important;
+                                        }
+
+                                        /* Padding & Text Consistency */
+                                        .flex-grow-1 {
+                                            flex-grow: 1 !important;
+                                        }
+
+                                        .mt-auto {
+                                            margin-top: auto !important;
+                                        }
+                                    </style>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="rainbow-split-area">
+            <div class="wrapper">
+                <div class="rainbow-splite-style">
+                    <div class="split-wrapper">
+                        <div class="row g-0 radius-10 align-items-center">
+                            <div class="col-lg-12 col-xl-6 col-12">
+                                <div class="thumbnail">
+                                    <img class="w-100" src="assets/images/split/splite-01.jpg"
+                                        alt="Mexico India Business Council bilateral trade collaboration meeting">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-xl-6 col-12">
+                                <div class="split-inner">
+                                    <h4 class="title" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                                        What is MIBC?</h4>
+                                    <p style="color: #000000;" data-sal="slide-up" data-sal-duration="700"
+                                        data-sal-delay="200">
+                                        The México–India Business Council is the first dedicated bilateral business
+                                        council for the México–India corridor based in India. Established with the
+                                        support of the Government of México & recognised by the Government of India, the
+                                        Council serves as the institutional platform for commercial engagement between
+                                        the two nations. MIBC operates at the intersection of government policy and
+                                        private enterprise, providing intelligence, introductions, and institutional
+                                        support to navigate cross-border transactions. Our mandate extends beyond trade
+                                        promotion to encompass investment facilitation, market entry support,
+                                        Intelligence & Advocacy, and delegation coordination.
+                                    </p>
+                                    <!-- <ul class="split-list" data-sal="slide-up" data-sal-duration="700"
+                                            data-sal-delay="300">
+                                            <li>- Ravi K. Tiwari, Chief Executive Officer</li>
+                                            <li>- 15 years across governments of India, Canada, México</li>
+                                            <li>- USD 500M+ investment leads facilitated</li>
+                                            <li>- First México–India council headquartered in India</li>
+                                        </ul> -->
+                                    <div class="view-more-button mt--35" data-sal="slide-up" data-sal-duration="700"
+                                        data-sal-delay="400">
+                                        <a class="btn-default" href="about.html">
+                                            About MIBC
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rainbow-split-area">
+            <div class="wrapper">
+                <div class="rainbow-splite-style bg-color-blackest">
+                    <div class="split-wrapper">
+                        <div class="row g-0 radius-10 align-items-center">
+                            <div class="col-lg-12 col-xl-6 col-12 order-2 order-lg-1">
+                                <div class="split-inner">
+                                    <h4 class="title" data-sal="slide-up" data-sal-duration="700" data-sal-delay="200">
+                                        The México–India Corridor.</h4>
+                                    <p style="color: #000000;" data-sal="slide-up" data-sal-duration="700"
+                                        data-sal-delay="300">
+
+                                        The México–India economic corridor currently stands at $12 billion in bilateral
+                                        trade, with over $4 billion in Indian FDI and 250+ Indian companies operating.
+                                        Yet this represents a fraction of the corridor's potential, projected to cross
+                                        $50 billion by 2030. India brings scale, technology leadership, and a 1.4
+                                        billion-consumer domestic market growing at 6–7% annually. Despite 75+ years of
+                                        diplomatic relations, no dedicated bilateral business council existed to provide
+                                        institutional infrastructure, government coordination, and structured market
+                                        access facilitation, until now.
+                                        MIBC exists to transform this complementarity into commercial outcomes through
+                                        intelligence-driven deal facilitation, regulatory navigation, and institutional
+                                        credibility that traditional consultants and distributors cannot replicate.
+
+                                    </p>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="count-box counter-style-4 text-left">
+                                                <div>
+                                                    <div class="count-number">$<span class="counter">50</span>B</div>
+                                                </div>
+                                                <h5 class="counter-title">Trade Potential by 2030</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="count-box counter-style-4 text-left">
+                                                <div>
+                                                    <div class="count-number"><span class="counter">30</span>T</div>
+                                                </div>
+                                                <h5 class="counter-title">USMCA Market Access (USD)</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="count-box counter-style-4 text-left">
+                                                <div>
+                                                    <div class="count-number"><span class="counter">75</span></div>
+                                                </div>
+                                                <h5 class="counter-title">Years of Diplomatic Relations</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="count-box counter-style-4 text-left">
+                                                <div>
+                                                    <div class="count-number">$<span class="counter">12</span>B</div>
+                                                </div>
+                                                <h5 class="counter-title">Bilateral Trade
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-xl-6 col-12 order-1 order-lg-2">
+                                <div class="thumbnail">
+                                    <img class="w-100" src="assets/images/split/splite-03.jpg"
+                                        alt="Mexico India trade corridor partnership between businesses">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rainbow-portfolio-area rainbow-section-gap masonary-wrapper-activation">
+            <div class="container-fluid plr--30">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center mb--50" data-sal="slide-up" data-sal-duration="700"
+                            data-sal-delay="100">
+                            <h4 class="subtitle">
+                                <span class="theme-gradient" style="padding: 15px; font-size: 20px;"> Our Focus Sectors
+                                </span>
+                            </h4>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+
+
+                        <div class="mibc-puzzle-grid">
+
+                            <div class="mibc-puzzle-item featured cat--1 cat--4">
+                                <a href="sectors.html" class="puzzle-card">
+                                    <div class="puzzle-thumb">
+                                        <img src="assets/images/blog-grid/IT.jpg" alt="IT Sector">
+                                        <div class="puzzle-overlay">
+                                            <div class="puzzle-content">
+                                                <i class="feather-monitor"></i>
+                                                <h4 class="puzzle-title">Information Technology</h4>
+                                                <span class="puzzle-subtitle">Indian Investment</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="mibc-puzzle-item cat--2 cat--3 cat--1">
+                                <a href="sectors.html" class="puzzle-card">
+                                    <div class="puzzle-thumb">
+                                        <img src="assets/images/blog-grid/pharma-Picsart-AiImageEnhancer.jpg"
+                                            alt="Pharma">
+                                        <div class="puzzle-overlay">
+                                            <div class="puzzle-content">
+                                                <i class="feather-plus-square"></i>
+                                                <h4 class="puzzle-title">Pharmaceuticals</h4>
+                                                <span class="puzzle-subtitle">Indian Investment</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="mibc-puzzle-item cat--3 cat--4 cat--1">
+                                <a href="sectors.html" class="puzzle-card">
+                                    <div class="puzzle-thumb">
+                                        <img src="assets/images/blog-grid/automotive.jpg" alt="Automotive">
+                                        <div class="puzzle-overlay">
+                                            <div class="puzzle-content">
+                                                <i class="feather-truck"></i>
+                                                <h4 class="puzzle-title">Automotive</h4>
+                                                <span class="puzzle-subtitle">Indian Investment</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="mibc-puzzle-item cat--3 cat--2">
+                                <a href="sectors.html" class="puzzle-card">
+                                    <div class="puzzle-thumb">
+                                        <img src="assets/images/blog-grid/E&M.png" alt="Energy">
+                                        <div class="puzzle-overlay">
+                                            <div class="puzzle-content">
+                                                <i class="feather-zap"></i>
+                                                <h4 class="puzzle-title">Energy & Minerals</h4>
+                                                <span class="puzzle-subtitle">Mexican Exports</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+
+
+                            <div class="mibc-puzzle-item cat--3 cat--2 cat--1">
+                                <a href="sectors.html" class="puzzle-card">
+                                    <div class="puzzle-thumb">
+                                        <img src="assets/images/blog-grid/food.jpg" alt="Food">
+                                        <div class="puzzle-overlay">
+                                            <div class="puzzle-content">
+                                                <i class="feather-shopping-bag"></i>
+                                                <h4 class="puzzle-title">Agri-Food & Beverages</h4>
+                                                <span class="puzzle-subtitle">Mexican Exports</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Puzzle Grid Layout */
+                    .mibc-puzzle-grid {
+                        display: grid;
+                        grid-template-columns: repeat(4, 1fr);
+                        /* 4 barabar column */
+                        grid-auto-rows: 200px;
+                        /* Base height */
+                        gap: 15px;
+                    }
+
+                    /* Pehla box puzzle ka 'Hero' hai - Bada dikhega */
+                    .mibc-puzzle-item.featured {
+                        grid-column: span 2;
+                        grid-row: span 2;
+                    }
+
+                    /* Baaki items normal rahenge, layout khud puzzle set karega */
+                    .puzzle-card {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 10px;
+                        background: #000;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .puzzle-thumb {
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                    }
+
+                    .puzzle-thumb img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+                    }
+
+                    /* Hover Overlay (Smart Look) */
+                    .puzzle-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        opacity: 0;
+                        /* Initially hidden */
+                        transition: all 0.4s ease;
+                    }
+
+                    .puzzle-content {
+                        text-align: center;
+                        padding: 20px;
+                        transform: translateY(30px);
+                        transition: all 0.4s ease;
+                    }
+
+                    .puzzle-content i {
+                        font-size: 36px;
+                        color: #b38e44;
+                        /* Theme Gold */
+                        margin-bottom: 10px;
+                        display: block;
+                    }
+
+                    .puzzle-title {
+                        color: #ffffff !important;
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin-bottom: 5px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+
+                    .puzzle-subtitle {
+                        color: #b38e44;
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: 1px;
+                    }
+
+                    /* Hover States */
+                    .puzzle-card:hover .puzzle-overlay {
+                        opacity: 1;
+                    }
+
+                    .puzzle-card:hover .puzzle-content {
+                        transform: translateY(0);
+                    }
+
+                    .puzzle-card:hover img {
+                        transform: scale(1.12);
+                    }
+
+                    /* Responsive Adjustments */
+                    @media (max-width: 991px) {
+                        .mibc-puzzle-grid {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+
+                    @media (max-width: 575px) {
+                        .mibc-puzzle-grid {
+                            grid-template-columns: 1fr;
+                            grid-auto-rows: 250px;
+                        }
+
+                        .mibc-puzzle-item.featured {
+                            grid-column: span 1;
+                            grid-row: span 1;
+                        }
+                    }
+                </style>
+
+                <div class="row row--15">
+                    <div class="col-lg-12">
+                        <div class="rainbow-load-more text-center mt--60">
+                            <a href="sectors.html" class="btn btn-default btn-large btn-icon">
+                                <span>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+        <div class="rainbow-pricingtable-area rainbow-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700"
+                            data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">Membership</span></h4>
+                            <h2 class="title w-600 mb--20">Join The Network</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row--15 mt--50">
+                    <div class="col-lg-4 col-md-6 col-12 mt--30">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front radius text-center rbt-border">
+                                    <img src="assets/images/services/Corporate.jpeg" alt="Corporate Membership"
+                                        style="object-fit:cantian;" class="full-cover-img">
+                                    <div class="front-overlay"></div>
+                                    <div class="front-content">
+                                        <div class="icon" style="margin-bottom: 15px;">
+                                            <i class="feather-briefcase" style="font-size: 40px; color: #FFD468;"></i>
+                                        </div>
+                                        <h4 class="title w-600" style="color: #ffffff; margin-bottom: 5px;">Corporate
+                                            Membership</h4>
+
+                                    </div>
+                                </div>
+                                <div class="flip-card-back radius text-center rbt-border">
+                                    <div class="content">
+                                        <h4 class="title" style="color: #b38e44 !important;">Corporate Member</h4>
+                                        <p class="description b1"
+                                            style="color: #000000 !important; font-size: 17px; line-height: 1.5;">
+                                            Ideal for companies looking to expand trade and investment engagement
+                                            between Mexico and India. Members gain access to sectoral roundtables,
+                                            market intelligence, networking forums, and structured business and
+                                            institutional introductions.
+                                        </p>
+                                        <div class="read-more mt--20">
+                                            <a href="./assets/pdf/MIBC_Membership_plans.pdf"
+                                                class="btn-default btn-small" target="_blank"
+                                                style="z-index: 10;  position: relative;">Download Brochure</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-12 mt--30">
+                        <div class="flip-card featured-premium">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front radius text-center rbt-border"
+                                    style="border: 2px solid #b38e44 !important;">
+                                    <img src="assets/images/services/Founding.jpeg" alt="Founding Membership"
+                                        class="full-cover-img">
+                                    <div class="front-overlay"
+                                        style="background: linear-gradient(to bottom, rgba(179, 142, 68, 0.2) 0%, rgba(0, 0, 0, 0.9) 100%);">
+                                    </div>
+                                    <div class="front-content">
+                                        <div
+                                            style="background: #b38e44; color: #000; padding: 2px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px;">
+                                            Exclusive</div>
+                                        <div class="icon" style="margin-bottom: 15px;">
+                                            <i class="feather-star" style="font-size: 45px; color: #FFD468;"></i>
+                                        </div>
+                                        <h4 class="title w-600" style="color: #ffffff; margin-bottom: 5px;">Founding
+                                            Membership</h4>
+
+                                    </div>
+                                </div>
+                                <div class="flip-card-back radius text-center rbt-border"
+                                    style="background: #111 !important; border: 2px solid #b38e44 !important;">
+                                    <div class="content">
+                                        <h4 class="title" style="color: #b38e44 !important;">Founding Member</h4>
+                                        <p class="description b1"
+                                            style="color: #ffffff !important; font-size: 17px; line-height: 1.5;">
+                                            Designed for industry leaders seeking strategic influence and priority
+                                            access. Founding Members receive white-glove facilitation, including
+                                            exclusive site selection support, curated high-level matchmaking, and direct
+                                            engagement with senior government and policy stakeholders.
+                                        </p>
+                                        <div class="read-more mt--20">
+                                            <a href="membership.html" class="btn-default btn-small"
+                                                style="background-color: #b38e44; z-index: 10; position: relative;">Learn
+                                                More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-12 mt--30">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front radius text-center rbt-border">
+                                    <img src="assets/images/services/Associate.jpeg" alt="Associate Membership"
+                                        class="full-cover-img">
+                                    <div class="front-overlay"></div>
+                                    <div class="front-content">
+                                        <div class="icon" style="margin-bottom: 15px;">
+                                            <i class="feather-trending-up" style="font-size: 40px; color: #FFD468;"></i>
+                                        </div>
+                                        <h4 class="title w-600" style="color: #ffffff; margin-bottom: 5px;">Associate
+                                            Membership</h4>
+
+                                    </div>
+                                </div>
+                                <div class="flip-card-back radius text-center rbt-border">
+                                    <div class="content">
+                                        <h4 class="title" style="color: #b38e44 !important;">Associate Member</h4>
+                                        <p class="description b1"
+                                            style="color: #000000 !important; font-size: 17px; line-height: 1.5;">
+                                            Created for SMEs and emerging enterprises exploring bilateral opportunities.
+                                            Members benefit from market-entry guidance, opportunity alerts, open
+                                            programs, and inclusion in the MIBC business network and member directory.
+                                        </p>
+                                        <div class="read-more mt--20">
+                                            <a href="./assets/pdf/MIBC_Membership_plans.pdf"
+                                                class="btn-default btn-small" target="_blank"
+                                                style="z-index: 10; position: relative;">Download Brochure</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Main Layout Fixes */
+                    .flip-card {
+                        background-color: transparent;
+                        width: 100%;
+                        height: 420px;
+                        perspective: 1000px;
+                    }
+
+                    .flip-card-inner {
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                        transform-style: preserve-3d;
+                    }
+
+                    .flip-card:hover .flip-card-inner {
+                        transform: rotateY(180deg);
+                    }
+
+                    .featured-premium {
+                        transform: scale(1.05);
+                        z-index: 10;
+                    }
+
+                    .featured-premium:hover {
+                        transform: scale(1.1) translateY(-10px);
+                        transition: all 0.4s ease;
+                    }
+
+                    /* Important: Back side visibility fix for clickable buttons */
+                    .flip-card-front,
+                    .flip-card-back {
+                        position: absolute !important;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        -webkit-backface-visibility: hidden;
+                        backface-visibility: hidden;
+                        border-radius: 12px;
+                        overflow: hidden;
+                    }
+
+                    .flip-card-back {
+                        background-color: #fcf6f6;
+                        transform: rotateY(180deg);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 30px !important;
+                        z-index: 5;
+                    }
+
+                    /* Full image coverage logic */
+                    .full-cover-img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        z-index: 1;
+                    }
+
+                    .front-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.85) 100%);
+                        z-index: 2;
+                    }
+
+                    .front-content {
+                        position: relative;
+                        z-index: 3;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        align-items: center;
+                        height: 100%;
+                        padding: 40px 20px;
+                    }
+
+                    /* Ensuring buttons are above everything else when flipped */
+                    .read-more a {
+                        pointer-events: auto !important;
+                        cursor: pointer;
+                    }
+                </style>
+            </div>
+        </div>
+
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+
+
+        <div class="blog-area rainbow-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700"
+                            data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">Latests News</span></h4>
+                            <h2 class="title w-600 mb--20">Latest News From The Digital World
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row--15">
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                        <div class="rainbow-card box-card-style-default">
+                            <div class="inner">
+                                <div class="thumbnail"><a class="image" href=""><img
+                                            src="assets/images/blog/blog-01.jpg"
+                                            alt="Indian IT companies nearshoring opportunities in Mexico USMCA corridor"></a>
+                                </div>
+                                <div class="content">
+                                    <ul class="rainbow-meta-list">
+                                        <li><a href="#"> </a></li>
+
+                                        <li>10 Dec 2021</li>
+                                    </ul>
+                                    <h4 class="title"><a href="/assets/pdf/Newsbulletin March.pdf">The Nearshoring
+                                            Opportunity: Indian IT in the USMCA
+                                            Corridor</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700"
+                        data-sal-delay="100">
+                        <div class="rainbow-card box-card-style-default">
+                            <div class="inner">
+                                <div class="thumbnail"><a class="image" href=""><img
+                                            src="assets/images/blog/blog-02.jpg"
+                                            alt="Mexico India trade partnership business cooperation"></a></div>
+                                <div class="content">
+                                    <ul class="rainbow-meta-list">
+                                        <li><a href="#"> </a></li>
+
+                                        <li>30 Nov 2021</li>
+                                    </ul>
+                                    <h4 class="title"><a href="">From Tequila to Tech: Driving the México-India
+                                            Partnership</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700"
+                        data-sal-delay="200">
+                        <div class="rainbow-card box-card-style-default">
+                            <div class="inner">
+                                <div class="thumbnail">
+                                    <a class="image" href=""><img src="assets/images/blog/blog-03.jpeg"
+                                            alt="Mexico gateway to North America for Indian companies"></a>
+                                </div>
+                                <div class="content">
+                                    <ul class="rainbow-meta-list">
+                                        <li><a href="#"> </a></li>
+
+                                        <li>12 Oct 2021</li>
+                                    </ul>
+                                    <h4 class="title"><a href="">Why México is India's Gateway to North America</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer class="rainbow-footer footer-style-default variation-two">
+
+
+            <div class="rainbow-callto-action clltoaction-style-default style-7">
+                <div class="container">
+                    <div class="row row--0 align-items-center content-wrapper">
+
+
+                        <div class="col-lg-8 col-md-8">
+                            <div class="inner">
+                                <div class="content text-left">
+                                    <div class="logo">
+                                        <a href="index.html">
+                                            <img class="logo-light" src="assets/images/logo/logo.png" alt="MIBC Logo">
+                                            <img class="logo-dark" src="assets/images/logo/logo-dark.png"
+                                                alt="MIBC Logo">
+                                        </a>
+                                    </div>
+
+                                    <p style="color: #000000;" class="subtitle" data-sal="slide-up"
+                                        data-sal-duration="400" data-sal-delay="150">
+                                        Bridging Two Emerging Giants
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4" data-sal="slide-up" data-sal-duration="400" data-sal-delay="150">
+                            <div class="call-to-btn text-left mt_sm--20 text-lg-right">
+                                <a class="btn-default" href="membership.html">Join MIBC
+                                    <i class="feather-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Columns -->
+            <style>
+                /* Social Icons Animation */
+                .social-btn {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                }
+
+                .social-btn:hover {
+                    transform: translateY(-5px);
+                    border-color: #a68b53 !important;
+                    color: #a68b53 !important;
+                    box-shadow: 0 5px 15px rgba(166, 139, 83, 0.3) !important;
+                }
+
+                .social-btn:active {
+                    transform: scale(0.9);
+                }
+
+                /* Footer Links Animation */
+                .footer-link-item {
+                    display: inline-block;
+                    /* Animation movement ke liye zaroori hai */
+                    transition: all 0.3s ease !important;
+                }
+
+                .footer-link-item:hover {
+                    color: #a68b53 !important;
+                    /* Golden Color */
+                    transform: translateX(8px);
+                    /* Halka sa right side slide hoga */
+                }
+            </style>
+
+            <div class="footer-wrapper" style="padding: 60px 0;   background-color: #F5F8FA; font-family: sans-serif;">
+                <div class="footer-container"
+                    style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 20px;">
+
+                    <div class="footer-column" style="flex: 1; min-width: 150px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Council</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;  color: #000;">
+                            <li style="margin-bottom: 12px; "><a href="about.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">About</a></li>
+                            <li style="margin-bottom: 12px;"><a href="#" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Leadership</a></li>
+                            <li style="margin-bottom: 12px;"><a href="sectors.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Sectors</a></li>
+                            <li style="margin-bottom: 12px;"><a href="membership.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Membership</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 1.2; min-width: 180px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Services</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="investment-facilitation.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Investment
+                                    Facilitation</a></li>
+                            <li style="margin-bottom: 12px;"><a href="trade-promotion.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Trade Promotion</a>
+                            </li>
+                            <li style="margin-bottom: 12px;"><a href="delegation-facilitation.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Delegation
+                                    Facilitation</a></li>
+                            <li style="margin-bottom: 12px;"><a href="intelligence-advocacy.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Intelligence &
+                                    Advocacy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 1.2; min-width: 180px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Initiatives
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="tequila-accelerator.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Tequila
+                                    Accelerator</a>
+                            </li>
+                            <li style="margin-bottom: 12px;"><a href="india-mexico-connect.html"
+                                    class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">India–México
+                                    Launchpad</a></li>
+                            <li style="margin-bottom: 12px;"><a href="events.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Events</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 0.8; min-width: 120px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Connect</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="contact.html" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Contact</a></li>
+                            <li style="margin-bottom: 12px;"><a href="#" class="footer-link-item"
+                                    style="text-decoration: none; color: #000000; font-size: 14px;">Newsletter</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column" style="flex: 2; min-width: 300px; margin-bottom: 30px;">
+                        <h4 style="font-size: 18px; font-weight: 500; color: #000; margin-bottom: 25px;">Stay Updated
+                        </h4>
+                        <p style="font-size: 14px; color: #000000; line-height: 1.5; margin-bottom: 20px;">Subscribe to
+                            bilateral opportunities and corridor intelligence.</p>
+
+                        <form action="#"
+                            style="display: flex; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                            <input type="email" placeholder="Your email address"
+                                style="border: none; padding: 12px 15px; flex: 1; outline: none; font-size: 14px;">
+                            <button type="submit"
+                                style="background-color: #a68b53; color: white; border: none; padding: 0 20px; font-weight: 600; cursor: pointer;">Subscribe</button>
+                        </form>
+
+                        <div style="display: flex; gap: 10px;">
+                            <ul class="social-icon social-default justify-content-start mt--20">
+                                <li><a
+                                        href="https://www.facebook.com/profile.php?id=61585155789482&mibextid=wwXIfr&rdid=utlTtLC5yBxzHktj&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1M59t97zvS%2F%3Fmibextid%3DwwXIfr#">
+                                        <i class="feather-facebook"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/mibcorg/"><i
+                                            class="feather-linkedin"></i></a></li>
+                                <li>
+                                    <a href="https://x.com/InfoMexicoindia?t=Lq6NKCydqXHSH-U5oqnMcw&s=09"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                </li>
+
+                                <li><a href="https://www.instagram.com/official_mibc"><i
+                                            class="feather-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer Area  -->
+
+        <!-- Start Copy Right Area -->
+        <div class="copyright-area copyright-style-one">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <!-- Left Links -->
+                    <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+                        <div class="copyright-left">
+                            <ul class="ft-menu link-hover">
+                                <li><a style="color: #000000;" href="#">Privacy Policy</a></li>
+                                <li><a style="color: #000000;" href="#">Terms & Conditions</a></li>
+                                <li><a style="color: #000000;" href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Text -->
+                    <div class="col-lg-6 col-md-4 col-sm-12 col-12">
+                        <div class="copyright-right text-center text-lg-end">
+                            <p style="color: #000000;" class="copyright-text">
+                                © 2026 México–India Business Council. All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Copy Right Area -->
+
+        <!-- End Copy Right Area  -->
+    </main>
+    <!-- All Scripts  -->
+    <!-- Start Top To Bottom Area  -->
+    <div class="rainbow-back-top">
+        <i class="feather-arrow-up"></i>
+    </div>
+    <!-- End Top To Bottom Area  -->
+    <!-- JS
+    ============================================ -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const style = document.createElement('style');
+            style.innerHTML = `
+            /* Desktop ke liye thoda kam distance kiya taaki smooth lage */
+            .anim-hidden-left { opacity: 0 !important; transform: translateX(-150px) !important; visibility: hidden; transition: none !important; }
+            .anim-hidden-right { opacity: 0 !important; transform: translateX(150px) !important; visibility: hidden; transition: none !important; }
+            .anim-hidden-bottom { opacity: 0 !important; transform: translateY(150px) !important; visibility: hidden; transition: none !important; }
+            
+            /* 📱 Mobile Par Fix: Left-Right ki jagah sirf halke se neeche se aayega */
+            @media (max-width: 768px) {
+                .anim-hidden-left, .anim-hidden-right, .anim-hidden-bottom {
+                    transform: translateY(50px) !important; 
+                }
+            }
+            
+            .anim-visible { 
+                opacity: 1 !important; 
+                transform: translate(0, 0) !important; 
+                visibility: visible !important;
+                transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important; 
+            }
+            
+            .tab-pane { overflow: hidden !important; }
+            .card-box { backface-visibility: hidden; will-change: transform, opacity; }
+        `;
+            document.head.appendChild(style);
+
+            // Threshold ko thoda kam kiya aur rootMargin add kiya taaki thoda pehle trigger ho jaye
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('anim-visible');
+                    } else {
+                        // Scrolling up karne par wapas animate hone ke liye
+                        entry.target.classList.remove('anim-visible');
+                    }
+                });
+            }, { threshold: 0.02, rootMargin: "20px" });
+
+            const applyMibcAnimations = (container) => {
+                const cards = container.querySelectorAll('.card-box');
+
+                cards.forEach((card, index) => {
+                    card.classList.remove('anim-visible', 'anim-hidden-left', 'anim-hidden-right', 'anim-hidden-bottom');
+                    card.style.transitionDelay = "0s";
+
+                    if (index % 3 === 0) card.classList.add('anim-hidden-left');
+                    else if (index % 3 === 1) card.classList.add('anim-hidden-bottom');
+                    else card.classList.add('anim-hidden-right');
+
+                    setTimeout(() => {
+                        card.style.transitionDelay = `${(index % 3) * 0.15}s`;
+
+                        const rect = card.getBoundingClientRect();
+                        const isVisible = (rect.top <= window.innerHeight && rect.bottom >= 0);
+
+                        if (isVisible) {
+                            card.classList.add('anim-visible');
+                        }
+                        scrollObserver.observe(card);
+                    }, 50);
+                });
+            };
+
+            const initialPane = document.querySelector('.tab-pane.active');
+            if (initialPane) {
+                setTimeout(() => applyMibcAnimations(initialPane), 500);
+            }
+
+            const tabElList = document.querySelectorAll('button[data-bs-toggle="tab"]');
+            tabElList.forEach(tabEl => {
+                tabEl.addEventListener('shown.bs.tab', (event) => {
+                    const targetId = event.target.getAttribute('data-bs-target');
+                    const targetPane = document.querySelector(targetId);
+
+                    document.querySelectorAll('.card-box').forEach(c => {
+                        c.classList.remove('anim-visible');
+                        scrollObserver.unobserve(c);
+                    });
+
+                    if (targetPane) {
+                        setTimeout(() => {
+                            applyMibcAnimations(targetPane);
+                        }, 100);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+    <script src="assets/js/vendor/modernizr.min.js"></script>
+    <script src="assets/js/vendor/jquery.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <script src="assets/js/vendor/waypoint.min.js"></script>
+    <script src="assets/js/vendor/wow.min.js"></script>
+    <script src="assets/js/vendor/counterup.min.js"></script>
+    <script src="assets/js/vendor/feather.min.js"></script>
+    <script src="assets/js/vendor/sal.min.js"></script>
+    <script src="assets/js/vendor/masonry.js"></script>
+    <script src="assets/js/vendor/imageloaded.js"></script>
+    <script src="assets/js/vendor/magnify.min.js"></script>
+    <script src="assets/js/vendor/lightbox.js"></script>
+    <script src="assets/js/vendor/slick.min.js"></script>
+    <script src="assets/js/vendor/easypie.js"></script>
+    <script src="assets/js/vendor/text-type.js"></script>
+    <script src="assets/js/vendor/jquery.style.swicher.js"></script>
+    <script src="assets/js/vendor/js.cookie.js"></script>
+    <script src="assets/js/vendor/jquery-one-page-nav.js"></script>
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

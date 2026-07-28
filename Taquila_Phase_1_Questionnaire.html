@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The India Intent Questionnaire</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap');
+
+        :root {
+            --bg-color: #f8f6f0;
+            --text-main: #2b2b2b;
+            --text-muted: #666;
+            --accent-gold: #9e896a;
+            --btn-bg: #8c734b;
+            --btn-hover: #735e3c;
+            --border-color: #d8d0c5;
+            --box-bg: #ffffff;
+            --box-active-bg: #f0ebe1;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h4 {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin: 0 0 10px 0;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+        }
+        .progress-step {
+            height: 4px;
+            flex: 1;
+            background-color: var(--border-color);
+            transition: 0.3s ease;
+        }
+        .progress-step.active { background-color: var(--accent-gold); }
+
+        .form-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-subtitle {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .form-group { margin-bottom: 25px; }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .required { color: var(--accent-gold); }
+
+        .help-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border 0.3s;
+            background-color: #fff;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+        
+        textarea { resize: vertical; min-height: 80px; }
+
+        .option-box {
+            display: block;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .option-box:hover { border-color: var(--accent-gold); }
+        .option-box input { margin-right: 10px; accent-color: var(--accent-gold); }
+        
+        .option-box.selected {
+            background-color: var(--box-active-bg);
+            border-color: var(--accent-gold);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-next {
+            background-color: var(--btn-bg);
+            color: white;
+            border: none;
+            margin-left: auto;
+        }
+        .btn-next:hover { background-color: var(--btn-hover); }
+
+        .btn-back {
+            background-color: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+        .btn-back:hover { background-color: #f1f1f1; }
+
+        .step { display: none; }
+        .step.active { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img style="width: 300px; height: 80px;" src="/assets/images/logo/logo-dark.png" alt="">
+        <h4>TEQUILA ACCELERATOR • COHORT 1</h4>
+        <h1>The India Intent Questionnaire</h1>
+        <p>About 10 minutes • Confidential, between your house and MIBC</p>
+        <p class="help-text">You have already told us about your company, products, certifications, capacity and pricing. We will not ask any of that again. These questions cover one thing only: <strong>your intent for India.</strong> Your answers shape your India Opportunity Briefing and your private consultation.</p>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="form-card">
+        <form id="intentForm">
+            
+            <!-- STEP 0: Before We Begin -->
+            <div class="step active" id="step-0">
+                <span class="step-subtitle">BEFORE WE BEGIN</span>
+                <h2 class="step-title">One field, so we know it is you</h2>
+                <span class="help-text">We match your answers to everything already on file. Nothing else about your identity will be asked.</span>
+                
+                <div class="form-group">
+                    <label>Your email <span class="required">*</span></label>
+                    <span class="help-text">The address you used for the Exporter Questionnaire.</span>
+                    <input type="email" name="email" required placeholder="ashishmehra6266@gmail.com">
+                </div>
+            </div>
+
+            <!-- STEP 1: Part 1 -->
+            <div class="step" id="step-1">
+                <span class="step-subtitle">PART 1 OF 6 • YOUR INDIA PLAY</span>
+                <h2 class="step-title">Three decisions that shape everything we build for you</h2>
+                
+                <div class="form-group">
+                    <label>Your lead SKU for India <span class="required">*</span></label>
+                    <span class="help-text">Which ONE expression leads your entry? e.g. "Blanco 750ml". You told us your full range; now choose the spearhead.</span>
+                    <input type="text" name="leadSKU" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Your shelf position ambition <span class="required">*</span></label>
+                    <span class="help-text">Where should your lead SKU sit on the Indian shelf? (Session 1 ladder, indicative Mumbai retail, 750ml)</span>
+                    <label class="option-box"><input type="radio" name="shelfPositionAmbition" value="Accessible" required> Accessible: ₹3,000–5,000 (about USD 35–60)</label>
+                    <label class="option-box"><input type="radio" name="shelfPositionAmbition" value="Premium"> Premium: ₹6,000–10,000 (about USD 70–115)</label>
+                    <label class="option-box"><input type="radio" name="shelfPositionAmbition" value="Super-premium"> Super-premium: ₹15,000+ (about USD 170+)</label>
+                    <label class="option-box"><input type="radio" name="shelfPositionAmbition" value="Not sure"> Not sure - position me based on my numbers</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Your India thesis, one line <span class="required">*</span></label>
+                    <span class="help-text">Complete the sentence: "In India, [your brand] will be the ___ for ___."</span>
+                    <input type="text" name="indiaThesis" required>
+                </div>
+            </div>
+
+            <!-- STEP 2: Part 2 -->
+            <div class="step" id="step-2">
+                <span class="step-subtitle">PART 2 OF 6 • PRIORITY AND AMBITION</span>
+                <h2 class="step-title">India is 28 markets. Your budget says start narrow.</h2>
+                
+                <div class="form-group">
+                    <label>Priority launch market <span class="required">*</span></label>
+                    <span class="help-text">Choose up to TWO.</span>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Maharashtra (Mumbai)"> Maharashtra (Mumbai)</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Delhi NCR"> Delhi NCR</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Karnataka (Bengaluru)"> Karnataka (Bengaluru)</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Goa"> Goa</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Haryana (Gurugram)"> Haryana (Gurugram)</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Telangana (Hyderabad)"> Telangana (Hyderabad)</label>
+                    <label class="option-box"><input type="checkbox" name="priorityLaunchMarket" value="Guide me"> Guide me - sequence it for my brand</label>
+                </div>
+
+                <div class="form-group">
+                    <label>First channel focus <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="firstChannelFocus" value="Luxury on-trade" required> Luxury on-trade (hotels, cocktail bars)</label>
+                    <label class="option-box"><input type="radio" name="firstChannelFocus" value="Premium retail"> Premium retail (off-trade)</label>
+                    <label class="option-box"><input type="radio" name="firstChannelFocus" value="Duty-free"> Duty-free / travel retail</label>
+                    <label class="option-box"><input type="radio" name="firstChannelFocus" value="Guide me"> Guide me</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Target for first commercial shipment <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="targetFirstShipment" value="Q4 2026" required> Q4 2026 (the festive quarter)</label>
+                    <label class="option-box"><input type="radio" name="targetFirstShipment" value="H1 2027"> H1 2027</label>
+                    <label class="option-box"><input type="radio" name="targetFirstShipment" value="H2 2027"> H2 2027</label>
+                    <label class="option-box"><input type="radio" name="targetFirstShipment" value="Whenever ready"> Whenever the plan says we are ready</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Year 1 India volume ambition <span class="required">*</span></label>
+                    <span class="help-text">In cases of 750ml (12 bot/cs).</span>
+                    <label class="option-box"><input type="radio" name="year1VolumeAmbition" value="Up to 500 cases" required> Up to 500 cases</label>
+                    <label class="option-box"><input type="radio" name="year1VolumeAmbition" value="500-1,000 cases"> 500–1,000 cases</label>
+                    <label class="option-box"><input type="radio" name="year1VolumeAmbition" value="1,000-3,000 cases"> 1,000–3,000 cases</label>
+                    <label class="option-box"><input type="radio" name="year1VolumeAmbition" value="Above 3,000 cases"> Above 3,000 cases</label>
+                    <label class="option-box"><input type="radio" name="year1VolumeAmbition" value="Guide me"> Guide me based on my capacity and budget</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Distribution structure preference <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="distributionPreference" value="National importer" required> One national exclusive importer</label>
+                    <label class="option-box"><input type="radio" name="distributionPreference" value="State-wise partners"> State-wise partners</label>
+                    <label class="option-box"><input type="radio" name="distributionPreference" value="No preference"> No preference - advise me</label>
+                </div>
+            </div>
+
+            <!-- STEP 3: Part 3 -->
+            <div class="step" id="step-3">
+                <span class="step-subtitle">PART 3 OF 6 • YOUR INDIA FOOTPRINT TODAY</span>
+                <h2 class="step-title">What already exists, so we never duplicate or collide</h2>
+                
+                <div class="form-group">
+                    <label>Existing India conversations <span class="required">*</span></label>
+                    <span class="help-text">Any current or past contact with Indian importers, distributors, hotel groups or retailers? Name and stage, or write "None yet." This protects you. This protects you: we will not approach a buyer you are already courting.</span>
+                    <textarea name="existingConversations" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Has your product ever reached India in any form? <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="reachedIndiaBefore" value="Commercial shipment" required> Yes - commercial shipment</label>
+                    <label class="option-box"><input type="radio" name="reachedIndiaBefore" value="Samples only"> Yes - samples or private orders only</label>
+                    <label class="option-box"><input type="radio" name="reachedIndiaBefore" value="Duty-free"> Yes - duty-free or travel retail</label>
+                    <label class="option-box"><input type="radio" name="reachedIndiaBefore" value="No, never"> No, never</label>
+                </div>
+
+                <div class="form-group">
+                    <label>If yes: briefly, what and when?</label>
+                    <input type="text" name="reachedIndiaDetails">
+                </div>
+
+                <div class="form-group">
+                    <label>India trademark status for your brand name <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="indiaTrademarkStatus" value="Registered" required> Registered in India</label>
+                    <label class="option-box"><input type="radio" name="indiaTrademarkStatus" value="Filed"> Filed, pending</label>
+                    <label class="option-box"><input type="radio" name="indiaTrademarkStatus" value="Not filed"> Not filed</label>
+                    <label class="option-box"><input type="radio" name="indiaTrademarkStatus" value="Need guidance"> Need guidance</label>
+                </div>
+            </div>
+
+            <!-- STEP 4: Part 4 -->
+            <div class="step" id="step-4">
+                <span class="step-subtitle">PART 4 OF 6 • REGULATORY FACT CHECK</span>
+                <h2 class="step-title">Four facts your Exporter Questionnaire never asked</h2>
+                <span class="help-text">Short, factual and decisive for contracts and duty math.</span>
+
+                <div class="form-group">
+                    <label>Alcohol strength (ABV) of your lead SKU <span class="required">*</span></label>
+                    <span class="help-text">e.g. "40%" or "38%". It drives your India label and, in some states, your duty.</span>
+                    <input type="text" name="abvLeadSKU" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Brand ownership <span class="required">*</span></label>
+                    <span class="help-text">Who owns the marca you are bringing to India?</span>
+                    <label class="option-box"><input type="radio" name="brandOwnership" value="We own the brand" required> We own the brand and its trademark</label>
+                    <label class="option-box"><input type="radio" name="brandOwnership" value="Represent under agreement"> We represent the brand under agreement</label>
+                    <label class="option-box"><input type="radio" name="brandOwnership" value="Shared ownership"> Shared or family ownership</label>
+                    <label class="option-box"><input type="radio" name="brandOwnership" value="Other"> Other / complex - will explain in the 1:1</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Exporting entity <span class="required">*</span></label>
+                    <span class="help-text">Which legal entity would invoice an Indian importer?</span>
+                    <label class="option-box"><input type="radio" name="exportingEntity" value="Our own company" required> Our own company, directly</label>
+                    <label class="option-box"><input type="radio" name="exportingEntity" value="Third-party comercializadora"> A third-party comercializadora</label>
+                    <label class="option-box"><input type="radio" name="exportingEntity" value="Distribution partner"> Our distribution partner abroad</label>
+                    <label class="option-box"><input type="radio" name="exportingEntity" value="Not yet defined"> Not yet defined</label>
+                </div>
+
+                <div class="form-group">
+                    <label>SAT Padrón de Exportadores Sectorial (alcoholic beverages) <span class="required">*</span></label>
+                    <span class="help-text">Is your company enrolled?</span>
+                    <label class="option-box"><input type="radio" name="satPadron" value="Yes, enrolled" required> Yes, enrolled</label>
+                    <label class="option-box"><input type="radio" name="satPadron" value="No"> No</label>
+                    <label class="option-box"><input type="radio" name="satPadron" value="Customs broker handles it"> Our customs broker handles it</label>
+                    <label class="option-box"><input type="radio" name="satPadron" value="Not sure"> Not sure</label>
+                </div>
+            </div>
+
+            <!-- STEP 5: Part 5 -->
+            <div class="step" id="step-5">
+                <span class="step-subtitle">PART 5 OF 6 • LABEL AND PACK, INDIA-SPECIFIC</span>
+                <h2 class="step-title">Phase 2 files these. Your answers here save weeks.</h2>
+
+                <div class="form-group">
+                    <label>Can you run a 750ml line for India? <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="canRun750ml" value="Yes, already bottle" required> Yes - we already bottle 750ml</label>
+                    <label class="option-box"><input type="radio" name="canRun750ml" value="Yes, can add"> Yes - we can add 750ml for India</label>
+                    <label class="option-box"><input type="radio" name="canRun750ml" value="No, 700ml only"> No - 700ml is our only format</label>
+                    <label class="option-box"><input type="radio" name="canRun750ml" value="Other"> Other (tell us in the last question)</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Who holds your label artwork source files? <span class="required">*</span></label>
+                    <label class="option-box"><input type="radio" name="labelArtworkSource" value="We do" required> We do - editable files (AI/INDD)</label>
+                    <label class="option-box"><input type="radio" name="labelArtworkSource" value="Our designer"> Our designer</label>
+                    <label class="option-box"><input type="radio" name="labelArtworkSource" value="Our printer"> Our printer</label>
+                    <label class="option-box"><input type="radio" name="labelArtworkSource" value="Unsure"> Unsure</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Over-label constraints (optional)</label>
+                    <span class="help-text">India compliance adds a rear over-label. Any constraint we should know: bottle shape, ceramic or unusual material, existing label coverage? Write "None" if standard glass.</span>
+                    <textarea name="overLabelConstraints"></textarea>
+                </div>
+            </div>
+
+            <!-- STEP 6: Part 6 -->
+            <div class="step" id="step-6">
+                <span class="step-subtitle">PART 6 OF 6 • THE ROOM</span>
+                <h2 class="step-title">Who we build with</h2>
+
+                <div class="form-group">
+                    <label>Who owns India in your company? <span class="required">*</span></label>
+                    <span class="help-text">Name and role of the person who can say yes to pricing and partnership decisions.</span>
+                    <input type="text" name="indiaOwner" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Anything we should know before your consultation? (optional)</label>
+                    <textarea name="additionalInfo"></textarea>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn-back" id="btnBack" style="display: none;">Back</button>
+                <button type="button" class="btn-next" id="btnNext">Next</button>
+                <button type="submit" class="btn-next" id="btnSubmit" style="display: none;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 1. Premium Toast Popup Function (Kyunki undefined error aa raha tha)
+    function showPopup(message) {
+        const toast = document.createElement('div');
+        toast.innerText = message;
+        
+        toast.style.cssText = `
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #2b2b2b; 
+            color: #ffffff; 
+            padding: 16px 24px; 
+            border-radius: 8px; 
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+        }, 10);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    // 2. Local vs Production API URL Logic (Taki 405 Method Not Allowed na aaye)
+    const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+    const API_BASE_URL = isLocal ? 'http://localhost:5001' : 'https://mibc-backend-4.onrender.com'; // Prod URL yahan daal dena
+
+    // 3. Tera purana UI aur Validation Logic (No changes here)
+    const totalSteps = 7; 
+    let currentStep = 0;
+    
+    const steps = document.querySelectorAll('.step');
+    const btnNext = document.getElementById('btnNext');
+    const btnBack = document.getElementById('btnBack');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const progressBar = document.getElementById('progressBar');
+
+    // Setup Progress Bar
+    for(let i=0; i<totalSteps; i++) {
+        let div = document.createElement('div');
+        div.className = 'progress-step' + (i === 0 ? ' active' : '');
+        progressBar.appendChild(div);
+    }
+
+    // CSS styling click behavior for radios & checkboxes
+    document.addEventListener('change', (e) => {
+        if(e.target.type === 'radio' || e.target.type === 'checkbox') {
+            const group = document.getElementsByName(e.target.name);
+            group.forEach(input => {
+                if(input.type === 'radio') {
+                    input.parentElement.classList.remove('selected');
+                }
+            });
+            if(e.target.checked) {
+                e.target.parentElement.classList.add('selected');
+            } else {
+                e.target.parentElement.classList.remove('selected');
+            }
+        }
+    });
+
+    function updateUI() {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentStep);
+        });
+        
+        Array.from(progressBar.children).forEach((bar, index) => {
+            bar.classList.toggle('active', index <= currentStep);
+        });
+
+        btnBack.style.display = currentStep > 0 ? 'block' : 'none';
+        
+        if(currentStep === totalSteps - 1) {
+            btnNext.style.display = 'none';
+            btnSubmit.style.display = 'block';
+        } else {
+            btnNext.style.display = 'block';
+            btnSubmit.style.display = 'none';
+        }
+    }
+
+    btnNext.addEventListener('click', () => {
+        // Find required inputs in the current step
+        const currentActiveStep = steps[currentStep];
+        const requiredInputs = currentActiveStep.querySelectorAll('[required]');
+        let isValid = true;
+        
+        // Basic frontend validation before moving next
+        requiredInputs.forEach(input => {
+            if (input.type === 'radio') {
+                const radios = currentActiveStep.querySelectorAll(`input[name="${input.name}"]`);
+                const isChecked = Array.from(radios).some(r => r.checked);
+                if (!isChecked) isValid = false;
+            } else if (!input.value.trim()) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            alert('Please fill out all required fields marked with *');
+            return;
+        }
+
+        if (currentStep < totalSteps - 1) {
+            currentStep++;
+            updateUI();
+        }
+    });
+
+    btnBack.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            updateUI();
+        }
+    });
+
+    // Final Form Submit to Backend API
+    document.getElementById('intentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        
+        // Object.fromEntries handles single values, but overrides multiples (like checkboxes)
+        const data = Object.fromEntries(formData.entries());
+        
+        // Manually handle the checkbox array for priorityLaunchMarket
+        data.priorityLaunchMarket = formData.getAll('priorityLaunchMarket');
+
+        btnSubmit.innerText = 'Submitting...';
+        btnSubmit.disabled = true;
+
+        try {
+            // Yahan API_BASE_URL use kiya hai taaki sahi server pe request jaye
+            const response = await fetch(`${API_BASE_URL}/api/Phase-1-register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            if(result.success) {
+                showPopup('Success! Form submitted successfully. 🎉');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000); // Thoda time diya taaki user popup padh sake
+            } else {
+                showPopup('Error submitting form: ' + (result.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error(error);
+            showPopup('Failed to connect to backend.');
+        } finally {
+            btnSubmit.innerText = 'Submit';
+            btnSubmit.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>

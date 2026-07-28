@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIBC Full Admin Dashboard</title>
+    
+    <!-- ADDED: html2pdf.js for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #121321;
+            --accent: #C5A059;
+            --bg: #F8FAFC;
+            --border: #E2E8F0;
+            --text: #334155;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+
+        .controls { display: flex; gap: 15px; align-items: center; }
+
+        .record-count {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .export-btn {
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .export-btn:hover { background-color: #dcb36b; }
+
+        /* Table Container */
+        .table-container {
+            margin: 20px 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow-x: auto; 
+            overflow-y: auto;
+            max-height: 80vh;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: max-content; 
+            border-collapse: collapse;
+            font-size: 13px;
+            white-space: nowrap; 
+        }
+
+        thead {
+            background-color: #F1F5F9;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--border);
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 12px;
+            border-right: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Simple Header Group Colors */
+        .th-group-a { background: #e0f2fe; }
+        .th-group-b { background: #fce7f3; }
+        .th-group-c { background: #dcfce7; }
+        .th-group-d { background: #fef08a; }
+        .th-group-e { background: #e0e7ff; }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            color: #334155;
+            max-width: 250px; 
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+
+        tbody tr:nth-child(even) { background-color: #F8FAFC; }
+        tbody tr:hover { background-color: #E2E8F0; }
+
+        /* Links */
+        .file-link { color: #2563EB; text-decoration: none; font-weight: bold; }
+        .file-link:hover { text-decoration: underline; }
+        .no-file { color: #94A3B8; font-style: italic; }
+        
+        .delete-btn {
+            background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;
+        }
+        .delete-btn:hover { background: #dc2626; }
+
+        /* ADDED: PDF Button Styling */
+        .pdf-btn {
+            background: #10B981; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; margin-left: 5px;
+        }
+        .pdf-btn:hover { background: #059669; }
+        
+        .action-cell { display: flex; gap: 5px; align-items: center; }
+
+        .loading { text-align: center; padding: 40px; font-size: 16px; color: #64748B; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>MIBC Full Database View</h1>
+        <div class="controls">
+            <div class="record-count" id="countDisplay">Loading...</div>
+            <button class="export-btn" onclick="exportToCSV()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM3.517 14.841a1.13 1.13 0 0 0 .401.823c.13.108.289.192.478.252.19.061.411.091.665.091.338 0 .624-.053.859-.158.236-.105.416-.252.539-.44.125-.189.187-.408.187-.656 0-.224-.045-.41-.134-.56a1.001 1.001 0 0 0-.372-.372 1.67 1.67 0 0 0-.52-.24l-.536-.145c-.171-.046-.32-.1-.448-.162-.129-.062-.229-.144-.298-.246-.07-.102-.104-.225-.104-.37 0-.173.056-.321.168-.445.112-.125.263-.22.454-.286.19-.066.408-.099.654-.099.231 0 .438.026.621.077a1.134 1.134 0 0 1 .466.242c.125.105.215.244.272.417l1.042-.437a2.122 2.122 0 0 0-.46-.713 1.954 1.954 0 0 0-.756-.475 2.82 2.82 0 0 0-1.026-.17c-.365 0-.693.061-.986.183a1.53 1.53 0 0 0-.691.523c-.167.23-.25.508-.25.834 0 .232.051.436.152.61.101.175.25.316.447.425.196.108.43.197.701.267l.564.148c.175.045.328.1.458.163.13.064.232.148.307.25.074.104.111.234.111.393 0 .193-.066.353-.198.48-.133.127-.3.218-.501.272a2.38 2.38 0 0 1-.652.08 2.246 2.246 0 0 1-1.05-.224 1.83 1.83 0 0 1-.676-.63L3.517 14.84Z"/>
+                </svg>
+                Export CSV
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th rowspan="2">Action</th>
+                    <th rowspan="2">Submitted On</th>
+                    <th colspan="9" class="th-group-a">A. Company & Contact</th>
+                    <th colspan="4" class="th-group-b">B. Product & Files</th>
+                    <th colspan="3" class="th-group-c">C. Certification</th>
+                    <th colspan="4" class="th-group-d">D. Production</th>
+                    <th colspan="4" class="th-group-e">E. Export Experience</th>
+                    <th colspan="2" class="th-group-a">F. Pricing</th>
+                    <th colspan="4" class="th-group-b">G. Financial</th>
+                    <th colspan="5" class="th-group-c">H. Branding</th>
+                    <th colspan="4" class="th-group-d">I. Declaration</th> 
+                </tr>
+                <tr>
+                    <th class="th-group-a">Company Name</th><th class="th-group-a">Brand Name</th><th class="th-group-a">Est. Year</th><th class="th-group-a">Website</th><th class="th-group-a">HQ Location</th><th class="th-group-a">Contact Name</th><th class="th-group-a">Title</th><th class="th-group-a">Email</th><th class="th-group-a">Phone</th>
+                    <th class="th-group-b">Category</th><th class="th-group-b">SKUs</th><th class="th-group-b">Product Img</th><th class="th-group-b">Brand Deck</th>
+                    <th class="th-group-c">CRT Status</th><th class="th-group-c">Export Docs</th><th class="th-group-c">CRT Cert File</th>
+                    <th class="th-group-d">Total Capacity</th><th class="th-group-d">Export Share</th><th class="th-group-d">1 FCL Commit</th><th class="th-group-d">Lead Time</th>
+                    <th class="th-group-e">Countries Count</th><th class="th-group-e">Current Markets</th><th class="th-group-e">Broker Rel.</th><th class="th-group-e">CIF Quote</th>
+                    <th class="th-group-a">FOB Price</th><th class="th-group-a">Pkg Adjust</th>
+                    <th class="th-group-b">Inv. Capacity</th><th class="th-group-b">Pay Terms</th><th class="th-group-b">Sample Supply</th><th class="th-group-b">Timeline Commit</th>
+                    <th class="th-group-c">Brand Story</th><th class="th-group-c">Eng Materials</th><th class="th-group-c">Social Media</th><th class="th-group-c">Founder Engage</th><th class="th-group-c">Trade Events</th>
+                    <th class="th-group-d">Program Track</th><th class="th-group-d">Agreed</th><th class="th-group-d">Declarant Name</th><th class="th-group-d">Decl. Date</th> 
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="41" class="loading">Fetching data... ⏳</td></tr> 
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") 
+            ? "http://localhost:5001" 
+            : "https://mibc-backend-4.onrender.com";
+
+        // ADDED: Global array to store data for PDF extraction
+        let mibcGlobalData = [];
+
+        function safeVal(val) {
+            return val ? val : "-";
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch(API_BASE_URL + "/api/get-questionnaires");
+                const result = await response.json();
+
+                const tableBody = document.getElementById("tableBody");
+                const countDisplay = document.getElementById("countDisplay");
+
+                if (result.success) {
+                    countDisplay.innerText = "Total Records: " + result.count;
+                    mibcGlobalData = result.data; // Store globally for PDF access
+                    renderTable(result.data, tableBody);
+                } else {
+                    tableBody.innerHTML = "<tr><td colspan='41' style='color:red; text-align:center;'>Failed to load data</td></tr>";
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById("tableBody").innerHTML = "<tr><td colspan='41' style='color:red; text-align:center;'>Server connection failed</td></tr>";
+            }
+        }
+
+        async function deleteRow(id) {
+            if(!confirm("Are you sure you want to delete this submission?")) return;
+            try {
+                await fetch(API_BASE_URL + "/api/get-questionnaires/" + id, { method: 'DELETE' });
+                loadData(); 
+            } catch (e) { alert("Failed to delete"); }
+        }
+
+        function renderTable(dataArray, tbody) {
+            if (dataArray.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='41' style='text-align:center;'>No submissions yet.</td></tr>";
+                return;
+            }
+
+            let html = "";
+            for (let i = 0; i < dataArray.length; i++) {
+                let item = dataArray[i];
+
+                let dateObj = new Date(item.createdAt);
+                let submitDate = String(dateObj.getDate()).padStart(2, '0') + "/" + 
+                                 String(dateObj.getMonth() + 1).padStart(2, '0') + "/" + 
+                                 dateObj.getFullYear() + " " + 
+                                 String(dateObj.getHours()).padStart(2, '0') + ":" + 
+                                 String(dateObj.getMinutes()).padStart(2, '0');
+
+                let formattedDeclDate = "-";
+                if (item.declarationDate) {
+                    let dDate = new Date(item.declarationDate);
+                    formattedDeclDate = String(dDate.getDate()).padStart(2, '0') + "/" + 
+                                        String(dDate.getMonth() + 1).padStart(2, '0') + "/" + 
+                                        dDate.getFullYear();
+                }
+
+                let imgLink = item.productImage ? "<a href='" + item.productImage + "' target='_blank' class='file-link'>View Img</a>" : "<span class='no-file'>N/A</span>";
+                let deckLink = item.brandDeck ? "<a href='" + item.brandDeck + "' target='_blank' class='file-link'>View Deck</a>" : "<span class='no-file'>N/A</span>";
+                let crtLink = item.crtCertificate ? "<a href='" + item.crtCertificate + "' target='_blank' class='file-link'>View Cert</a>" : "<span class='no-file'>N/A</span>";
+                
+                let websiteLink = "-";
+                if (item.website) {
+                    let siteUrl = item.website.startsWith("http") ? item.website : "https://" + item.website;
+                    websiteLink = "<a href='" + siteUrl + "' target='_blank' class='file-link'>" + item.website + "</a>";
+                }
+                
+                let emailLink = item.email ? "<a href='mailto:" + item.email + "' class='file-link'>" + item.email + "</a>" : "-";
+
+                html += "<tr>";
+                // UPDATED: Action cell now includes both Delete and PDF buttons
+                html += "<td class='action-cell'><button class='delete-btn' onclick='deleteRow(\"" + item._id + "\")'>Del</button> <button class='pdf-btn' onclick='generateRowPDF(" + i + ")'>PDF</button></td>";
+                html += "<td>" + submitDate + "</td>";
+                
+                html += "<td style='font-weight:bold;'>" + safeVal(item.companyName) + "</td>";
+                html += "<td>" + safeVal(item.brandName) + "</td>";
+                html += "<td>" + safeVal(item.yearEstablished) + "</td>";
+                html += "<td>" + websiteLink + "</td>";
+                html += "<td>" + safeVal(item.hqLocation) + "</td>";
+                html += "<td>" + safeVal(item.contactName) + "</td>";
+                html += "<td>" + safeVal(item.contactTitle) + "</td>";
+                
+                html += "<td>" + emailLink + "</td>";
+                html += "<td>" + safeVal(item.phone) + "</td>";
+                
+                html += "<td>" + safeVal(item.productCategory) + "</td>";
+                html += "<td>" + safeVal(item.skusList) + "</td>";
+                html += "<td>" + imgLink + "</td>";
+                html += "<td>" + deckLink + "</td>";
+                
+                html += "<td>" + safeVal(item.crtStatus) + "</td>";
+                html += "<td>" + safeVal(item.exportDocsStatus) + "</td>";
+                html += "<td>" + crtLink + "</td>";
+                
+                html += "<td>" + safeVal(item.productionCapacity) + "</td>";
+                html += "<td>" + safeVal(item.exportCapacityShare) + "</td>";
+                html += "<td>" + safeVal(item.commitFirstOrder) + "</td>";
+                html += "<td>" + safeVal(item.leadTime) + "</td>";
+                
+                html += "<td>" + safeVal(item.exportCountriesCount) + "</td>";
+                html += "<td>" + safeVal(item.currentExportMarkets) + "</td>";
+                html += "<td>" + safeVal(item.customsBrokerRel) + "</td>";
+                html += "<td>" + safeVal(item.cifQuoteAbility) + "</td>";
+                
+                html += "<td>" + safeVal(item.fobPrice) + "</td>";
+                html += "<td>" + safeVal(item.packagingAdjustment) + "</td>";
+                
+                html += "<td>" + safeVal(item.investmentCapacity) + "</td>";
+                html += "<td>" + safeVal(item.paymentTermsComfort) + "</td>";
+                html += "<td>" + safeVal(item.sampleSupply) + "</td>";
+                html += "<td>" + safeVal(item.marketTimelineCommitment) + "</td>";
+                
+                html += "<td>" + safeVal(item.brandStory) + "</td>";
+                html += "<td>" + safeVal(item.marketingMaterialsEnglish) + "</td>";
+                html += "<td>" + safeVal(item.socialMediaActive) + "</td>";
+                html += "<td>" + safeVal(item.founderEngagement) + "</td>";
+                html += "<td>" + safeVal(item.tradeEvents) + "</td>";
+                
+                html += "<td>" + safeVal(item.programTrack) + "</td>";
+                
+                html += "<td>" + (item.agreedToTerms ? "Yes" : "No") + "</td>";
+                html += "<td>" + safeVal(item.declarationName) + "</td>";
+                html += "<td>" + formattedDeclDate + "</td>";
+                html += "</tr>";
+            }
+            tbody.innerHTML = html;
+        }
+
+        // --- NEW FUNCTION: GENERATE PDF FOR A SPECIFIC ROW ---
+        function generateRowPDF(index) {
+            const item = mibcGlobalData[index];
+            if (!item) return;
+
+            // Date format for PDF
+            let dateObj = new Date(item.createdAt);
+            let submitDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()} ${String(dateObj.getHours()).padStart(2, '0')}:${String(dateObj.getMinutes()).padStart(2, '0')}`;
+            
+            let formattedDeclDate = "-";
+            if (item.declarationDate) {
+                let dDate = new Date(item.declarationDate);
+                formattedDeclDate = `${String(dDate.getDate()).padStart(2, '0')}/${String(dDate.getMonth() + 1).padStart(2, '0')}/${dDate.getFullYear()}`;
+            }
+
+            // Q&A Mapping Configuration
+            const qnaData = [
+                { q: "Submitted On", a: submitDate },
+                { q: "Company Name", a: safeVal(item.companyName) },
+                { q: "Brand Name", a: safeVal(item.brandName) },
+                { q: "Established Year", a: safeVal(item.yearEstablished) },
+                { q: "Website", a: safeVal(item.website) },
+                { q: "HQ Location", a: safeVal(item.hqLocation) },
+                { q: "Contact Name", a: safeVal(item.contactName) },
+                { q: "Title", a: safeVal(item.contactTitle) },
+                { q: "Email", a: safeVal(item.email) },
+                { q: "Phone", a: safeVal(item.phone) },
+                { q: "Category", a: safeVal(item.productCategory) },
+                { q: "SKUs", a: safeVal(item.skusList) },
+                { q: "Product Image Link", a: item.productImage ? `<a href="${item.productImage}" target="_blank" style="color: #2563EB;">View Image</a>` : "N/A" },
+                { q: "Brand Deck Link", a: item.brandDeck ? `<a href="${item.brandDeck}" target="_blank" style="color: #2563EB;">View Deck</a>` : "N/A" },
+                { q: "CRT Status", a: safeVal(item.crtStatus) },
+                { q: "Export Docs Status", a: safeVal(item.exportDocsStatus) },
+                { q: "CRT Certificate Link", a: item.crtCertificate ? `<a href="${item.crtCertificate}" target="_blank" style="color: #2563EB;">View Certificate</a>` : "N/A" },
+                { q: "Total Capacity", a: safeVal(item.productionCapacity) },
+                { q: "Export Share", a: safeVal(item.exportCapacityShare) },
+                { q: "1 FCL Commit", a: safeVal(item.commitFirstOrder) },
+                { q: "Lead Time", a: safeVal(item.leadTime) },
+                { q: "Countries Count", a: safeVal(item.exportCountriesCount) },
+                { q: "Current Markets", a: safeVal(item.currentExportMarkets) },
+                { q: "Broker Relationship", a: safeVal(item.customsBrokerRel) },
+                { q: "CIF Quote Ability", a: safeVal(item.cifQuoteAbility) },
+                { q: "FOB Price", a: safeVal(item.fobPrice) },
+                { q: "Packaging Adjustment", a: safeVal(item.packagingAdjustment) },
+                { q: "Investment Capacity", a: safeVal(item.investmentCapacity) },
+                { q: "Payment Terms Comfort", a: safeVal(item.paymentTermsComfort) },
+                { q: "Sample Supply", a: safeVal(item.sampleSupply) },
+                { q: "Timeline Commit", a: safeVal(item.marketTimelineCommitment) },
+                { q: "Brand Story", a: safeVal(item.brandStory) },
+                { q: "English Materials", a: safeVal(item.marketingMaterialsEnglish) },
+                { q: "Social Media", a: safeVal(item.socialMediaActive) },
+                { q: "Founder Engagement", a: safeVal(item.founderEngagement) },
+                { q: "Trade Events", a: safeVal(item.tradeEvents) },
+                { q: "Program Track", a: safeVal(item.programTrack) },
+                { q: "Agreed to Terms", a: item.agreedToTerms ? "Yes" : "No" },
+                { q: "Declarant Name", a: safeVal(item.declarationName) },
+                { q: "Declaration Date", a: formattedDeclDate }
+            ];
+
+            // Build PDF HTML Template with Premium Layout
+            let contentHTML = `
+                <div style="padding: 30px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1e293b;">
+                    
+                    <!-- PREMIUM HEADER WITH TYPOGRAPHY LOGO -->
+                    <!-- Note: If you want to use an actual image, uncomment the <img> tag below and update the src -->
+                    <div style="text-align: center; border-bottom: 4px solid #C5A059; padding-bottom: 20px; margin-bottom: 30px;">
+                        <!-- <img src="URL_TO_YOUR_MIBC_LOGO.png" alt="MIBC Logo" style="max-height: 80px; margin-bottom: 10px;" /> -->
+                        <h1 style="color: #121321; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 2px;">
+                            <span style="color: #C5A059;">MIBC</span>
+                        </h1>
+                        <h2 style="color: #334155; font-size: 18px; margin: 5px 0 0 0; font-weight: 500;">
+                            Mexico India Business Council
+                        </h2>
+                        <div style="margin-top: 15px; background: #121321; color: white; display: inline-block; padding: 6px 18px; border-radius: 4px; font-size: 14px; font-weight: bold;">
+                            Company Application Profile
+                        </div>
+                    </div>
+
+                    <!-- Q&A Table Layout -->
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                        <tbody>
+            `;
+
+            // Append each Question & Answer
+            qnaData.forEach(row => {
+                contentHTML += `
+                    <tr style="page-break-inside: avoid;">
+                        <td style="padding: 10px 15px; border-bottom: 1px solid #e2e8f0; width: 40%; background-color: #f8fafc; font-weight: bold; color: #475569;">
+                            ${row.q}
+                        </td>
+                        <td style="padding: 10px 15px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">
+                            ${row.a}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            contentHTML += `
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 30px; text-align: center; font-size: 11px; color: #94a3b8;">
+                        Generated securely via MIBC Portal &bull; ${new Date().toLocaleString()}
+                    </div>
+                </div>
+            `;
+
+            // Create temporary container for HTML parsing
+            const element = document.createElement('div');
+            element.innerHTML = contentHTML;
+
+            // Output PDF Options
+            const companyNameSafe = (item.companyName || "Unknown").replace(/[^a-zA-Z0-9]/g, "_");
+            const opt = {
+                margin:       10,
+                filename:     `MIBC_Profile_${companyNameSafe}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Trigger Download
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // CSV Export logic exactly as provided
+        function exportToCSV() {
+            const table = document.getElementById("dataTable");
+            let csv = [];
+
+            const headers = [
+                "Submitted On", "Company Name", "Brand Name", "Est. Year", "Website", "HQ Location", 
+                "Contact Name", "Title", "Email", "Phone", "Category", "SKUs", "Product Img", 
+                "Brand Deck", "CRT Status", "Export Docs", "CRT Cert File", "Total Capacity", 
+                "Export Share", "1 FCL Commit", "Lead Time", "Countries Count", "Current Markets", 
+                "Broker Rel.", "CIF Quote", "FOB Price", "Pkg Adjust", "Inv. Capacity", "Pay Terms", 
+                "Sample Supply", "Timeline Commit", "Brand Story", "Eng Materials", "Social Media", 
+                "Founder Engage", "Trade Events", "Program Track", "Agreed", "Declarant Name", "Decl. Date"
+            ];
+            
+            csv.push('"' + headers.join('","') + '"');
+
+            for (let i = 2; i < table.rows.length; i++) { 
+                let row = [];
+                let cols = table.rows[i].querySelectorAll("td");
+                
+                if (cols.length <= 1) continue;
+
+                // Loop through columns starting from index 1 (Skipping the "Action/Delete/PDF" button at index 0)
+                for (let j = 1; j < cols.length; j++) {
+                    let data = cols[j].innerText;
+                    
+                    const link = cols[j].querySelector("a");
+                    if (link) {
+                        data = link.href;
+                        if(data.startsWith('mailto:')) {
+                            data = data.replace('mailto:', '');
+                        }
+                    } 
+                    
+                    data = data.replace(/(\r\n|\n|\r)/gm, " "); 
+                    data = data.replace(/"/g, '""');
+                    
+                    row.push('"' + data + '"');
+                }
+                csv.push(row.join(","));
+            }
+
+            const csvString = csv.join("\n");
+            const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" });
+            
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute("download", "MIBC_Full_Submissions.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
