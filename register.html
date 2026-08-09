@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIBC | Cohort Registration</title>
+    <!-- Feather Icons -->
+    <link rel="stylesheet" href="assets/css/vendor/feather.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
@@ -22,9 +24,141 @@
             background-color: var(--bg-color);
             color: #333;
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ========================================= */
+        /* PREMIUM CUSTOM NAVBAR                     */
+        /* ========================================= */
+        .custom-nav {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 40px;
+        }
+
+        .nav-brand span {
+            color: var(--mibc-gold);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-center li a {
+            color: #121321;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-center li a:hover,
+        .nav-center li a.active-link {
+            color: var(--mibc-gold);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-join {
+            background-color: var(--mibc-gold);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: #8E7134;
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--mibc-dark);
+        }
+
+        @media (max-width: 991px) {
+
+            .nav-center,
+            .nav-right {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-mobile-active .nav-center {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+                border-bottom: 1px solid var(--border);
+                gap: 15px;
+            }
+
+            .nav-mobile-active .nav-right {
+                display: flex;
+                position: absolute;
+                top: 260px;
+                left: 0;
+                width: 100%;
+                background: #fcfbf8;
+                padding: 20px;
+            }
+        }
+
+        /* ========================================= */
+        /* REGISTRATION FORM STYLING                 */
+        /* ========================================= */
+        .register-wrapper {
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             padding: 40px 20px;
             box-sizing: border-box;
         }
@@ -172,70 +306,138 @@
 
 <body>
 
-    <div class="register-container">
-        <div class="header-text">
-            <h1>Create Your Account</h1>
-            <p>Register to access the Tequila Accelerator learning portal.</p>
+    <!-- ============================================== -->
+    <!-- SECURE BULLETPROOF NAVBAR -->
+    <!-- ============================================== -->
+    <nav class="custom-nav" id="mainNav">
+        <!-- Logo -->
+        <a href="tequila-accelerator.html" class="nav-brand">
+            <img src="assets/images/logo/logo-dark.png" alt="MIBC Logo">
+           
+        </a>
+
+        <!-- Center Links -->
+        <ul class="nav-center">
+            <li><a href="tequila-accelerator.html">Home</a></li>
+            
+            <li><a href="#" onclick="checkAccess(event, 'cohort-dashboard.html')">Cohort </a></li>
+            <li><a href="membership.html">Membership</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right Buttons -->
+        <div class="nav-right">
+            <a href="membership.html" class="btn-join">JOIN MIBC</a>
         </div>
 
-        <form id="registerForm">
-            <div class="form-row">
-                <div class="form-group full">
-                    <label>Full Name <span>*</span></label>
-                    <input type="text" id="fullName" placeholder="e.g. Alejandro Garcia" required>
-                </div>
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- REGISTRATION FORM -->
+    <!-- ============================================== -->
+    <div class="register-wrapper">
+        <div class="register-container">
+            <div class="header-text">
+                <h1>Create Your Account</h1>
+                <p>Register to access the Tequila Accelerator learning portal.</p>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Company Name <span>*</span></label>
-                    <input type="text" id="companyName" placeholder="Legal Entity Name" required>
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label>Full Name <span>*</span></label>
+                        <input type="text" id="fullName" placeholder="e.g. Alejandro Garcia" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Brand Name <span>*</span></label>
-                    <input type="text" id="brandName" placeholder="Tequila/Mezcal Brand" required>
-                </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Email Address <span>*</span></label>
-                    <input type="email" id="email" placeholder="name@company.com" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Company Name <span>*</span></label>
+                        <input type="text" id="companyName" placeholder="Legal Entity Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand Name <span>*</span></label>
+                        <input type="text" id="brandName" placeholder="Tequila/Mezcal Brand" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Mobile Number <span>*</span></label>
-                    <input type="tel" id="mobile" placeholder="+52..." required>
-                </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group full">
-                    <label>HQ Address <span>*</span></label>
-                    <textarea id="address" placeholder="Full company address" required></textarea>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address <span>*</span></label>
+                        <input type="email" id="email" placeholder="name@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number <span>*</span></label>
+                        <input type="tel" id="mobile" placeholder="+52..." required>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Create Password <span>*</span></label>
-                    <input type="password" id="password" placeholder="Min 8 characters" required minlength="8">
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label>HQ Address <span>*</span></label>
+                        <textarea id="address" placeholder="Full company address" required></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Confirm Password <span>*</span></label>
-                    <input type="password" id="confirmPassword" placeholder="Repeat password" required>
-                    <div class="error-txt" id="passError">Passwords do not match!</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Create Password <span>*</span></label>
+                        <input type="password" id="password" placeholder="Min 8 characters" required minlength="8">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password <span>*</span></label>
+                        <input type="password" id="confirmPassword" placeholder="Repeat password" required>
+                        <div class="error-txt" id="passError">Passwords do not match!</div>
+                    </div>
                 </div>
-            </div>
 
-            <button type="submit" class="btn-submit" id="submitBtn">Register Account</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Register Account</button>
 
-            <div class="login-link">
-                Already have an account? <a href="login.html">Login here</a>
-            </div>
-        </form>
+                <div class="login-link">
+                    Already have an account? <a href="Tequila-login.html">Login here</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById("mainNav").classList.toggle("nav-mobile-active");
+        }
+
+        // Premium Alert for Unauthorized Access
+        function showPremiumAlert(message, redirectUrl) {
+            const alertBox = document.createElement('div');
+            alertBox.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 22px;">🔒</span><span style="font-size: 14.5px; font-weight: 500;">${message}</span></div>`;
+            Object.assign(alertBox.style, {
+                position: 'fixed', top: '25px', right: '25px', backgroundColor: '#121321', color: '#ffffff',
+                borderLeft: '4px solid #dc2626', padding: '16px 24px', borderRadius: '8px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)', zIndex: '9999', opacity: '0', transform: 'translateY(-20px)',
+                transition: 'all 0.4s cubic-bezier(0.25, 1, 0.3, 1)', fontFamily: "'Poppins', sans-serif"
+            });
+            document.body.appendChild(alertBox);
+            setTimeout(() => { alertBox.style.opacity = '1'; alertBox.style.transform = 'translateY(0)'; }, 10);
+            setTimeout(() => {
+                alertBox.style.opacity = '0'; alertBox.style.transform = 'translateY(-20px)';
+                setTimeout(() => window.location.href = redirectUrl, 400);
+            }, 2000);
+        }
+
+        // Cohort link security check
+        function checkAccess(event, targetPage) {
+            event.preventDefault();
+            const token = localStorage.getItem("mibc_token");
+            if (token) {
+                window.location.href = targetPage;
+            } else {
+                showPremiumAlert("Access Denied! Redirecting to login...", "Tequila-login.html");
+            }
+        }
+
+        // Registration Submit Logic
         document.getElementById('registerForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -249,7 +451,6 @@
             }
             errorTxt.style.display = 'none';
 
-            // Collect Form Data
             const payload = {
                 fullName: document.getElementById('fullName').value.trim(),
                 companyName: document.getElementById('companyName').value.trim(),
@@ -278,7 +479,7 @@
 
                 if (result.success) {
                     alert("🎉 " + result.message);
-                    window.location.href = "login.html"; // Redirect to login page
+                    window.location.href = "Tequila-login.html"; // Redirect to login page
                 } else {
                     alert("❌ " + result.message);
                     btn.innerText = "Register Account";
