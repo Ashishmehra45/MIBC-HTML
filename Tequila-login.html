@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIBC | Cohort Login</title>
+    <!-- Feather Icons -->
+    <link rel="stylesheet" href="assets/css/vendor/feather.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --mibc-dark: #121321;
-            --mibc-gold: #C5A059;
+            --mibc-gold: #A98842;
             --bg-color: #faf9f6;
             --card-bg: #ffffff;
             --border: #e0e0e0;
@@ -20,19 +24,116 @@
             background-color: var(--bg-color);
             color: #333;
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ========================================= */
+        /* PREMIUM CUSTOM NAVBAR                     */
+        /* ========================================= */
+        .custom-nav {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+        .nav-brand img {
+            height: 40px;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-center li a {
+            color: #121321;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-center li a:hover, .nav-center li a.active-link {
+            color: var(--mibc-gold);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-join {
+            background-color: var(--mibc-gold);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-join:hover {
+            background-color: #8E7134;
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--mibc-dark);
+        }
+
+        @media (max-width: 991px) {
+            .nav-center, .nav-right { display: none; }
+            .mobile-toggle { display: block; }
+            
+            .nav-mobile-active .nav-center {
+                display: flex; flex-direction: column; position: absolute;
+                top: 70px; left: 0; width: 100%; background: white;
+                padding: 20px; border-bottom: 1px solid var(--border); gap: 15px;
+            }
+            .nav-mobile-active .nav-right {
+                display: flex; position: absolute; top: 260px; left: 0; width: 100%;
+                background: #fcfbf8; padding: 20px;
+            }
+        }
+
+        /* ========================================= */
+        /* LOGIN FORM STYLING                        */
+        /* ========================================= */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             padding: 40px 20px;
-            box-sizing: border-box;
         }
 
         .login-container {
             background: var(--card-bg);
-            max-width: 450px; /* Thoda chota rakha hai login ke liye */
+            max-width: 450px;
             width: 100%;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             padding: 50px 40px;
             border-top: 4px solid var(--mibc-gold);
         }
@@ -42,156 +143,185 @@
         .header-text p { margin: 8px 0 0 0; color: #666; font-size: 14px; }
 
         .form-group { display: flex; flex-direction: column; margin-bottom: 20px; position: relative; }
-
         label { font-size: 13px; font-weight: 500; color: #444; margin-bottom: 8px; }
 
         input {
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            background: #fafafa;
-            width: 100%;
-            box-sizing: border-box;
+            padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px;
+            font-family: 'Poppins', sans-serif; font-size: 14px; transition: all 0.3s ease;
+            background: #fafafa; width: 100%; box-sizing: border-box;
         }
-
         input:focus {
-            border-color: var(--mibc-gold);
-            outline: none;
-            background: #fff;
+            border-color: var(--mibc-gold); outline: none; background: #fff;
             box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
         }
 
-        .forgot-pass {
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 12px;
-            color: var(--mibc-gold);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
+        .forgot-pass { position: absolute; top: 0; right: 0; font-size: 12px; color: var(--mibc-gold); text-decoration: none; font-weight: 500; }
         .forgot-pass:hover { text-decoration: underline; }
 
         .btn-submit {
-            background: var(--mibc-dark);
-            color: #fff;
-            border: none;
-            width: 100%;
-            padding: 16px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+            background: var(--mibc-dark); color: #fff; border: none; width: 100%;
+            padding: 16px; font-size: 15px; font-weight: 600; border-radius: 8px;
+            cursor: pointer; transition: all 0.3s ease; margin-top: 10px;
         }
-
         .btn-submit:hover {
-            background: var(--mibc-gold);
-            transform: translateY(-2px);
+            background: var(--mibc-gold); transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
         }
 
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .register-link a {
-            color: var(--mibc-gold);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
+        .register-link { text-align: center; margin-top: 25px; font-size: 14px; color: #666; }
+        .register-link a { color: var(--mibc-gold); text-decoration: none; font-weight: 600; }
         .register-link a:hover { text-decoration: underline; }
-        .error-txt { color: #dc2626; font-size: 13px; margin-bottom: 15px; text-align: center; display: none; }
 
-        @media (max-width: 600px) {
-            .login-container { padding: 40px 25px; }
+        .error-txt {
+            color: #dc2626; font-size: 13px; margin-bottom: 15px; text-align: center; display: none;
         }
+
+        @media (max-width: 600px) { .login-container { padding: 40px 25px; } }
     </style>
 </head>
+
 <body>
 
-    <div class="login-container">
-        <div class="header-text">
-            <h1>Welcome Back</h1>
-            <p>Login to access the Tequila Accelerator learning portal.</p>
+    <!-- ============================================== -->
+    <!-- SECURE BULLETPROOF NAVBAR -->
+    <!-- ============================================== -->
+    <nav class="custom-nav" id="mainNav">
+        
+        <!-- Logo -->
+        <a href="Tequila-accelerator.html" class="nav-brand">
+            <img src="assets/images/logo/logo-dark.png" alt="MIBC Logo">
+        </a>
+
+        <!-- Center Links -->
+        <ul class="nav-center">
+            <li><a href="Tequila-accelerator.html">Home</a></li>
+            <!-- <li><a href="about.html">About</a></li> -->
+            <li><a href="#" onclick="checkAccess(event, 'cohort-dashboard.html')">Cohort </a></li>
+            <li><a href="membership.html">Membership</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right Buttons -->
+        <div class="nav-right">
+            <a href="membership.html" class="btn-join">JOIN MIBC</a>
         </div>
 
-        <div class="error-txt" id="loginError">Invalid email or password.</div>
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+    </nav>
 
-        <form id="loginForm">
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="email" placeholder="name@company.com" required>
+
+    <!-- ============================================== -->
+    <!-- LOGIN FORM -->
+    <!-- ============================================== -->
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="header-text">
+                <h1>Welcome Back</h1>
+                <p>Login to access the Tequila Accelerator learning portal.</p>
             </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <a href="#" class="forgot-pass">Forgot?</a>
-                <input type="password" id="password" placeholder="Enter your password" required>
-            </div>
+            <div class="error-txt" id="loginError">Invalid email or password.</div>
 
-            <button type="submit" class="btn-submit" id="loginBtn">Login to Vault</button>
-            
-            <div class="register-link">
-                Don't have an account? <a href="register.html">Register here</a>
-            </div>
-        </form>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="name@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <a href="#" class="forgot-pass">Forgot?</a>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn-submit" id="loginBtn">Login to Vault</button>
+
+                <div class="register-link">
+                    Don't have an account? <a href="register.html">Register here</a>
+                </div>
+            </form>
+        </div>
     </div>
 
-  <script>
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    const btn = document.getElementById('loginBtn');
-    const errorTxt = document.getElementById('loginError');
-
-    errorTxt.style.display = 'none';
-    btn.innerText = "Authenticating... ⏳";
-    btn.disabled = true;
-
-    try {
-        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") 
-            ? "http://localhost:5001" : "https://mibc-backend-4.onrender.com";
-
-        const response = await fetch(`${API_BASE_URL}/api/cohort-login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            // Save token and user details in browser
-            localStorage.setItem("mibc_token", result.token);
-            localStorage.setItem("mibc_user", result.user.fullName);
-            
-            // Redirect to restricted Cohort Dashboard
-            window.location.href = "cohort-dashboard.html";
-        } else {
-            errorTxt.innerText = result.message || "Invalid credentials.";
-            errorTxt.style.display = 'block';
-            btn.innerText = "Login to Vault";
-            btn.disabled = false;
+    <!-- SCRIPTS -->
+    <script>
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById("mainNav").classList.toggle("nav-mobile-active");
         }
-    } catch (error) {
-        errorTxt.innerText = "Network Error. Please try again.";
-        errorTxt.style.display = 'block';
-        btn.innerText = "Login to Vault";
-        btn.disabled = false;
-    }
-});
-</script>
+
+        // Premium Alert for Unauthorized Access
+        function showPremiumAlert(message, redirectUrl) {
+            const alertBox = document.createElement('div');
+            alertBox.innerHTML = `<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 22px;">🔒</span><span style="font-size: 14.5px; font-weight: 500;">${message}</span></div>`;
+            Object.assign(alertBox.style, {
+                position: 'fixed', top: '25px', right: '25px', backgroundColor: '#121321', color: '#ffffff',
+                borderLeft: '4px solid #dc2626', padding: '16px 24px', borderRadius: '8px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)', zIndex: '9999', opacity: '0', transform: 'translateY(-20px)',
+                transition: 'all 0.4s cubic-bezier(0.25, 1, 0.3, 1)', fontFamily: "'Poppins', sans-serif"
+            });
+            document.body.appendChild(alertBox);
+            setTimeout(() => { alertBox.style.opacity = '1'; alertBox.style.transform = 'translateY(0)'; }, 10);
+            setTimeout(() => {
+                alertBox.style.opacity = '0'; alertBox.style.transform = 'translateY(-20px)';
+                setTimeout(() => window.location.href = redirectUrl, 400); 
+            }, 2000); 
+        }
+
+        // Cohort link security check
+        function checkAccess(event, targetPage) {
+            event.preventDefault(); 
+            const token = localStorage.getItem("mibc_token");
+            if (token) {
+                window.location.href = targetPage;
+            } else {
+                showPremiumAlert("Access Denied! Redirecting to login...", "Tequila-login.html");
+            }
+        }
+
+        // Login Submit Logic
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+            const errorTxt = document.getElementById('loginError');
+
+            errorTxt.style.display = 'none';
+            btn.innerText = "Authenticating... ⏳";
+            btn.disabled = true;
+
+            try {
+                const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+                    ? "http://localhost:5001" : "https://mibc-backend-4.onrender.com";
+
+                const response = await fetch(`${API_BASE_URL}/api/cohort-login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    localStorage.setItem("mibc_token", result.token);
+                    localStorage.setItem("mibc_user", result.user.fullName);
+                    window.location.href = "cohort-dashboard.html";
+                } else {
+                    errorTxt.innerText = result.message || "Invalid credentials.";
+                    errorTxt.style.display = 'block';
+                    btn.innerText = "Login to Vault";
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                errorTxt.innerText = "Network Error. Please try again.";
+                errorTxt.style.display = 'block';
+                btn.innerText = "Login to Vault";
+                btn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>

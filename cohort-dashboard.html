@@ -26,73 +26,175 @@
             color: #333;
         }
 
-        /* --- Premium Navbar --- */
-        .cohort-nav {
-            background: var(--card-bg);
-            padding: 20px 5%;
+        /* ========================================= */
+        /* BULLETPROOF CUSTOM NAVBAR (NO BOOTSTRAP)  */
+        /* ========================================= */
+        .custom-nav {
+            background-color: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 5%;
             border-bottom: 1px solid var(--border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .nav-logo h2 {
-            margin: 0;
-            font-size: 22px;
-            color: var(--mibc-dark);
-            font-weight: 700;
+        /* 1. Logo Section */
+        .nav-brand {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
         }
 
-        .nav-logo span {
+        .nav-brand img {
+            height: 40px;
+        }
+
+        .nav-brand span {
             color: var(--mibc-gold);
-            font-size: 12px;
+            font-size: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            display: block;
+            font-weight: 700;
+            margin-top: 4px;
         }
 
-        .nav-profile {
+        /* 2. Center Links */
+        .nav-center {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-center li a {
+            color: #121321;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-center li a:hover,
+        .nav-center li a.active-link {
+            color: var(--mibc-gold);
+        }
+
+        /* 3. Right Actions */
+        .nav-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        .nav-profile span {
+        .btn-join {
+            background-color: var(--mibc-gold);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: #8E7134;
+            transform: translateY(-2px);
+        }
+
+        .user-greeting {
+            font-size: 14px;
             font-weight: 500;
             color: #555;
         }
 
-        .logout-btn {
+        .btn-logout {
             background: transparent;
             border: 1px solid #dc2626;
             color: #dc2626;
-            padding: 6px 16px;
-            border-radius: 6px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .logout-btn:hover {
+        .btn-logout:hover {
             background: #dc2626;
             color: white;
         }
 
-        /* --- Dashboard Area --- */
+        /* Mobile Hamburger */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--mibc-dark);
+        }
+
+        /* Mobile Menu Overrides */
+        @media (max-width: 991px) {
+
+            .nav-center,
+            .nav-right {
+                display: none;
+                /* Hide desktop elements */
+            }
+
+            .mobile-toggle {
+                display: block;
+                /* Show hamburger */
+            }
+
+            /* Active Mobile Menu */
+            .nav-mobile-active .nav-center {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                border-bottom: 1px solid var(--border);
+                gap: 15px;
+            }
+
+            .nav-mobile-active .nav-right {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 270px;
+                left: 0;
+                width: 100%;
+                background: #fcfbf8;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                gap: 15px;
+            }
+        }
+
+        /* ========================================= */
+        /* DASHBOARD CONTENT CSS                     */
+        /* ========================================= */
         .dashboard-container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        /* Horizontal Tabs */
         .phase-tabs {
             display: flex;
-            gap: 15px;
+            gap: 30px;
             border-bottom: 2px solid var(--border);
             margin-bottom: 40px;
             overflow-x: auto;
@@ -106,10 +208,10 @@
         .tab-btn {
             background: none;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 0;
             font-size: 16px;
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             color: #888;
             cursor: pointer;
             position: relative;
@@ -117,10 +219,7 @@
             transition: 0.3s;
         }
 
-        .tab-btn:hover {
-            color: var(--mibc-gold);
-        }
-
+        .tab-btn:hover,
         .tab-btn.active {
             color: var(--mibc-dark);
         }
@@ -132,7 +231,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--mibc-gold);
+            background: var(--mibc-dark);
             transform: scaleX(0);
             transition: 0.3s;
         }
@@ -162,24 +261,21 @@
             }
         }
 
-        /* --- Section Titles --- */
         .section-title {
             font-size: 20px;
             font-weight: 700;
             color: var(--mibc-dark);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* --- Videos Grid --- */
-        .video-grid,
-        .doc-grid {
+        .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
         .video-card {
@@ -187,23 +283,21 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             transition: 0.3s;
             cursor: pointer;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(169, 136, 66, 0.1);
-            border-color: rgba(169, 136, 66, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
         }
 
         .video-thumb {
             width: 100%;
-            height: 180px;
-            background: #e0e0e0;
+            height: 200px;
+            background-color: #e0e0e0;
             position: relative;
-            background-image: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -213,16 +307,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(18, 19, 33, 0.8);
+            width: 55px;
+            height: 55px;
+            background: rgba(30, 30, 30, 0.85);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            backdrop-filter: blur(4px);
+            font-size: 22px;
+            backdrop-filter: blur(2px);
+            transition: 0.3s;
+        }
+
+        .video-card:hover .play-btn {
+            background: var(--mibc-gold);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
         .video-info {
@@ -230,19 +330,25 @@
         }
 
         .video-info h4 {
-            margin: 0 0 5px 0;
+            margin: 0 0 8px 0;
             font-size: 16px;
             color: var(--mibc-dark);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .video-info p {
             margin: 0;
             font-size: 13px;
-            color: #666;
+            color: #777;
         }
 
-        /* --- Documents Grid --- */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
         .doc-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -252,11 +358,12 @@
             justify-content: space-between;
             align-items: center;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
         }
 
         .doc-card:hover {
-            border-color: var(--mibc-gold);
-            box-shadow: 0 10px 25px rgba(169, 136, 66, 0.08);
+            border-color: var(--mibc-dark);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
             transform: translateY(-3px);
         }
 
@@ -281,12 +388,12 @@
         .doc-left h4 {
             margin: 0;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--mibc-dark);
         }
 
         .doc-left p {
-            margin: 2px 0 0 0;
+            margin: 4px 0 0 0;
             font-size: 12px;
             color: #888;
         }
@@ -308,49 +415,70 @@
         .download-btn:hover {
             background: var(--mibc-gold);
         }
-
-        @media (max-width: 768px) {
-            .nav-profile span {
-                display: none;
-            }
-
-            .phase-tabs {
-                padding-bottom: 10px;
-            }
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- Authentication Simulation Script (Protects the page) -->
+    <!-- Authentication Security Script -->
     <script>
-        // Fake Auth Check - In real app, verify JWT Token here
         const isLoggedIn = localStorage.getItem("mibc_token");
-        // For preview purposes, we will bypass the actual redirect right now
-        // If you want it to actually redirect to login if no token, uncomment below:
-
-        /*
+        /* UNCOMMENT THIS TO ENABLE REAL SECURITY
         if(!isLoggedIn) {
-            window.location.href = "login.html"; 
+            window.location.replace("login.html"); 
         } 
         */
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem("mibc_user") || "Partner";
+            const userDisplays = document.querySelectorAll(".userNameDisplay");
+            userDisplays.forEach(el => el.innerText = "Welcome, " + userName);
+        });
     </script>
 
-    <!-- Navbar -->
-    <nav class="cohort-nav">
-        <div class="nav-logo">
-           <a href="index.html"><img src="assets/images/logo/logo-dark.png" alt="MIBC Logo" style="height: 40px; vertical-align: middle;"></a> 
-            <span>Cohort Learning </span>
-        </div>
-        <div class="nav-profile">
-            <span id="userNameDisplay">Welcome, Partner</span>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
+    <!-- ============================================== -->
+    <!-- SECURE BULLETPROOF NAVBAR -->
+    <!-- ============================================== -->
+    <nav class="custom-nav" id="mainNav">
+
+        <!-- Logo -->
+        <a href="Tequila-accelerator.html" class="nav-brand">
+            <img src="assets/images/logo/logo-dark.png" alt="MIBC Logo">
+
+        </a>
+
+        <!-- Center Links -->
+        <ul class="nav-center" style="font-size: 20px;">
+            <li><a href="Tequila-accelerator.html">Home</a></li>
+            <!-- <li><a href="about.html">About</a></li> -->
+            <li><a href="#" class="active-link" onclick="checkAccess(event, 'cohort-dashboard.html')">Cohort
+                    </a></li>
+            <li><a href="membership.html">Membership</a></li>
+            <li><a href="contact.html">Contact</a></li>
+
+        </ul>
+        <a href="membership.html" class="btn-join">JOIN MIBC</a>
+
+
+        <!-- Right Buttons -->
+
     </nav>
 
-    <!-- Dashboard Content -->
+
+    <!-- ============================================== -->
+    <!-- DASHBOARD CONTENT AREA -->
+    <!-- ============================================== -->
     <div class="dashboard-container">
+        <div class="nav-right">
+
+            <span class="user-greeting userNameDisplay" style="font-size: 20px; margin-bottom: 10px;">Welcome,
+                Partner</span>
+            <button style="font-size: 15px; margin-bottom: 10px;" class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">
+            ☰
+        </button>
 
         <!-- Phase Tabs -->
         <div class="phase-tabs">
@@ -361,11 +489,11 @@
 
         <!-- PHASE 1 CONTENT -->
         <div id="phase1" class="tab-content active">
-
             <h3 class="section-title"><i>▶</i> Learning Modules</h3>
             <div class="video-grid">
                 <div class="video-card">
-                    <div class="video-thumb">
+                    <div class="video-thumb"
+                        style="background-image: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=80');">
                         <div class="play-btn">▶</div>
                     </div>
                     <div class="video-info">
@@ -381,6 +509,16 @@
                     <div class="video-info">
                         <h4>Pricing & Margin Structures</h4>
                         <p>Duration: 22 mins</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumb"
+                        style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80');">
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Brand Positioning Strategy</h4>
+                        <p>Duration: 18 mins</p>
                     </div>
                 </div>
             </div>
@@ -420,8 +558,8 @@
                         <div class="play-btn">▶</div>
                     </div>
                     <div class="video-info">
-                        <h4>Excise Laws & FSSAI Registration</h4>
-                        <p>Duration: 18 mins</p>
+                        <h4>Excise Laws & State Licensing</h4>
+                        <p>Duration: 28 mins</p>
                     </div>
                 </div>
             </div>
@@ -430,7 +568,7 @@
             <div class="doc-grid">
                 <div class="doc-card">
                     <div class="doc-left">
-                        <div class="doc-icon">📄</div>
+                        <div class="doc-icon">📝</div>
                         <div>
                             <h4>Labeling Guidelines Checklist</h4>
                             <p>PDF Document • 1.8 MB</p>
@@ -452,27 +590,77 @@
 
     </div>
 
-    <!-- Real Authentication Script (Protects the page) -->
+    <!-- SCRIPTS -->
     <script>
-        // 1. Check if token exists
-        const token = localStorage.getItem("mibc_token");
-        
-        // Agar token nahi hai, toh page load hone se pehle hi redirect kar do
-        if(!token) {
-            window.location.replace("Tequila-login.html"); 
+        // Toggle Mobile Menu
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById("mainNav").classList.toggle("nav-mobile-active");
         }
 
-        // 2. Page load hone par user ka naam update karo
-        document.addEventListener("DOMContentLoaded", () => {
-            const userName = localStorage.getItem("mibc_user");
-            if (userName) {
-                document.getElementById("userNameDisplay").innerText = "Welcome, " + userName;
-            }
-        });
-    </script>
+        // --- NEW: Premium Custom Alert Function ---
+        function showPremiumAlert(message, redirectUrl) {
+            // Alert div create kar rahe hain
+            const alertBox = document.createElement('div');
+            alertBox.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 22px;">🔒</span>
+                    <span style="font-size: 14.5px; font-weight: 500;">${message}</span>
+                </div>
+            `;
 
-    <script>
-        // Tab Switcher
+            // MIBC Theme ke hisaab se CSS lagayi hai
+            Object.assign(alertBox.style, {
+                position: 'fixed',
+                top: '25px',
+                right: '25px',
+                backgroundColor: '#121321', // MIBC Dark Theme
+                color: '#ffffff',
+                borderLeft: '4px solid #dc2626', // Red accent for 'Denied'
+                padding: '16px 24px',
+                borderRadius: '8px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                zIndex: '9999',
+                opacity: '0',
+                transform: 'translateY(-20px)',
+                transition: 'all 0.4s cubic-bezier(0.25, 1, 0.3, 1)',
+                fontFamily: "'Poppins', sans-serif"
+            });
+
+            document.body.appendChild(alertBox);
+
+            // Animate In (Slide down & Fade in)
+            setTimeout(() => {
+                alertBox.style.opacity = '1';
+                alertBox.style.transform = 'translateY(0)';
+            }, 10);
+
+            // 2 Second baad redirect karega
+            setTimeout(() => {
+                // Animate Out
+                alertBox.style.opacity = '0';
+                alertBox.style.transform = 'translateY(-20px)';
+
+                // Actual redirect hone me thoda delay taaki animation dikhe
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 400);
+            }, 2000);
+        }
+
+        // --- UPDATED: Check access function ---
+        function checkAccess(event, targetPage) {
+            event.preventDefault();
+            const token = localStorage.getItem("mibc_token");
+            if (token) {
+                window.location.href = targetPage;
+            } else {
+                // Purane alert() ki jagah naya premium alert call kiya hai
+                showPremiumAlert("Access Denied! Redirecting to login...", "Tequila-login.html");
+            }
+        }
+
+        // Tab Switcher Logic
         function switchPhase(evt, phaseId) {
             document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
