@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIBC · Tequila Accelerator · Phase 3 Questionnaire</title>
+<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+<style>
+:root{--bg:#FBF8F1;--ink:#26221C;--sec:#4A4338;--brz:#8B6E3D;--brz2:#A07E45;--panel:#F3EDE0;--bor:#D8CDB6;--card:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--sec);font-family:'Segoe UI',Calibri,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+.wm{text-align:center;border-top:1.5px solid var(--brz);border-bottom:1.5px solid var(--brz);padding:10px 0;margin:0 auto 26px;max-width:280px}
+.wm b{font-family:'Bookman Old Style',Georgia,serif;letter-spacing:3px;color:var(--ink);font-size:16px}
+.wm span{display:block;font-size:9px;letter-spacing:5px;color:var(--sec);margin-top:3px}
+.tag{color:var(--brz);font-weight:700;letter-spacing:2.5px;font-size:12px}
+h1{font-family:'Bookman Old Style',Georgia,serif;color:var(--ink);font-size:27px;margin:8px 0 10px;font-weight:700;line-height:1.25}
+.intro{font-style:italic;color:var(--sec);font-size:13.5px;border-bottom:1px solid var(--brz);padding-bottom:16px;margin-bottom:8px}
+.steplabel{font-family:'Bookman Old Style',Georgia,serif;color:var(--brz2);font-size:20px;font-weight:700;margin-right:10px}
+.sec{margin-top:26px;border-bottom:1px solid var(--bor);padding-bottom:4px}
+.sec h2{display:inline;font-size:13px;letter-spacing:1.5px;color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--bor);border-radius:8px;padding:16px 18px;margin:14px 0}
+.q{font-weight:700;color:var(--ink);margin-bottom:4px}
+.why{font-size:12.5px;color:var(--brz);font-style:italic;margin:6px 0 10px}
+label.opt{display:block;padding:7px 10px;border:1px solid var(--bor);border-radius:6px;margin:6px 0;background:var(--bg);cursor:pointer}
+label.opt:hover{border-color:var(--brz)}
+input[type=radio],input[type=checkbox]{accent-color:var(--brz);margin-right:8px}
+input[type=text],input[type=email],input[type=number],input[type=date]{width:100%;padding:9px 10px;border:1px solid var(--bor);border-radius:6px;background:#fff;font:inherit;color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.small{font-size:12.5px;color:var(--sec)}
+.req{color:var(--brz)}
+.rule{border:none;border-top:1px solid var(--bor);margin:8px 0}
+button{background:var(--brz);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;width:100%;margin-top:18px}
+button:hover{background:#7a5f33}
+.thanks{display:none;text-align:center;padding:60px 10px}
+.thanks h2{font-family:'Bookman Old Style',Georgia,serif;color:var(--ink);font-size:24px}
+.foot{margin-top:34px;border-top:1.5px solid var(--brz);padding-top:10px;font-size:11.5px}
+.foot b{color:var(--ink)} .foot .c{color:var(--brz)}
+.err{color:#8b2f2f;font-size:12.5px;display:none;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="formwrap">
+  <div class="wm"><b>MÉXICO–INDIA</b><span>BUSINESS COUNCIL</span></div>
+  <div class="tag">TEQUILA ACCELERATOR · COHORT 1 · PHASE 3 QUESTIONNAIRE</div>
+  <h1>Seven questions before your numbers meet an importer</h1>
+  <p class="intro">Ten minutes, and nothing you have answered before is asked again. These seven answers feed two documents only: your state-by-state cost model, and your Phase&nbsp;4 negotiation card.</p>
+
+  <form id="form" onsubmit="return false;">
+  <div class="card">
+    <div class="q">Company / house name <span class="req">*</span></div>
+    <input type="text" id="company" placeholder="e.g. Tequila Casa Ejemplo SA de CV" required>
+    <hr class="rule">
+    <div class="q">Your name and role <span class="req">*</span></div>
+    <input type="text" id="person" placeholder="e.g. Maria Lopez, Export Director" required>
+    <hr class="rule">
+    <div class="q">Your email <span class="req">*</span></div>
+    <input type="email" id="email" placeholder="name@yourhouse.com" required>
+  </div>
+
+  <div class="sec"><span class="steplabel">01</span><h2>PRICE COMMITMENTS</h2></div>
+  <div class="card">
+    <div class="q">1 · Can you commit your India FOB unchanged for a full excise year? <span class="req">*</span></div>
+    <div class="why">States lock your MRP annually; a mid-year reprice breaks your own registration mathematics.</div>
+    <label class="opt"><input type="radio" name="q1" value="Yes, unchanged for the excise year">Yes, unchanged for the excise year</label>
+    <label class="opt"><input type="radio" name="q1" value="Yes, with a stated maximum revision">Yes, with a stated maximum revision (state the cap below)</label>
+    <label class="opt"><input type="radio" name="q1" value="No, we revise more often">No, we revise more often</label>
+    <input type="text" id="q1cap" placeholder="If a cap: state it, e.g. up to 5% at year-end">
+  </div>
+  <div class="card">
+    <div class="q">2 · Your FOB per case at three volumes (USD) <span class="req">*</span></div>
+    <div class="why">For your lead SKU, per case as configured in your pricing template. Every importer's second question; also add these three rows to the template itself.</div>
+    <div class="grid">
+      <div><span class="small">At 100 cases</span><input type="number" step="0.01" id="q2a" placeholder="USD"></div>
+      <div><span class="small">At 300 cases</span><input type="number" step="0.01" id="q2b" placeholder="USD"></div>
+      <div><span class="small">At 1,000 cases</span><input type="number" step="0.01" id="q2c" placeholder="USD"></div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="steplabel">02</span><h2>MONEY MECHANICS</h2></div>
+  <div class="card">
+    <div class="q">3 · Which payment instruments do you accept? <span class="req">*</span></div>
+    <div class="why">Phase 1 asked whether you can carry credit; this asks how you structure it.</div>
+    <label class="opt"><input type="checkbox" name="q3" value="Advance payment">Advance payment</label>
+    <label class="opt"><input type="checkbox" name="q3" value="Letter of credit">Letter of credit</label>
+    <label class="opt"><input type="checkbox" name="q3" value="Documents against payment">Documents against payment</label>
+    <label class="opt"><input type="checkbox" name="q3" value="Open credit after first orders">Open credit after first orders</label>
+    <span class="small">Advance required on a first order (%):</span>
+    <input type="number" id="q3adv" min="0" max="100" placeholder="e.g. 30">
+  </div>
+  <div class="card">
+    <div class="q">4 · Do you hold export credit insurance that could cover an Indian buyer? <span class="req">*</span></div>
+    <div class="why">An insured seller negotiates terms from a different chair.</div>
+    <label class="opt"><input type="radio" name="q4" value="Yes, Bancomext">Yes, Bancomext</label>
+    <label class="opt"><input type="radio" name="q4" value="Yes, private insurer">Yes, private insurer (name below)</label>
+    <label class="opt"><input type="radio" name="q4" value="No">No</label>
+    <label class="opt"><input type="radio" name="q4" value="Not sure">Not sure</label>
+    <input type="text" id="q4name" placeholder="Insurer name, if private">
+  </div>
+
+  <div class="sec"><span class="steplabel">03</span><h2>BUILDING THE MARKET</h2></div>
+  <div class="card">
+    <div class="q">5 · Of your Year 1 India budget, what share can go to market-building? <span class="req">*</span></div>
+    <div class="why">Bar programmes, visibility, menu placements, rather than stock. Your budget band is known; its split decides your launch shape.</div>
+    <label class="opt"><input type="radio" name="q5" value="Under 10%">Under 10%</label>
+    <label class="opt"><input type="radio" name="q5" value="10 to 25%">10 to 25%</label>
+    <label class="opt"><input type="radio" name="q5" value="25 to 40%">25 to 40%</label>
+    <label class="opt"><input type="radio" name="q5" value="Above 40%">Above 40%</label>
+  </div>
+  <div class="card">
+    <div class="q">6 · Freight arrangement <span class="req">*</span></div>
+    <div class="why">First orders travel consolidated, and the houses with a forwarder move first.</div>
+    <span class="small">Who arranges your export freight today?</span>
+    <input type="text" id="q6a" placeholder="e.g. our broker / the buyer / in-house">
+    <span class="small">A forwarder who can consolidate ex-Guadalajara (or "none yet"):</span>
+    <input type="text" id="q6b" placeholder="Forwarder name, or none yet">
+  </div>
+
+  <div class="sec"><span class="steplabel">04</span><h2>THE TASTING EVENING</h2></div>
+  <div class="card">
+    <div class="q">7 · Your allocation, made concrete <span class="req">*</span></div>
+    <div class="why">The Council books the exhibition lane against these three answers.</div>
+    <div class="grid">
+      <div><span class="small">Bottles</span><input type="number" id="q7a" placeholder="e.g. 12"></div>
+      <div><span class="small">SKUs</span><input type="text" id="q7b" placeholder="e.g. Blanco, Reposado"></div>
+      <div><span class="small">Ready by</span><input type="date" id="q7c"></div>
+    </div>
+  </div>
+
+  <div class="err" id="err">Please complete your email and every question marked *</div>
+  <button id="send">SUBMIT TO THE COUNCIL</button>
+  <div class="small" style="text-align:center;margin-top:10px">Submit before your Phase 3 consultation. Complete answers move first.</div>
+  </form>
+
+  <div class="foot">
+    Prepared by the México–India Business Council for Tequila Accelerator Cohort 1. Your answers travel only into your own model and negotiation card.<br>
+    <b>Ravi K. Tiwari, CEO</b> &nbsp; <span class="c">ceo@mexicoindia.org · www.mexicoindia.org · linkedin.com/company/mibcorg</span>
+  </div>
+</div>
+
+<div class="thanks wrap" id="thanks">
+  <div class="wm"><b>MÉXICO–INDIA</b><span>BUSINESS COUNCIL</span></div>
+  <h2>Received. Gracias.</h2>
+  <p>Your seven answers are with the Council. They feed your state cost model and your Phase 4 negotiation card, and nothing more will be asked of what you have already answered.</p>
+</div>
+
+<script>
+document.getElementById('send').addEventListener('click', async () => {
+    const errDiv = document.getElementById('err');
+    
+    // 1. Collect Input Values
+    const company = document.getElementById('company').value.trim();
+    const person = document.getElementById('person').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    // Q1
+    const q1Element = document.querySelector('input[name="q1"]:checked');
+    const q1 = q1Element ? q1Element.value : '';
+    const q1cap = document.getElementById('q1cap').value.trim();
+
+    // Q2
+    const q2a = document.getElementById('q2a').value;
+    const q2b = document.getElementById('q2b').value;
+    const q2c = document.getElementById('q2c').value;
+
+    // Q3 (Checkboxes to Array)
+    const q3Elements = document.querySelectorAll('input[name="q3"]:checked');
+    const q3 = Array.from(q3Elements).map(el => el.value);
+    const q3adv = document.getElementById('q3adv').value;
+
+    // Q4
+    const q4Element = document.querySelector('input[name="q4"]:checked');
+    const q4 = q4Element ? q4Element.value : '';
+    const q4name = document.getElementById('q4name').value.trim();
+
+    // Q5
+    const q5Element = document.querySelector('input[name="q5"]:checked');
+    const q5 = q5Element ? q5Element.value : '';
+
+    // Q6
+    const q6a = document.getElementById('q6a').value.trim();
+    const q6b = document.getElementById('q6b').value.trim();
+
+    // Q7
+    const q7a = document.getElementById('q7a').value;
+    const q7b = document.getElementById('q7b').value.trim();
+    const q7c = document.getElementById('q7c').value;
+
+    // 2. Basic Validation (Checking required fields)
+    if (!company || !person || !email || !q1 || !q2a || !q2b || !q2c || !q4 || !q5) {
+        errDiv.style.display = 'block';
+        return;
+    }
+    errDiv.style.display = 'none';
+
+    // 3. Prepare Payload
+    const payload = {
+        company, person, email,
+        priceCommitment: q1, priceCap: q1cap,
+        fob100: q2a, fob300: q2b, fob1000: q2c,
+        paymentInstruments: q3, advancePercent: q3adv,
+        creditInsurance: q4, insuranceName: q4name,
+        budgetShare: q5,
+        freightArranger: q6a, forwarderName: q6b,
+        allocationBottles: q7a, allocationSKUs: q7b, allocationDate: q7c
+    };
+
+    // 4. Update Button State
+    const btn = document.getElementById('send');
+    btn.innerText = 'SUBMITTING...';
+    btn.disabled = true;
+
+    // 5. Send to Backend
+    try {
+        // Automatically switch between localhost and live server
+        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5001" 
+            : "https://mibc-backend-4.onrender.com";
+
+        const response = await fetch(`${API_BASE_URL}/api/submit-phase3`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Success: Hide form, Show Thank You screen
+            document.getElementById('formwrap').style.display = 'none';
+            document.getElementById('thanks').style.display = 'block';
+        } else {
+            // Error from server
+            alert('Submission failed: ' + result.message);
+            btn.innerText = 'SUBMIT TO THE COUNCIL';
+            btn.disabled = false;
+        }
+    } catch (error) {
+        alert('Network Error. Please check your connection and try again.');
+        btn.innerText = 'SUBMIT TO THE COUNCIL';
+        btn.disabled = false;
+    }
+});
+</script>
+
+
+</body>
+</html>

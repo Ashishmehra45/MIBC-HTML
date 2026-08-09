@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIBC · Importer Onboarding · Tequila Accelerator</title>
+<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+<style>
+:root{--bg:#FBF8F1;--ink:#26221C;--sec:#4A4338;--brz:#8B6E3D;--brz2:#A07E45;--panel:#F3EDE0;--bor:#D8CDB6;--card:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--sec);font-family:'Segoe UI',Calibri,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+.wm{text-align:center;border-top:1.5px solid var(--brz);border-bottom:1.5px solid var(--brz);padding:10px 0;margin:0 auto 26px;max-width:280px}
+.wm b{font-family:'Bookman Old Style',Georgia,serif;letter-spacing:3px;color:var(--ink);font-size:16px}
+.wm span{display:block;font-size:9px;letter-spacing:5px;color:var(--sec);margin-top:3px}
+.tag{color:var(--brz);font-weight:700;letter-spacing:2.5px;font-size:12px}
+h1{font-family:'Bookman Old Style',Georgia,serif;color:var(--ink);font-size:27px;margin:8px 0 10px;font-weight:700;line-height:1.25}
+.intro{font-style:italic;color:var(--sec);font-size:13.5px;border-bottom:1px solid var(--brz);padding-bottom:16px;margin-bottom:8px}
+.steplabel{font-family:'Bookman Old Style',Georgia,serif;color:var(--brz2);font-size:20px;font-weight:700;margin-right:10px}
+.sec{margin-top:26px;border-bottom:1px solid var(--bor);padding-bottom:4px}
+.sec h2{display:inline;font-size:13px;letter-spacing:1.5px;color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--bor);border-radius:8px;padding:16px 18px;margin:14px 0}
+.q{font-weight:700;color:var(--ink);margin-bottom:4px}
+.why{font-size:12.5px;color:var(--brz);font-style:italic;margin:6px 0 10px}
+label.opt{display:block;padding:7px 10px;border:1px solid var(--bor);border-radius:6px;margin:6px 0;background:var(--bg);cursor:pointer}
+label.opt:hover{border-color:var(--brz)}
+input[type=radio],input[type=checkbox]{accent-color:var(--brz);margin-right:8px}
+input[type=text],input[type=email],input[type=number]{width:100%;padding:9px 10px;border:1px solid var(--bor);border-radius:6px;background:#fff;font:inherit;color:var(--ink)}
+textarea{width:100%;padding:9px 10px;border:1px solid var(--bor);border-radius:6px;background:#fff;font:inherit;color:var(--ink);min-height:70px}
+.small{font-size:12.5px;color:var(--sec)}
+.req{color:var(--brz)}
+.rule{border:none;border-top:1px solid var(--bor);margin:8px 0}
+button{background:var(--brz);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;width:100%;margin-top:18px}
+button:hover{background:#7a5f33}
+.thanks{display:none;text-align:center;padding:60px 10px}
+.thanks h2{font-family:'Bookman Old Style',Georgia,serif;color:var(--ink);font-size:24px}
+.foot{margin-top:34px;border-top:1.5px solid var(--brz);padding-top:10px;font-size:11.5px}
+.foot b{color:var(--ink)} .foot .c{color:var(--brz)}
+.err{color:#8b2f2f;font-size:12.5px;display:none;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="formwrap">
+  <div class="wm"><b>MÉXICO–INDIA</b><span>BUSINESS COUNCIL</span></div>
+  <div class="tag">TEQUILA ACCELERATOR · IMPORTER ONBOARDING</div>
+  <h1>Seven minutes, and the right producers find you</h1>
+  <p class="intro">The Council matches a verified cohort of 33 Mexican tequila and mezcal houses to Indian importers. Your answers below drive that matching: which houses you meet, at which price tiers, in which states. No fee, no obligation, and your answers stay with the Council.</p>
+
+  <form id="form" onsubmit="return false;">
+  <div class="sec"><span class="steplabel">00</span><h2>WHO YOU ARE</h2></div>
+  <div class="card">
+    <div class="q">Firm name <span class="req">*</span></div>
+    <input type="text" id="firm" placeholder="Company name">
+    <hr class="rule">
+    <div class="q">Contact name and role <span class="req">*</span></div>
+    <input type="text" id="person" placeholder="Name, designation">
+    <hr class="rule">
+    <div class="q">Email <span class="req">*</span></div>
+    <input type="email" id="email" placeholder="name@firm.com">
+    <hr class="rule">
+    <div class="q">Phone / WhatsApp</div>
+    <input type="text" id="phone" placeholder="+91...">
+    <hr class="rule">
+    <div class="q">Head office city, and website</div>
+    <input type="text" id="hq" placeholder="e.g. Mumbai · www.firm.com">
+  </div>
+
+  <div class="sec"><span class="steplabel">01</span><h2>LICENCES AND REACH</h2></div>
+  <div class="card">
+    <div class="q">1 · FSSAI central import licence <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q1" value="Held, current">Held, current</label>
+    <label class="opt"><input type="radio" name="q1" value="Applied / in process">Applied, in process</label>
+    <label class="opt"><input type="radio" name="q1" value="Not held">Not held</label>
+  </div>
+  <div class="card">
+    <div class="q">2 · States where you actively distribute today <span class="req">*</span></div>
+    <div class="why">Select all that apply. This drives which houses you meet.</div>
+    <label class="opt"><input type="checkbox" name="q2" value="Maharashtra">Maharashtra</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Delhi NCR">Delhi NCR</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Karnataka">Karnataka</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Haryana">Haryana</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Telangana">Telangana</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Goa">Goa</label>
+    <label class="opt"><input type="checkbox" name="q2" value="Other states">Other states (name below)</label>
+    <input type="text" id="q2other" placeholder="Other states">
+  </div>
+  <div class="card">
+    <div class="q">3 · Brand and label registrations your firm has handled in the last two years <span class="req">*</span></div>
+    <div class="why">Experience with the state desks is what keeps launches on calendar.</div>
+    <label class="opt"><input type="radio" name="q3" value="None yet">None yet</label>
+    <label class="opt"><input type="radio" name="q3" value="1 to 5">1 to 5</label>
+    <label class="opt"><input type="radio" name="q3" value="6 to 20">6 to 20</label>
+    <label class="opt"><input type="radio" name="q3" value="More than 20">More than 20</label>
+  </div>
+  <div class="card">
+    <div class="q">4 · Bonded warehouse access <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q4" value="Own facility">Own facility</label>
+    <label class="opt"><input type="radio" name="q4" value="Third-party arrangement">Third-party arrangement</label>
+    <label class="opt"><input type="radio" name="q4" value="None yet">None yet</label>
+  </div>
+
+  <div class="sec"><span class="steplabel">02</span><h2>PORTFOLIO AND CHANNEL</h2></div>
+  <div class="card">
+    <div class="q">5 · Current portfolio focus <span class="req">*</span></div>
+    <label class="opt"><input type="checkbox" name="q5" value="Whisky">Whisky</label>
+    <label class="opt"><input type="checkbox" name="q5" value="Wine">Wine</label>
+    <label class="opt"><input type="checkbox" name="q5" value="Agave spirits">Agave spirits</label>
+    <label class="opt"><input type="checkbox" name="q5" value="Gin / vodka">Gin and vodka</label>
+    <label class="opt"><input type="checkbox" name="q5" value="Liqueurs / others">Liqueurs and others</label>
+  </div>
+  <div class="card">
+    <div class="q">6 · Agave brands you handle today, if any <span class="req">*</span></div>
+    <div class="why">Write none if none. This is how the Council avoids proposing conflicts with your existing portfolio.</div>
+    <input type="text" id="q6" placeholder="Brand names, or none">
+  </div>
+  <div class="card">
+    <div class="q">7 · Your channel strength <span class="req">*</span></div>
+    <label class="opt"><input type="checkbox" name="q7" value="On-trade">On-trade: bars, restaurants, hotels</label>
+    <label class="opt"><input type="checkbox" name="q7" value="Off-trade">Off-trade: retail</label>
+    <label class="opt"><input type="checkbox" name="q7" value="Duty-free / travel retail">Duty-free and travel retail</label>
+    <label class="opt"><input type="checkbox" name="q7" value="Institutional / events">Institutional and events</label>
+  </div>
+  <div class="card">
+    <div class="q">8 · Price tiers you sell best (per 750 ml, shelf) <span class="req">*</span></div>
+    <label class="opt"><input type="checkbox" name="q8" value="Rs 2,000 to 4,000">Rs 2,000 to 4,000</label>
+    <label class="opt"><input type="checkbox" name="q8" value="Rs 4,000 to 7,000">Rs 4,000 to 7,000</label>
+    <label class="opt"><input type="checkbox" name="q8" value="Rs 7,000 to 12,000">Rs 7,000 to 12,000</label>
+    <label class="opt"><input type="checkbox" name="q8" value="Above Rs 12,000">Above Rs 12,000</label>
+  </div>
+
+  <div class="sec"><span class="steplabel">03</span><h2>WHAT YOU SEEK</h2></div>
+  <div class="card">
+    <div class="q">9 · Agave brands you could onboard in the next 12 months <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q9" value="One">One</label>
+    <label class="opt"><input type="radio" name="q9" value="Two or three">Two or three</label>
+    <label class="opt"><input type="radio" name="q9" value="Four or more">Four or more</label>
+  </div>
+  <div class="card">
+    <div class="q">10 · Exclusivity expectation <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q10" value="National exclusivity">National exclusivity</label>
+    <label class="opt"><input type="radio" name="q10" value="State-wise exclusivity">State-wise exclusivity</label>
+    <label class="opt"><input type="radio" name="q10" value="Open / case by case">Open, case by case</label>
+  </div>
+  <div class="card">
+    <div class="q">11 · Typical first order for a new craft brand <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q11" value="Under 100 cases">Under 100 cases</label>
+    <label class="opt"><input type="radio" name="q11" value="100 to 300 cases">100 to 300 cases</label>
+    <label class="opt"><input type="radio" name="q11" value="300 to 1,000 cases">300 to 1,000 cases</label>
+    <label class="opt"><input type="radio" name="q11" value="Full container">Full container</label>
+  </div>
+  <div class="card">
+    <div class="q">12 · Payment terms you typically offer producers <span class="req">*</span></div>
+    <label class="opt"><input type="checkbox" name="q12" value="Advance">Advance payment</label>
+    <label class="opt"><input type="checkbox" name="q12" value="Letter of credit">Letter of credit</label>
+    <label class="opt"><input type="checkbox" name="q12" value="Documents against payment">Documents against payment</label>
+    <label class="opt"><input type="checkbox" name="q12" value="Credit 30-60 days">Credit, 30 to 60 days</label>
+    <label class="opt"><input type="checkbox" name="q12" value="Credit 60-90 days">Credit, 60 to 90 days</label>
+  </div>
+  <div class="card">
+    <div class="q">13 · Marketing model you prefer <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q13" value="Brand-funded">Brand-funded</label>
+    <label class="opt"><input type="radio" name="q13" value="Shared investment">Shared investment</label>
+    <label class="opt"><input type="radio" name="q13" value="Importer-led with margin structure">Importer-led, built into margin</label>
+  </div>
+  <div class="card">
+    <div class="q">14 · Timeline, and the Tasting Evening <span class="req">*</span></div>
+    <label class="opt"><input type="radio" name="q14" value="Ready to evaluate now">Ready to evaluate now</label>
+    <label class="opt"><input type="radio" name="q14" value="This quarter">This quarter</label>
+    <label class="opt"><input type="radio" name="q14" value="Exploring for later">Exploring, for later</label>
+    <span class="small">Will you attend the Council's Tasting Evening (Mumbai, dates to be announced)?</span>
+    <label class="opt"><input type="radio" name="q14b" value="Yes">Yes</label>
+    <label class="opt"><input type="radio" name="q14b" value="Depends on dates">Depends on dates</label>
+    <label class="opt"><input type="radio" name="q14b" value="No">No</label>
+  </div>
+  <div class="card">
+    <div class="q">15 · Anything specific you are looking for</div>
+    <textarea id="q15" placeholder="Styles, stories, price points, pack formats, regions of Mexico..."></textarea>
+  </div>
+
+  <div class="err" id="err">Please complete every question marked *</div>
+  <button id="send">SUBMIT TO THE COUNCIL</button>
+  <div class="small" style="text-align:center;margin-top:10px">Introductions are matched and scheduled from September 2026. No fee, no obligation.</div>
+  </form>
+
+  <div class="foot">
+    Prepared by the México–India Business Council. Your answers are used only for producer matching and remain with the Council.<br>
+    <b>Ravi K. Tiwari, CEO</b> &nbsp; <span class="c">ceo@mexicoindia.org · www.mexicoindia.org · linkedin.com/company/mibcorg</span>
+  </div>
+</div>
+
+<div class="thanks wrap" id="thanks">
+  <div class="wm"><b>MÉXICO–INDIA</b><span>BUSINESS COUNCIL</span></div>
+  <h2>Received. Thank you.</h2>
+  <p>The Council will revert with curated producer introductions matched to your answers. Verified folders, comparable terms, and samples through the lawful lane only.</p>
+</div><script>
+document.getElementById('send').addEventListener('click', async () => {
+    const errDiv = document.getElementById('err');
+    
+    // Helper function for Radios
+    const getRadio = (name) => {
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        return el ? el.value : '';
+    };
+
+    // Helper function for Checkboxes (returns array)
+    const getChecked = (name) => {
+        return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    };
+
+    // 1. Collect Basic Details
+    const firm = document.getElementById('firm').value.trim();
+    const person = document.getElementById('person').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const hq = document.getElementById('hq').value.trim();
+
+    // 2. Collect Questions
+    const q1 = getRadio('q1');
+    const q2 = getChecked('q2');
+    const q2other = document.getElementById('q2other').value.trim();
+    const q3 = getRadio('q3');
+    const q4 = getRadio('q4');
+    
+    const q5 = getChecked('q5');
+    const q6 = document.getElementById('q6').value.trim();
+    const q7 = getChecked('q7');
+    const q8 = getChecked('q8');
+
+    const q9 = getRadio('q9');
+    const q10 = getRadio('q10');
+    const q11 = getRadio('q11');
+    const q12 = getChecked('q12');
+    const q13 = getRadio('q13');
+    const q14 = getRadio('q14');
+    const q14b = getRadio('q14b');
+    const q15 = document.getElementById('q15').value.trim();
+
+    // 3. Validation (Ensure required fields are filled)
+    if (!firm || !person || !email || !q1 || q2.length === 0 || !q3 || !q4 || q5.length === 0 || !q6 || q7.length === 0 || q8.length === 0 || !q9 || !q10 || !q11 || q12.length === 0 || !q13 || !q14 || !q14b) {
+        errDiv.style.display = 'block';
+        return;
+    }
+    errDiv.style.display = 'none';
+
+    // 4. Prepare Payload to match Mongoose Model
+    const payload = {
+        firm, person, email, phone, hq,
+        q1_fssai: q1,
+        q2_states: q2,
+        q2_other: q2other,
+        q3_registrations: q3,
+        q4_warehouse: q4,
+        q5_portfolio: q5,
+        q6_agaveBrands: q6,
+        q7_channels: q7,
+        q8_priceTiers: q8,
+        q9_onboardCount: q9,
+        q10_exclusivity: q10,
+        q11_firstOrder: q11,
+        q12_paymentTerms: q12,
+        q13_marketingModel: q13,
+        q14_timeline: q14,
+        q14b_tastingEvening: q14b,
+        q15_specifics: q15
+    };
+
+    // 5. Update Button State
+    const btn = document.getElementById('send');
+    btn.innerText = 'SUBMITTING...';
+    btn.disabled = true;
+
+    // 6. Send to Backend
+    try {
+        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5001" 
+            : "https://mibc-backend-4.onrender.com"; // Change this to your live URL
+
+        const response = await fetch(`${API_BASE_URL}/api/submit-importer`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Success: Hide form, Show Thank You screen
+            document.getElementById('formwrap').style.display = 'none';
+            document.getElementById('thanks').style.display = 'block';
+        } else {
+            alert('Submission failed: ' + result.message);
+            btn.innerText = 'SUBMIT TO THE COUNCIL';
+            btn.disabled = false;
+        }
+    } catch (error) {
+        alert('Network Error. Please check your connection and try again.');
+        btn.innerText = 'SUBMIT TO THE COUNCIL';
+        btn.disabled = false;
+    }
+});
+</script>
+
+
+
+
+</body>
+</html>
