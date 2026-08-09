@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIBC | Cohort Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --mibc-dark: #121321;
+            --mibc-gold: #C5A059;
+            --bg-color: #faf9f6;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .register-container {
+            background: var(--card-bg);
+            max-width: 650px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            padding: 50px 40px;
+            border-top: 4px solid var(--mibc-gold);
+        }
+
+        .header-text {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 26px;
+            color: var(--mibc-dark);
+            font-weight: 700;
+        }
+
+        .header-text p {
+            margin: 8px 0 0 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            flex: 100%;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        label span {
+            color: #dc2626;
+        }
+
+        input,
+        textarea {
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--mibc-gold);
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: var(--mibc-dark);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--mibc-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: var(--mibc-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-txt {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+                margin-bottom: 0;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .register-container {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-container">
+        <div class="header-text">
+            <h1>Create Your Account</h1>
+            <p>Register to access the Tequila Accelerator learning portal.</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group full">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" id="fullName" placeholder="e.g. Alejandro Garcia" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Company Name <span>*</span></label>
+                    <input type="text" id="companyName" placeholder="Legal Entity Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Brand Name <span>*</span></label>
+                    <input type="text" id="brandName" placeholder="Tequila/Mezcal Brand" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" id="email" placeholder="name@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number <span>*</span></label>
+                    <input type="tel" id="mobile" placeholder="+52..." required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full">
+                    <label>HQ Address <span>*</span></label>
+                    <textarea id="address" placeholder="Full company address" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Create Password <span>*</span></label>
+                    <input type="password" id="password" placeholder="Min 8 characters" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password <span>*</span></label>
+                    <input type="password" id="confirmPassword" placeholder="Repeat password" required>
+                    <div class="error-txt" id="passError">Passwords do not match!</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Register Account</button>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const pass = document.getElementById('password').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            const errorTxt = document.getElementById('passError');
+
+            if (pass !== confirmPass) {
+                errorTxt.style.display = 'block';
+                return;
+            }
+            errorTxt.style.display = 'none';
+
+            // Collect Form Data
+            const payload = {
+                fullName: document.getElementById('fullName').value.trim(),
+                companyName: document.getElementById('companyName').value.trim(),
+                brandName: document.getElementById('brandName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                mobile: document.getElementById('mobile').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                password: pass
+            };
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Creating Account... ⏳";
+            btn.disabled = true;
+
+            try {
+                const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+                    ? "http://localhost:5001" : "https://mibc-backend-4.onrender.com";
+
+                const response = await fetch(`${API_BASE_URL}/api/cohort-register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert("🎉 " + result.message);
+                    window.location.href = "login.html"; // Redirect to login page
+                } else {
+                    alert("❌ " + result.message);
+                    btn.innerText = "Register Account";
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert("❌ Network Error. Please check your connection.");
+                btn.innerText = "Register Account";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
