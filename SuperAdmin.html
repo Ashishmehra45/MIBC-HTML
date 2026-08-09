@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIBC | Premium Document Vault</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <title>MIBC | Superadmin Document Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
-            --mibc-dark: #1a1a1a;
-            --mibc-black: #A98842;
+            --mibc-dark: #121321;
             --mibc-gold: #A98842;
             --mibc-gold-light: rgba(169, 136, 66, 0.08);
-            --bg-color: #faf9f6;
+            --bg-color: #f4f7f9;
             --card-bg: #ffffff;
-            --text-muted: #777777;
-            --border-soft: rgba(169, 136, 66, 0.2);
-            --smooth-trans: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --border-soft: #e2e8f0;
+            --smooth-trans: all 0.3s ease;
         }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
-            color: var(--mibc-dark);
+            color: var(--text-main);
             -webkit-font-smoothing: antialiased;
         }
 
         /* --- Luxury Header --- */
         .admin-header {
-            background: var(--card-bg);
-            padding: 30px 5%;
+            background: var(--mibc-dark);
+            padding: 25px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-            border-bottom: 1px solid var(--border-soft);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border-bottom: 4px solid var(--mibc-gold);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -45,10 +46,10 @@
 
         .header-left h1 {
             margin: 0 0 5px 0;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
-            color: var(--mibc-black);
-            letter-spacing: -0.5px;
+            color: #ffffff;
+            letter-spacing: 0.5px;
         }
 
         .header-left h1 span {
@@ -57,131 +58,110 @@
 
         .header-left p {
             margin: 0;
-            color: var(--text-muted);
+            color: #a0aec0;
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 500;
         }
 
-        /* Premium Drive Button */
+        /* --- Dashboard Area --- */
+        .admin-dashboard {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Brand Selector Box */
+        .brand-selector {
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-soft);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .brand-info span {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-info h2 {
+            margin: 5px 0 0 0;
+            font-size: 24px;
+            color: var(--mibc-dark);
+            font-weight: 700;
+        }
+
         .master-drive-btn {
-            background: var(--mibc-black);
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 50px;
+            background: var(--bg-color);
+            color: var(--mibc-dark);
+            padding: 12px 24px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid var(--mibc-black);
-            transition: var(--smooth-trans);
-            box-shadow: 0 8px 20px rgba(18, 19, 33, 0.15);
-        }
-
-        .master-drive-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--mibc-gold);
+            border: 1px solid var(--border-soft);
             transition: var(--smooth-trans);
         }
 
         .master-drive-btn:hover {
-            background: var(--mibc-gold);
-            border-color: var(--mibc-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(169, 136, 66, 0.25);
+            background: #e2e8f0;
+            border-color: #cbd5e0;
         }
 
-        .master-drive-btn:hover svg {
-            fill: #ffffff;
-        }
-
-        /* --- Dashboard Area --- */
-        .admin-dashboard {
-            padding: 50px 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .brand-selector {
-            background: var(--card-bg);
-            padding: 20px 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-soft);
-            margin-bottom: 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-        }
-
-        .brand-selector span {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .brand-selector h2 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--mibc-gold);
-            font-weight: 700;
-        }
-
-        /* --- HORIZONTAL TABS --- */
+        /* --- SAA-Style Pill Tabs --- */
         .admin-tabs-nav {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 30px;
-            border-bottom: 2px solid #eaeaea;
-            padding-bottom: 15px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-soft);
             overflow-x: auto;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
         }
-        
+
         .admin-tabs-nav::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
+            display: none;
         }
 
         .admin-tab-btn {
+            flex: 1;
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
-            padding: 10px 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            position: relative;
             white-space: nowrap;
             transition: var(--smooth-trans);
         }
 
-        .admin-tab-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -17px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--mibc-gold);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
         .admin-tab-btn:hover {
-            color: var(--mibc-gold);
+            background: var(--bg-color);
+            color: var(--mibc-dark);
         }
 
         .admin-tab-btn.active {
-            color: var(--mibc-black);
-        }
-
-        .admin-tab-btn.active::after {
-            transform: scaleX(1);
+            background: var(--mibc-dark);
+            color: var(--mibc-gold);
+            box-shadow: 0 4px 10px rgba(18, 19, 33, 0.15);
         }
 
         /* Tab Content Animation */
@@ -195,71 +175,71 @@
         }
 
         @keyframes fadeInTab {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* --- Premium Phase Card --- */
+        /* --- Phase Document Card --- */
         .phase-card {
             background: var(--card-bg);
             border-radius: 16px;
             border: 1px solid var(--border-soft);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
             overflow: hidden;
-            width: 100%;
         }
 
         .phase-card-header {
-            padding: 30px;
-            background: linear-gradient(to right, #ffffff 0%, #fafbfc 100%);
+            padding: 25px 30px;
+            background: #f8fafc;
             border-bottom: 1px solid var(--border-soft);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .phase-title-wrap {
-            display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
 
-        .phase-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--mibc-gold-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--mibc-gold);
-        }
-
-        .phase-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .phase-card-header h3 {
+        .phase-title-wrap h3 {
             margin: 0;
             font-size: 20px;
             font-weight: 700;
-            color: var(--mibc-black);
+            color: var(--mibc-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .phase-badge {
-            background: var(--mibc-black);
-            color: #ffffff;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 11px;
+        .phase-title-wrap p {
+            margin: 5px 0 0 35px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .phase-folder-btn {
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(169, 136, 66, 0.3);
+            transition: var(--smooth-trans);
+        }
+
+        .phase-folder-btn:hover {
+            background: var(--mibc-gold);
+            color: #fff;
         }
 
         /* --- Document List --- */
@@ -270,7 +250,7 @@
         }
 
         .doc-item {
-            padding: 22px 30px;
+            padding: 25px 30px;
             border-bottom: 1px solid var(--border-soft);
             display: flex;
             justify-content: space-between;
@@ -283,7 +263,7 @@
         }
 
         .doc-item:hover {
-            background: var(--mibc-gold-light);
+            background: #fdfdfd;
             padding-left: 35px;
         }
 
@@ -294,9 +274,9 @@
         }
 
         .doc-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
-            color: var(--mibc-black);
+            color: var(--mibc-dark);
         }
 
         .doc-meta {
@@ -308,111 +288,131 @@
         .doc-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* Elegant Status Badges */
+        /* Status Badges */
         .status {
             padding: 6px 14px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
-        .status.uploaded { 
-            background: #f0faee; 
-            color: #10b981; 
-            border: 1px solid #a7f3d0;
-        }
-        
-        .status.pending { 
-            background: #fffbeb; 
-            color: #d97706; 
-            border: 1px solid #fde68a;
-        }
-        
-        .status.missing { 
-            background: transparent; 
-            color: #1a1a1a; 
-            border: 1px dashed #ccc;
+
+        .status.uploaded {
+            background: #e6ffed;
+            color: #2e7d32;
+            border: 1px solid #b7ebc5;
         }
 
-        /* Document Drive Button */
+        .status.pending {
+            background: #fff8e1;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .status.missing {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px dashed #ef9a9a;
+        }
+
+        /* Individual File Drive Button */
         .drive-btn {
-            background: transparent;
-            border: 1px solid var(--border-soft);
-            color: var(--mibc-gold);
+            background: #ffffff;
+            border: 1px solid #cbd5e0;
+            color: #4a5568;
             padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 12px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: var(--smooth-trans);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .drive-btn svg {
-            width: 14px;
-            height: 14px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-            stroke-linecap: round; 
-            stroke-linejoin: round;
+            width: 16px;
+            height: 16px;
         }
 
         .drive-btn:hover {
-            background: var(--mibc-gold);
-            color: #fff;
-            border-color: var(--mibc-gold);
-            box-shadow: 0 4px 10px rgba(169, 136, 66, 0.2);
+            background: #f7fafc;
+            border-color: #a0aec0;
+            color: var(--mibc-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         @media (max-width: 768px) {
-            .admin-header { flex-direction: column; text-align: center; justify-content: center; }
-            .doc-item { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .doc-item:hover { padding-left: 30px; }
-            .doc-actions { width: 100%; justify-content: space-between; }
-            .brand-selector { width: 100%; justify-content: center; flex-direction: column; gap: 5px; text-align: center;}
-            .admin-tabs-nav { padding-bottom: 20px; }
-            .admin-tab-btn::after { bottom: -22px; }
+            .brand-selector {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .doc-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .doc-item:hover {
+                padding-left: 30px;
+            }
+
+            .doc-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .admin-tab-btn {
+                flex: none;
+                width: auto;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Superadmin Header -->
     <header class="admin-header">
-        <img src="" alt="">
         <div class="header-left">
-            <h1>Superadmin <span>Vault</span></h1>
-            <p>Tequila Accelerator Program Document Center</p>
-        </div>
-        <div class="header-right">
-            <a href="https://drive.google.com/drive/folders/YOUR_MASTER_FOLDER" target="_blank" class="master-drive-btn">
-                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z"/><path d="M58.2 0L29.1 50.4 0 0h58.2z"/><path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z"/>
-                </svg>
-                Master Drive Folder
-            </a>
+            <h1>MIBC <span>Vault</span></h1>
+            <p>Superadmin Central Document Management</p>
         </div>
     </header>
 
     <!-- Dashboard Content -->
     <div class="admin-dashboard">
-        
+
         <div class="brand-selector">
-            <span>Current Brand Profile:</span>
-            <h2>Tequila Don Julio (Example)</h2>
+            <div class="brand-info">
+                <span>Selected Brand Profile</span>
+                <h2>Tequila Don Julio (Example)</h2>
+            </div>
+            <a href="https://drive.google.com/drive/folders/MASTER_FOLDER_ID" target="_blank" class="master-drive-btn">
+                <svg viewBox="0 0 87.3 78" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                    <path d="M29.1 27.6l29.1 50.4L87.3 27.6H29.1z" fill="#0066da" />
+                    <path d="M58.3 0l29 50.4L58.3 78 29.1 27.6 58.3 0z" fill="#ffba00" />
+                </svg>
+                Master Brand Folder
+            </a>
         </div>
 
-        <!-- HORIZONTAL TABS NAVIGATION -->
+        <!-- HORIZONTAL TABS (Pill Style) -->
         <div class="admin-tabs-nav">
-            <button class="admin-tab-btn active" onclick="switchAdminPhase(event, 'phase1')">Phase 1: Assessment</button>
+            <button class="admin-tab-btn active" onclick="switchAdminPhase(event, 'phase1')">Phase 1:
+                Assessment</button>
             <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase2')">Phase 2: Compliance</button>
             <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase3')">Phase 3: Execution</button>
             <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase4')">Phase 4: Launch</button>
@@ -423,32 +423,71 @@
             <div class="phase-card">
                 <div class="phase-card-header">
                     <div class="phase-title-wrap">
-                        <div class="phase-icon">
-                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        </div>
-                        <h3>Initial Assessment Documents</h3>
+                        <h3>📄 Phase 1 Documents</h3>
+                        <p>Initial assessment, company profiles, and product imagery.</p>
                     </div>
-                    <span class="phase-badge">Phase 1</span>
+                    <!-- PHASE LEVEL DRIVE FOLDER -->
+                    <a href="https://drive.google.com/drive/folders/PHASE_1_FOLDER_ID" target="_blank"
+                        class="phase-folder-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Open Phase 1 Folder
+                    </a>
                 </div>
                 <ul class="doc-list">
                     <li class="doc-item">
                         <div class="doc-info">
                             <span class="doc-name">Company Profile & Brand Deck</span>
-                            <span class="doc-meta">Uploaded: 12 Aug 2026</span>
+                            <span class="doc-meta">Required Format: PDF/PPT • Uploaded: 12 Aug 2026</span>
                         </div>
                         <div class="doc-actions">
                             <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <!-- INDIVIDUAL FILE DRIVE LINK -->
+                            <a href="https://drive.google.com/file/d/FILE_ID/view" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                View File
+                            </a>
                         </div>
                     </li>
                     <li class="doc-item">
                         <div class="doc-info">
                             <span class="doc-name">Product Imagery (High-Res SKUs)</span>
-                            <span class="doc-meta">Uploaded: 12 Aug 2026</span>
+                            <span class="doc-meta">Required Format: JPG/PNG • Uploaded: 12 Aug 2026</span>
                         </div>
                         <div class="doc-actions">
                             <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                View File
+                            </a>
+                        </div>
+                    </li>
+                    <li class="doc-item">
+                        <div class="doc-info">
+                            <span class="doc-name">Pricing Calculator Template</span>
+                            <span class="doc-meta">Required Format: Excel • Not Uploaded</span>
+                        </div>
+                        <div class="doc-actions">
+                            <span class="status missing">Missing</span>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                Request File
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -460,32 +499,52 @@
             <div class="phase-card">
                 <div class="phase-card-header">
                     <div class="phase-title-wrap">
-                        <div class="phase-icon">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
-                        </div>
-                        <h3>Regulatory & Compliance Documents</h3>
+                        <h3>📜 Phase 2 Documents</h3>
+                        <p>Regulatory, certifications, and compliance checks.</p>
                     </div>
-                    <span class="phase-badge">Phase 2</span>
+                    <a href="https://drive.google.com/drive/folders/PHASE_2_FOLDER_ID" target="_blank"
+                        class="phase-folder-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Open Phase 2 Folder
+                    </a>
                 </div>
                 <ul class="doc-list">
                     <li class="doc-item">
                         <div class="doc-info">
                             <span class="doc-name">CRT / COMERCAM Certificate</span>
-                            <span class="doc-meta">Pending Review from MIBC Legal</span>
+                            <span class="doc-meta">Required Format: PDF • Pending Review from MIBC Legal</span>
                         </div>
                         <div class="doc-actions">
                             <span class="status pending">Reviewing</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                View File
+                            </a>
                         </div>
                     </li>
                     <li class="doc-item">
                         <div class="doc-info">
                             <span class="doc-name">Standard Export Documentation</span>
-                            <span class="doc-meta">Awaiting partner upload</span>
+                            <span class="doc-meta">Required Format: PDF • Awaiting partner upload</span>
                         </div>
                         <div class="doc-actions">
                             <span class="status missing">Missing</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                Request File
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -497,12 +556,18 @@
             <div class="phase-card">
                 <div class="phase-card-header">
                     <div class="phase-title-wrap">
-                        <div class="phase-icon">
-                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        </div>
-                        <h3>Partnership & Execution Agreements</h3>
+                        <h3>🤝 Phase 3 Documents</h3>
+                        <p>Partnership agreements, term sheets, and financials.</p>
                     </div>
-                    <span class="phase-badge">Phase 3</span>
+                    <a href="https://drive.google.com/drive/folders/PHASE_3_FOLDER_ID" target="_blank"
+                        class="phase-folder-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Open Phase 3 Folder
+                    </a>
                 </div>
                 <ul class="doc-list">
                     <li class="doc-item">
@@ -512,17 +577,14 @@
                         </div>
                         <div class="doc-actions">
                             <span class="status pending">Draft</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
-                        </div>
-                    </li>
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Financial Commitment Letter</span>
-                            <span class="doc-meta">Uploaded & Verified: 20 Aug 2026</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                View File
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -534,32 +596,35 @@
             <div class="phase-card">
                 <div class="phase-card-header">
                     <div class="phase-title-wrap">
-                        <div class="phase-icon">
-                            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        </div>
-                        <h3>Launch & Post-Launch Assets</h3>
+                        <h3>🚀 Phase 4 Documents</h3>
+                        <p>Launch assets, PR kits, and post-launch reports.</p>
                     </div>
-                    <span class="phase-badge">Phase 4</span>
+                    <a href="https://drive.google.com/drive/folders/PHASE_4_FOLDER_ID" target="_blank"
+                        class="phase-folder-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        Open Phase 4 Folder
+                    </a>
                 </div>
                 <ul class="doc-list">
                     <li class="doc-item">
                         <div class="doc-info">
-                            <span class="doc-name">Marketing & PR Media Folder</span>
-                            <span class="doc-meta">Approved for India Launch</span>
+                            <span class="doc-name">Marketing & PR Media Package</span>
+                            <span class="doc-meta">Folder containing media assets • Approved</span>
                         </div>
                         <div class="doc-actions">
                             <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
-                        </div>
-                    </li>
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Post-Launch Evaluation Report</span>
-                            <span class="doc-meta">Not required at this stage</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status missing">Missing</span>
-                            <a href="#" target="_blank" class="drive-btn">Open <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                            <a href="#" target="_blank" class="drive-btn">
+                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                                </svg>
+                                View Folder
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -576,17 +641,18 @@
             for (let i = 0; i < tabContents.length; i++) {
                 tabContents[i].classList.remove("active");
             }
-            
+
             // Remove active class from all tab buttons
             const tabBtns = document.getElementsByClassName("admin-tab-btn");
             for (let i = 0; i < tabBtns.length; i++) {
                 tabBtns[i].classList.remove("active");
             }
-            
+
             // Show selected tab content and activate clicked button
             document.getElementById(phaseId).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
     </script>
 </body>
+
 </html>
