@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIBC Admin | Importer Responses</title>
-    
+
     <!-- html2pdf.js for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
@@ -35,7 +36,11 @@
             border-bottom: 4px solid var(--accent);
         }
 
-        .navbar h1 { margin: 0; font-size: 22px; font-weight: 600; }
+        .navbar h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
 
         /* Controls */
         .controls {
@@ -44,44 +49,110 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .record-count {
-            background: white; padding: 10px 18px; border-radius: 6px;
-            font-weight: bold; border: 1px solid var(--border);
-            color: var(--primary); font-size: 15px;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 15px;
         }
+
         .export-btn {
-            background-color: var(--accent); color: white;
-            border: none; padding: 12px 24px; border-radius: 6px;
-            font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            font-size: 14px; transition: 0.3s;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: 0.3s;
         }
-        .export-btn:hover { background-color: #b38f4d; }
+
+        .export-btn:hover {
+            background-color: #b38f4d;
+        }
 
         /* Table */
         .table-container {
             margin: 0 30px 30px;
-            background: white; border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            overflow-x: auto; max-height: 75vh;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            max-height: 75vh;
             border: 1px solid var(--border);
         }
 
-        table { width: max-content; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
-        thead { background-color: #F1F5F9; position: sticky; top: 0; z-index: 10; border-bottom: 2px solid var(--border); }
-        th { text-align: left; padding: 14px 18px; color: #1e293b; font-weight: 700; border-right: 1px solid var(--border); }
-        td { padding: 14px 18px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
-        tbody tr:hover { background-color: #f1f5f9; }
-
-        .action-cell { display: flex; gap: 10px; }
-        .pdf-btn {
-            background: #10B981; color: white; border: none; padding: 8px 14px;
-            border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;
+        table {
+            width: max-content;
+            border-collapse: collapse;
+            font-size: 13px;
+            white-space: nowrap;
         }
-        .pdf-btn:hover { background: #059669; }
-        
-        .loading { text-align: center; padding: 40px; font-size: 16px; color: #64748B; width: 100%; }
+
+        thead {
+            background-color: #F1F5F9;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--border);
+        }
+
+        th {
+            text-align: left;
+            padding: 14px 18px;
+            color: #1e293b;
+            font-weight: 700;
+            border-right: 1px solid var(--border);
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pdf-btn {
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background: #059669;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 16px;
+            color: #64748B;
+            width: 100%;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="navbar">
@@ -90,7 +161,8 @@
 
     <div class="controls">
         <div class="record-count" id="countDisplay">Loading...</div>
-        <button class="export-btn" onclick="exportToCSV('dataTable', 'MIBC_Importer_Responses.csv')">📥 Export to Excel</button>
+        <button class="export-btn" onclick="exportToCSV('dataTable', 'MIBC_Importer_Responses.csv')">📥 Export to
+            Excel</button>
     </div>
 
     <div class="table-container">
@@ -122,21 +194,25 @@
                     <th>Specific Requests</th>
                 </tr>
             </thead>
-            <tbody id="tableBody"><tr><td colspan="24" class="loading">Fetching data...</td></tr></tbody>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="24" class="loading">Fetching data...</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <script>
-        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") 
+        const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
             ? "http://localhost:5001" : "https://mibc-backend-4.onrender.com";
 
         let globalData = [];
 
         const safe = (val) => val ? (Array.isArray(val) ? val.join(", ") : val) : "-";
         const formatDate = (dateStr) => {
-            if(!dateStr) return "-";
+            if (!dateStr) return "-";
             const d = new Date(dateStr);
-            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+            return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
         };
 
         async function loadData() {
@@ -144,12 +220,12 @@
                 const res = await fetch(`${API_BASE_URL}/api/get-importer`);
                 const result = await res.json();
                 const tbody = document.getElementById("tableBody");
-                
+
                 if (result.success) {
                     globalData = result.data;
                     document.getElementById("countDisplay").innerText = `Total Responses: ${result.count}`;
-                    if(result.data.length === 0) return tbody.innerHTML = "<tr><td colspan='24' style='text-align:center;'>No records found</td></tr>";
-                    
+                    if (result.data.length === 0) return tbody.innerHTML = "<tr><td colspan='24' style='text-align:center;'>No records found</td></tr>";
+
                     let html = "";
                     result.data.forEach((item, i) => {
                         html += `<tr>
@@ -183,37 +259,37 @@
             } catch (err) { console.error(err); }
         }
 
-       function generatePDF(index) {
-    const item = globalData[index];
-    
-    // File name ko spaces ke sath clean rakha hai (Purana fix isme included hai)
-    const cleanFirm = (item.firm || "Firm").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
-    const cleanPer = (item.person || "Person").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
-    const filename = `Importer - ${cleanFirm} - ${cleanPer}.pdf`;
-    
-    const qnaPairs = [
-        { q: "Firm Name", a: safe(item.firm) },
-        { q: "Contact Person", a: safe(item.person) },
-        { q: "Email & Phone", a: `${safe(item.email)} | ${safe(item.phone)}` },
-        { q: "HQ Location", a: safe(item.hq) },
-        { q: "FSSAI Licence", a: safe(item.q1_fssai) },
-        { q: "Active States", a: safe(item.q2_states) },
-        { q: "Brand Registrations", a: safe(item.q3_registrations) },
-        { q: "Warehouse Access", a: safe(item.q4_warehouse) },
-        { q: "Portfolio Focus", a: safe(item.q5_portfolio) },
-        { q: "Current Agave Brands", a: safe(item.q6_agaveBrands) },
-        { q: "Channel Strength", a: safe(item.q7_channels) },
-        { q: "Price Tiers", a: safe(item.q8_priceTiers) },
-        { q: "Onboard Capacity", a: safe(item.q9_onboardCount) },
-        { q: "Exclusivity Expectation", a: safe(item.q10_exclusivity) },
-        { q: "First Order Size", a: safe(item.q11_firstOrder) },
-        { q: "Payment Terms", a: safe(item.q12_paymentTerms) },
-        { q: "Marketing Model", a: safe(item.q13_marketingModel) },
-        { q: "Timeline & Event", a: `${safe(item.q14_timeline)} | Event: ${safe(item.q14b_tastingEvening)}` },
-        { q: "Specific Requirements", a: safe(item.q15_specifics) }
-    ];
+        function generatePDF(index) {
+            const item = globalData[index];
 
-    let contentHTML = `
+            // File name ko spaces ke sath clean rakha hai (Purana fix isme included hai)
+            const cleanFirm = (item.firm || "Firm").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+            const cleanPer = (item.person || "Person").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+            const filename = `Importer - ${cleanFirm} - ${cleanPer}.pdf`;
+
+            const qnaPairs = [
+                { q: "Firm Name", a: safe(item.firm) },
+                { q: "Contact Person", a: safe(item.person) },
+                { q: "Email & Phone", a: `${safe(item.email)} | ${safe(item.phone)}` },
+                { q: "HQ Location", a: safe(item.hq) },
+                { q: "FSSAI Licence", a: safe(item.q1_fssai) },
+                { q: "Active States", a: safe(item.q2_states) },
+                { q: "Brand Registrations", a: safe(item.q3_registrations) },
+                { q: "Warehouse Access", a: safe(item.q4_warehouse) },
+                { q: "Portfolio Focus", a: safe(item.q5_portfolio) },
+                { q: "Current Agave Brands", a: safe(item.q6_agaveBrands) },
+                { q: "Channel Strength", a: safe(item.q7_channels) },
+                { q: "Price Tiers", a: safe(item.q8_priceTiers) },
+                { q: "Onboard Capacity", a: safe(item.q9_onboardCount) },
+                { q: "Exclusivity Expectation", a: safe(item.q10_exclusivity) },
+                { q: "First Order Size", a: safe(item.q11_firstOrder) },
+                { q: "Payment Terms", a: safe(item.q12_paymentTerms) },
+                { q: "Marketing Model", a: safe(item.q13_marketingModel) },
+                { q: "Timeline & Event", a: `${safe(item.q14_timeline)} | Event: ${safe(item.q14b_tastingEvening)}` },
+                { q: "Specific Requirements", a: safe(item.q15_specifics) }
+            ];
+
+            let contentHTML = `
         <div style="padding: 40px 50px; font-family: 'Segoe UI', Calibri, Helvetica, Arial, sans-serif; color: #222; font-size: 14px; line-height: 1.5;">
             
             <!-- Centered Header with Top/Bottom Borders -->
@@ -237,12 +313,12 @@
             </div>
     `;
 
-    // Loop for Questions & Answers in clean list format
-    qnaPairs.forEach((row, idx) => {
-        // Handle empty or merged empty fields to show "(no answer provided)"
-        let answerText = (row.a && row.a.trim() !== "" && row.a !== " | " && row.a !== " | Event: ") ? row.a : "<i>(no answer provided)</i>";
-        
-        contentHTML += `
+            // Loop for Questions & Answers in clean list format
+            qnaPairs.forEach((row, idx) => {
+                // Handle empty or merged empty fields to show "(no answer provided)"
+                let answerText = (row.a && row.a.trim() !== "" && row.a !== " | " && row.a !== " | Event: ") ? row.a : "<i>(no answer provided)</i>";
+
+                contentHTML += `
             <div style="margin-bottom: 22px; page-break-inside: avoid;">
                 <div style="font-weight: 700; color: #000; margin-bottom: 4px; font-size: 14px;">
                     ${idx + 1}. ${row.q}
@@ -252,10 +328,10 @@
                 </div>
             </div>
         `;
-    });
+            });
 
-    // Footer Section
-    contentHTML += `
+            // Footer Section
+            contentHTML += `
             <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 15px; font-size: 11px; color: #555; line-height: 1.6; page-break-inside: avoid;">
                 Prepared by the México-India Business Council for Tequila Accelerator Cohort 1<br>
                 <strong>Ravi K. Tiwari, CEO</strong> &middot; ceo@mexicoindia.org &middot; www.mexicoindia.org &middot; linkedin.com/company/mibcorg
@@ -263,17 +339,17 @@
         </div>
     `;
 
-    const element = document.createElement('div');
-    element.innerHTML = contentHTML;
-    
-    html2pdf().set({
-        margin: 10, 
-        filename: filename, 
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 }, 
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(element).save();
-}
+            const element = document.createElement('div');
+            element.innerHTML = contentHTML;
+
+            html2pdf().set({
+                margin: 10,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).from(element).save();
+        }
 
         function exportToCSV(tableId, filename) {
             const table = document.getElementById(tableId);
@@ -284,7 +360,7 @@
                     let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, " ").replace(/"/g, '""');
                     row.push('"' + data + '"');
                 }
-                if(row.length > 0) csv.push(row.join(","));
+                if (row.length > 0) csv.push(row.join(","));
             }
             const blob = new Blob(["\uFEFF" + csv.join("\n")], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
@@ -292,11 +368,12 @@
             link.setAttribute("download", filename);
             document.body.appendChild(link);
             link.click();
-            
+
             document.body.removeChild(link);
         }
 
         window.onload = loadData;
     </script>
 </body>
+
 </html>
