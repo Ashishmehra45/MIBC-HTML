@@ -383,6 +383,31 @@
 </head>
 
 <body>
+
+         <script>
+        const isLoggedIn = localStorage.getItem("mibc_token");
+        /* UNCOMMENT THIS TO ENABLE REAL SECURITY
+        if(!isLoggedIn) {
+            window.location.replace("login.html"); 
+        } 
+        */
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem("mibc_user") || "Partner";
+            const userDisplays = document.querySelectorAll(".userNameDisplay");
+            userDisplays.forEach(el => el.innerText = "Welcome, " + userName);
+        });
+
+        function checkAccess(event, targetPage) {
+            event.preventDefault();
+            const token = localStorage.getItem("mibc_token");
+            if (token) {
+                window.location.href = targetPage;
+            } else {
+                showPremiumAlert("Access Denied! Redirecting to login...", "Tequila-login.html");
+            }
+        }
+    </script>
+
     <div class="wrap">
         <div style="text-align:center;  margin-top:40px; margin-bottom:20px">
             <img src="./assets/images/logo/logo-dark.png" style="width:100%; max-width:200px; " alt="">

@@ -183,61 +183,97 @@
             } catch (err) { console.error(err); }
         }
 
-        function generatePDF(index) {
-            const item = globalData[index];
-            const cleanFirm = (item.firm || "Firm").replace(/[^a-zA-Z0-9]/g, "");
-            const cleanPer = (item.person || "Person").replace(/[^a-zA-Z0-9]/g, "");
-            const filename = `Importer_${cleanFirm}_${cleanPer}.pdf`;
+       function generatePDF(index) {
+    const item = globalData[index];
+    
+    // File name ko spaces ke sath clean rakha hai (Purana fix isme included hai)
+    const cleanFirm = (item.firm || "Firm").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+    const cleanPer = (item.person || "Person").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+    const filename = `Importer - ${cleanFirm} - ${cleanPer}.pdf`;
+    
+    const qnaPairs = [
+        { q: "Firm Name", a: safe(item.firm) },
+        { q: "Contact Person", a: safe(item.person) },
+        { q: "Email & Phone", a: `${safe(item.email)} | ${safe(item.phone)}` },
+        { q: "HQ Location", a: safe(item.hq) },
+        { q: "FSSAI Licence", a: safe(item.q1_fssai) },
+        { q: "Active States", a: safe(item.q2_states) },
+        { q: "Brand Registrations", a: safe(item.q3_registrations) },
+        { q: "Warehouse Access", a: safe(item.q4_warehouse) },
+        { q: "Portfolio Focus", a: safe(item.q5_portfolio) },
+        { q: "Current Agave Brands", a: safe(item.q6_agaveBrands) },
+        { q: "Channel Strength", a: safe(item.q7_channels) },
+        { q: "Price Tiers", a: safe(item.q8_priceTiers) },
+        { q: "Onboard Capacity", a: safe(item.q9_onboardCount) },
+        { q: "Exclusivity Expectation", a: safe(item.q10_exclusivity) },
+        { q: "First Order Size", a: safe(item.q11_firstOrder) },
+        { q: "Payment Terms", a: safe(item.q12_paymentTerms) },
+        { q: "Marketing Model", a: safe(item.q13_marketingModel) },
+        { q: "Timeline & Event", a: `${safe(item.q14_timeline)} | Event: ${safe(item.q14b_tastingEvening)}` },
+        { q: "Specific Requirements", a: safe(item.q15_specifics) }
+    ];
+
+    let contentHTML = `
+        <div style="padding: 40px 50px; font-family: 'Segoe UI', Calibri, Helvetica, Arial, sans-serif; color: #222; font-size: 14px; line-height: 1.5;">
             
-            const qnaPairs = [
-                { q: "Firm Name", a: safe(item.firm) },
-                { q: "Contact Person", a: safe(item.person) },
-                { q: "Email & Phone", a: `${safe(item.email)} | ${safe(item.phone)}` },
-                { q: "HQ Location", a: safe(item.hq) },
-                { q: "FSSAI Licence", a: safe(item.q1_fssai) },
-                { q: "Active States", a: safe(item.q2_states) },
-                { q: "Brand Registrations", a: safe(item.q3_registrations) },
-                { q: "Warehouse Access", a: safe(item.q4_warehouse) },
-                { q: "Portfolio Focus", a: safe(item.q5_portfolio) },
-                { q: "Current Agave Brands", a: safe(item.q6_agaveBrands) },
-                { q: "Channel Strength", a: safe(item.q7_channels) },
-                { q: "Price Tiers", a: safe(item.q8_priceTiers) },
-                { q: "Onboard Capacity", a: safe(item.q9_onboardCount) },
-                { q: "Exclusivity Expectation", a: safe(item.q10_exclusivity) },
-                { q: "First Order Size", a: safe(item.q11_firstOrder) },
-                { q: "Payment Terms", a: safe(item.q12_paymentTerms) },
-                { q: "Marketing Model", a: safe(item.q13_marketingModel) },
-                { q: "Timeline & Event", a: `${safe(item.q14_timeline)} | Event: ${safe(item.q14b_tastingEvening)}` },
-                { q: "Specific Requirements", a: safe(item.q15_specifics) }
-            ];
+            <!-- Centered Header with Top/Bottom Borders -->
+            <div style="text-align: center; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 12px 0; margin: 0 auto 30px; max-width: 340px;">
+                <div style="font-family: 'Bookman Old Style', Georgia, serif; letter-spacing: 4px; font-size: 18px; font-weight: bold; color: #000;">MÉXICO-INDIA</div>
+                <div style="font-size: 10px; letter-spacing: 5px; color: #555; margin-top: 4px; margin-right: -5px;">BUSINESS COUNCIL</div>
+            </div>
+            
+            <div style="color: #555; font-size: 11px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">
+                TEQUILA ACCELERATOR COHORT 1 &middot; IMPORTER ONBOARDING
+            </div>
+            
+            <h1 style="font-family: 'Bookman Old Style', Georgia, serif; font-size: 24px; margin: 0 0 20px; font-weight: 700; color: #000;">
+                Respondent Summary - ${safe(item.firm)}
+            </h1>
+            
+            <div style="font-size: 13px; color: #333; margin-bottom: 40px; line-height: 1.6;">
+                <strong>Respondent:</strong> ${safe(item.person)} &middot; ${safe(item.email)}<br>
+                <strong>Submitted:</strong> ${formatDate(item.createdAt)}<br>
+                <i>Confidential, between the respondent's house and MIBC</i>
+            </div>
+    `;
 
-            let contentHTML = `
-                <div style="padding: 40px; font-family: 'Helvetica Neue', Helvetica, sans-serif;">
-                    <div style="text-align: center; border-bottom: 4px solid #C5A059; padding-bottom: 20px; margin-bottom: 30px;">
-                        <h1 style="color: #121321; font-size: 28px; margin: 0; letter-spacing: 2px;">MIBC <span style="color: #C5A059;">INDIA</span></h1>
-                        <h2 style="font-size: 16px; margin: 10px 0 0 0; color: #64748b;">Importer Onboarding Submission</h2>
-                        <div style="margin-top: 10px; font-size: 12px; color: #94a3b8;">Submitted: ${formatDate(item.createdAt)}</div>
-                    </div>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                        <tbody>
-            `;
-            qnaPairs.forEach(row => {
-                contentHTML += `
-                    <tr>
-                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0; width: 35%; background-color: #f8fafc; font-weight: bold; color: #475569;">${row.q}</td>
-                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">${row.a}</td>
-                    </tr>
-                `;
-            });
-            contentHTML += `</tbody></table></div>`;
+    // Loop for Questions & Answers in clean list format
+    qnaPairs.forEach((row, idx) => {
+        // Handle empty or merged empty fields to show "(no answer provided)"
+        let answerText = (row.a && row.a.trim() !== "" && row.a !== " | " && row.a !== " | Event: ") ? row.a : "<i>(no answer provided)</i>";
+        
+        contentHTML += `
+            <div style="margin-bottom: 22px; page-break-inside: avoid;">
+                <div style="font-weight: 700; color: #000; margin-bottom: 4px; font-size: 14px;">
+                    ${idx + 1}. ${row.q}
+                </div>
+                <div style="color: #333; font-size: 14px;">
+                    ${answerText}
+                </div>
+            </div>
+        `;
+    });
 
-            const element = document.createElement('div');
-            element.innerHTML = contentHTML;
-            html2pdf().set({
-                margin: 10, filename: filename, image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(element).save();
-        }
+    // Footer Section
+    contentHTML += `
+            <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 15px; font-size: 11px; color: #555; line-height: 1.6; page-break-inside: avoid;">
+                Prepared by the México-India Business Council for Tequila Accelerator Cohort 1<br>
+                <strong>Ravi K. Tiwari, CEO</strong> &middot; ceo@mexicoindia.org &middot; www.mexicoindia.org &middot; linkedin.com/company/mibcorg
+            </div>
+        </div>
+    `;
+
+    const element = document.createElement('div');
+    element.innerHTML = contentHTML;
+    
+    html2pdf().set({
+        margin: 10, 
+        filename: filename, 
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 }, 
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(element).save();
+}
 
         function exportToCSV(tableId, filename) {
             const table = document.getElementById(tableId);
