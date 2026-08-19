@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIBC | Superadmin Document Vault</title>
+    <title>MIBC | Superadmin VS-Code Style Vault</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
 
     <style>
         :root {
             --mibc-dark: #202112;
             --mibc-gold: #A98842;
-            --mibc-gold-light: rgba(169, 136, 66, 0.08);
+            --mibc-gold-light: rgba(169, 136, 66, 0.12);
             --bg-color: #f4f7f9;
             --card-bg: #ffffff;
             --text-main: #2d3748;
             --text-muted: #718096;
             --border-soft: #e2e8f0;
-            --smooth-trans: all 0.3s ease;
+            --sidebar-width: 320px;
         }
 
         body {
@@ -26,187 +27,26 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Luxury Header --- */
+        /* --- Header --- */
         .admin-header {
-            background: var(--mibc-dark);
-            padding: 25px 5%;
+            background: linear-gradient(#faf7f0 100%);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            border-bottom: 4px solid var(--mibc-gold);
-            position: sticky;
-            top: 0;
+            border-bottom: 3px solid var(--mibc-gold);
+            flex: 0 0 auto;
             z-index: 100;
         }
 
         .header-left h1 {
-            margin: 0 0 5px 0;
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-
-        .header-left h1 span {
-            color: var(--mibc-gold);
-        }
-
-        .header-left p {
-            margin: 0;
-            color: #a0aec0;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-
-        /* --- Dashboard Area --- */
-        .admin-dashboard {
-            padding: 40px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Brand Selector Box */
-        .brand-selector {
-            background: var(--card-bg);
-            padding: 20px 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-soft);
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        }
-
-        .brand-info span {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .brand-info h2 {
-            margin: 5px 0 0 0;
-            font-size: 24px;
-            color: var(--mibc-dark);
-            font-weight: 700;
-        }
-
-        .master-drive-btn {
-            background: var(--bg-color);
-            color: var(--mibc-dark);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid var(--border-soft);
-            transition: var(--smooth-trans);
-        }
-
-        .master-drive-btn:hover {
-            background: #e2e8f0;
-            border-color: #cbd5e0;
-        }
-
-        /* --- SAA-Style Pill Tabs --- */
-        .admin-tabs-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            background: #ffffff;
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid var(--border-soft);
-            overflow-x: auto;
-            scrollbar-width: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
-        }
-
-        .admin-tabs-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .admin-tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: var(--smooth-trans);
-        }
-
-        .admin-tab-btn:hover {
-            background: var(--bg-color);
-            color: var(--mibc-dark);
-        }
-
-        .admin-tab-btn.active {
-            background: var(--mibc-dark);
-            color: var(--mibc-gold);
-            box-shadow: 0 4px 10px rgba(18, 19, 33, 0.15);
-        }
-
-        /* Tab Content Animation */
-        .admin-tab-content {
-            display: none;
-            animation: fadeInTab 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-        }
-
-        .admin-tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeInTab {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- Phase Document Card --- */
-        .phase-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid var(--border-soft);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            overflow: hidden;
-        }
-
-        .phase-card-header {
-            padding: 25px 30px;
-            background: #f8fafc;
-            border-bottom: 1px solid var(--border-soft);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .phase-title-wrap h3 {
             margin: 0;
             font-size: 20px;
             font-weight: 700;
@@ -216,442 +56,1016 @@
             gap: 10px;
         }
 
-        .phase-title-wrap p {
-            margin: 5px 0 0 35px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .phase-folder-btn {
-            background: var(--mibc-gold-light);
+        .header-left h1 span {
             color: var(--mibc-gold);
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
+        }
+
+        .brand-badge {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 600;
-            font-size: 13px;
-            display: inline-flex;
+            color: var(--mibc-dark);
+            display: flex;
             align-items: center;
+            gap: 6px;
+        }
+
+        /* --- WORKSPACE LAYOUT --- */
+        .workspace-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* LEFT: FILE EXPLORER */
+        .explorer-sidebar {
+            width: var(--sidebar-width);
+            background: #ffffff;
+            border-right: 1px solid var(--border-soft);
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 var(--sidebar-width);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .explorer-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-soft);
+            background: #f8fafc;
+        }
+
+        .explorer-header h3 {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--mibc-dark);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .explorer-actions {
+            display: flex;
             gap: 8px;
-            border: 1px solid rgba(169, 136, 66, 0.3);
-            transition: var(--smooth-trans);
         }
 
-        .phase-folder-btn:hover {
-            background: var(--mibc-gold);
-            color: #fff;
+        .explorer-actions button,
+        .explorer-actions label {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            margin: 0;
         }
 
-        /* --- Document List --- */
-        .doc-list {
+        .explorer-actions button:hover,
+        .explorer-actions label:hover {
+            background: #e2e8f0;
+            color: var(--mibc-dark);
+        }
+
+        /* Tree View List */
+        .tree-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+            cursor: default;
+        }
+
+        .tree-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        .doc-item {
-            padding: 25px 30px;
-            border-bottom: 1px solid var(--border-soft);
+        .tree-row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            transition: var(--smooth-trans);
+            padding: 8px 20px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 13.5px;
+            font-weight: 500;
+            user-select: none;
+            transition: 0.2s;
         }
 
-        .doc-item:last-child {
-            border-bottom: none;
+        .tree-row:hover {
+            background: var(--bg-color);
         }
 
-        .doc-item:hover {
-            background: #fdfdfd;
-            padding-left: 35px;
+        .tree-row.active {
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            border-right: 4px solid var(--mibc-gold);
+            font-weight: 600;
         }
 
-        .doc-info {
+        .tree-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .tree-chevron {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+            transition: transform 0.2s;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .tree-chevron.expanded {
+            transform: rotate(90deg);
+        }
+
+        .tree-chevron.hidden {
+            visibility: hidden;
+        }
+
+        .tree-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* RIGHT: MAIN VIEWER */
+        .viewer-main {
+            flex: 1;
+            background: var(--bg-color);
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            overflow: hidden;
         }
 
-        .doc-name {
-            font-size: 16px;
+        .viewer-breadcrumb {
+            background: #ffffff;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-soft);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .viewer-breadcrumb span {
+            color: var(--mibc-dark);
             font-weight: 600;
+        }
+
+        .viewer-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        /* Folder Grid View */
+        .fm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .fm-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 30px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .fm-item:hover {
+            border-color: var(--mibc-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(169, 136, 66, 0.08);
+        }
+
+        .fm-item-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
+        }
+
+        .fm-item.folder .fm-item-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .fm-item.file .fm-item-icon {
+            background: #e0f2fe;
+            color: #2563eb;
+        }
+
+        .fm-item.image .fm-item-icon {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .fm-item h4 {
+            margin: 0;
+            font-size: 14px;
+            color: var(--mibc-dark);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fm-item p {
+            margin: 6px 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* File Preview View */
+        .file-preview-card {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .file-preview-card .big-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .file-preview-card.image .big-icon {
+            background: #fce7f3;
+            color: #ec4899;
+        }
+
+        .file-preview-card.pdf .big-icon {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .file-preview-card.file .big-icon {
+            background: #e0f2fe;
+            color: #3b82f6;
+        }
+
+        .file-preview-card h2 {
+            margin: 0 0 12px;
+            font-size: 22px;
             color: var(--mibc-dark);
         }
 
-        .doc-meta {
-            font-size: 13px;
+        .file-preview-card p {
+            margin: 0 0 35px;
+            font-size: 15px;
             color: var(--text-muted);
-            font-weight: 400;
         }
 
-        .doc-actions {
+        .preview-actions {
             display: flex;
-            align-items: center;
-            gap: 20px;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        /* Status Badges */
-        .status {
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status.uploaded {
-            background: #e6ffed;
-            color: #2e7d32;
-            border: 1px solid #b7ebc5;
-        }
-
-        .status.pending {
-            background: #fff8e1;
-            color: #b45309;
-            border: 1px solid #fde68a;
-        }
-
-        .status.missing {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px dashed #ef9a9a;
-        }
-
-        /* Individual File Drive Button */
-        .drive-btn {
-            background: #ffffff;
-            border: 1px solid #cbd5e0;
-            color: #4a5568;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+        .view-btn {
+            background: transparent;
+            color: var(--mibc-dark);
+            border: 2px solid var(--mibc-dark);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
-            text-decoration: none;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: var(--smooth-trans);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: 0.3s;
         }
 
-        .drive-btn svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .drive-btn:hover {
-            background: #f7fafc;
-            border-color: #a0aec0;
-            color: var(--mibc-dark);
+        .view-btn:hover {
+            background: var(--bg-color);
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
-        @media (max-width: 768px) {
-            .brand-selector {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+        .download-btn {
+            background: var(--mibc-dark);
+            color: var(--mibc-gold);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
 
-            .doc-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
 
-            .doc-item:hover {
-                padding-left: 30px;
-            }
+        /* ========================================================= */
+        /* CONTEXT MENU (Right Click)                                */
+        /* ========================================================= */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 160px;
+            display: none;
+            z-index: 10000;
+        }
 
-            .doc-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
+        .context-menu.active {
+            display: block;
+        }
 
-            .admin-tab-btn {
-                flex: none;
-                width: auto;
-            }
+        .context-menu-item {
+            padding: 10px 20px;
+            font-size: 13px;
+            color: var(--text-main);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .context-menu-item svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .context-menu-item:hover {
+            background: var(--bg-color);
+            color: var(--mibc-dark);
+        }
+
+        .context-menu-item.danger:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        /* ========================================================= */
+        /* CUSTOM MODAL (Popup)                                      */
+        /* ========================================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 20000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-box h3 {
+            margin: 0 0 8px;
+            font-size: 20px;
+            color: var(--mibc-dark);
+        }
+
+        .modal-box p {
+            margin: 0 0 25px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .modal-box input:focus {
+            border-color: var(--mibc-gold);
+            box-shadow: 0 0 0 4px var(--mibc-gold-light);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-submit {
+            background: var(--mibc-dark);
+            color: var(--mibc-gold);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-badge {
+            background: #ffffff;
+            border: 1px solid var(--border-soft);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--mibc-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            cursor: pointer;
+        }
+
+        .brand-badge:hover {
+            background: #f8fafc;
+            border-color: #cbd5e0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Superadmin Header -->
-    <header  style="background: linear-gradient( #faf7f0 100%); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-bottom: 4px solid #A98842; position: sticky; top: 0; z-index: 100;">
+    <header class="admin-header">
         <div class="header-left">
-            <h1 style="color: #202112;">MIBC  <span>Admin</span></h1>
-            <p>Superadmin Central Document Management</p>
+            <h1>MIBC <span>Vault</span></h1>
         </div>
+        <!-- Google Drive Clickable Link -->
+        <a href="https://drive.google.com/drive/folders/TERA_MASTER_FOLDER_KI_LINK_YAHAN_DAAL" target="_blank" class="brand-badge">
+            <svg viewBox="0 0 87.3 78" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
+                <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
+                <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
+                <path d="M29.1 27.6l29.1 50.4L87.3 27.6H29.1z" fill="#0066da" />
+                <path d="M58.3 0l29 50.4L58.3 78 29.1 27.6 58.3 0z" fill="#ffba00" />
+            </svg>
+            Master Drive
+        </a>
     </header>
 
-    <!-- Dashboard Content -->
-    <div class="admin-dashboard">
+    <div class="workspace-layout">
 
-        <div class="brand-selector">
-            <div class="brand-info">
-                <span>Selected Brand Profile</span>
-                <h2>Tequila Don Julio (Example)</h2>
-            </div>
-            <a href="https://drive.google.com/drive/folders/MASTER_FOLDER_ID" target="_blank" class="master-drive-btn">
-                <svg viewBox="0 0 87.3 78" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                    <path d="M29.1 27.6l29.1 50.4L87.3 27.6H29.1z" fill="#0066da" />
-                    <path d="M58.3 0l29 50.4L58.3 78 29.1 27.6 58.3 0z" fill="#ffba00" />
-                </svg>
-                Master Brand Folder
-            </a>
-        </div>
-
-        <!-- HORIZONTAL TABS (Pill Style) -->
-        <div class="admin-tabs-nav">
-            <button class="admin-tab-btn active" onclick="switchAdminPhase(event, 'phase1')">Phase 1:
-                Assessment</button>
-            <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase2')">Phase 2: Compliance</button>
-            <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase3')">Phase 3: Execution</button>
-            <button class="admin-tab-btn" onclick="switchAdminPhase(event, 'phase4')">Phase 4: Launch</button>
-        </div>
-
-        <!-- ================= PHASE 1 CONTENT ================= -->
-        <div id="phase1" class="admin-tab-content active">
-            <div class="phase-card">
-                <div class="phase-card-header">
-                    <div class="phase-title-wrap">
-                        <h3>📄 Phase 1 Documents</h3>
-                        <p>Initial assessment, company profiles, and product imagery.</p>
-                    </div>
-                    <!-- PHASE LEVEL DRIVE FOLDER -->
-                    <a href="https://drive.google.com/drive/folders/PHASE_1_FOLDER_ID" target="_blank"
-                        class="phase-folder-btn">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                            </path>
-                        </svg>
-                        Open Phase 1 Folder
-                    </a>
+        <!-- Explorer Sidebar -->
+        <aside class="explorer-sidebar">
+            <div class="explorer-header">
+                <h3>Explorer</h3>
+                <div class="explorer-actions">
+                    <label title="Upload File" style="cursor: pointer;">
+                        <i data-feather="file-plus" style="width: 18px;"></i>
+                        <input type="file" style="display: none;" onchange="handleFileUpload(event)">
+                    </label>
+                    <button onclick="openModal('create')" title="New Folder">
+                        <i data-feather="folder-plus" style="width: 18px;"></i>
+                    </button>
+                    <button onclick="fetchVaultData()" title="Refresh">
+                        <i data-feather="refresh-cw" style="width: 18px;"></i>
+                    </button>
                 </div>
-                <ul class="doc-list">
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Company Profile & Brand Deck</span>
-                            <span class="doc-meta">Required Format: PDF/PPT • Uploaded: 12 Aug 2026</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status uploaded">Verified</span>
-                            <!-- INDIVIDUAL FILE DRIVE LINK -->
-                            <a href="https://drive.google.com/file/d/FILE_ID/view" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                View File
-                            </a>
-                        </div>
-                    </li>
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Product Imagery (High-Res SKUs)</span>
-                            <span class="doc-meta">Required Format: JPG/PNG • Uploaded: 12 Aug 2026</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                View File
-                            </a>
-                        </div>
-                    </li>
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Pricing Calculator Template</span>
-                            <span class="doc-meta">Required Format: Excel • Not Uploaded</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status missing">Missing</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                Request File
-                            </a>
-                        </div>
-                    </li>
-                </ul>
             </div>
-        </div>
 
-        <!-- ================= PHASE 2 CONTENT ================= -->
-        <div id="phase2" class="admin-tab-content">
-            <div class="phase-card">
-                <div class="phase-card-header">
-                    <div class="phase-title-wrap">
-                        <h3>📜 Phase 2 Documents</h3>
-                        <p>Regulatory, certifications, and compliance checks.</p>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/PHASE_2_FOLDER_ID" target="_blank"
-                        class="phase-folder-btn">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                            </path>
-                        </svg>
-                        Open Phase 2 Folder
-                    </a>
+            <!-- Click empty space to select root -->
+            <div class="tree-container" id="tree-container" onclick="clearSelection(event)">
+                <div style="text-align:center; padding: 20px; color: #a0aec0; font-size: 13px;">Loading workspace...
                 </div>
-                <ul class="doc-list">
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">CRT / COMERCAM Certificate</span>
-                            <span class="doc-meta">Required Format: PDF • Pending Review from MIBC Legal</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status pending">Reviewing</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                View File
-                            </a>
-                        </div>
-                    </li>
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Standard Export Documentation</span>
-                            <span class="doc-meta">Required Format: PDF • Awaiting partner upload</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status missing">Missing</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                Request File
-                            </a>
-                        </div>
-                    </li>
-                </ul>
             </div>
-        </div>
+        </aside>
 
-        <!-- ================= PHASE 3 CONTENT ================= -->
-        <div id="phase3" class="admin-tab-content">
-            <div class="phase-card">
-                <div class="phase-card-header">
-                    <div class="phase-title-wrap">
-                        <h3>🤝 Phase 3 Documents</h3>
-                        <p>Partnership agreements, term sheets, and financials.</p>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/PHASE_3_FOLDER_ID" target="_blank"
-                        class="phase-folder-btn">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                            </path>
-                        </svg>
-                        Open Phase 3 Folder
-                    </a>
-                </div>
-                <ul class="doc-list">
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Distributor Term Sheet</span>
-                            <span class="doc-meta">Draft generated on 15 Aug 2026</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status pending">Draft</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                View File
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+        <!-- Main Viewer -->
+        <main class="viewer-main">
+            <div class="viewer-breadcrumb" id="viewer-breadcrumb">
+                <i data-feather="hard-drive" style="width: 16px;"></i> <span>Home Directory</span>
             </div>
-        </div>
-
-        <!-- ================= PHASE 4 CONTENT ================= -->
-        <div id="phase4" class="admin-tab-content">
-            <div class="phase-card">
-                <div class="phase-card-header">
-                    <div class="phase-title-wrap">
-                        <h3>🚀 Phase 4 Documents</h3>
-                        <p>Launch assets, PR kits, and post-launch reports.</p>
-                    </div>
-                    <a href="https://drive.google.com/drive/folders/PHASE_4_FOLDER_ID" target="_blank"
-                        class="phase-folder-btn">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                            </path>
-                        </svg>
-                        Open Phase 4 Folder
-                    </a>
-                </div>
-                <ul class="doc-list">
-                    <li class="doc-item">
-                        <div class="doc-info">
-                            <span class="doc-name">Marketing & PR Media Package</span>
-                            <span class="doc-meta">Folder containing media assets • Approved</span>
-                        </div>
-                        <div class="doc-actions">
-                            <span class="status uploaded">Verified</span>
-                            <a href="#" target="_blank" class="drive-btn">
-                                <svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M58.3 78L87.3 27.6H29.1L0 78h58.3z" fill="#00ac47" />
-                                    <path d="M58.2 0L29.1 50.4 0 0h58.2z" fill="#00832d" />
-                                    <path d="M87.3 27.6L58.2 78h-58.2L29.1 27.6h58.2z" fill="#ea4335" />
-                                </svg>
-                                View Folder
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+            <div class="viewer-content" id="viewer-content">
+                <!-- Content Injected Here -->
             </div>
-        </div>
+        </main>
 
     </div>
 
-    <!-- JavaScript for Tab Switching -->
+    <!-- ========================================================= -->
+    <!-- CONTEXT MENU (Right Click Menu)                           -->
+    <!-- ========================================================= -->
+    <div id="contextMenu" class="context-menu">
+        <div class="context-menu-item" onclick="handleContextRename()">
+            <i data-feather="edit-2"></i> Rename
+        </div>
+        <div class="context-menu-item danger" onclick="handleContextDelete()">
+            <i data-feather="trash-2"></i> Delete
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- CUSTOM MODAL (Popup for Create / Rename)                  -->
+    <!-- ========================================================= -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modalTitle">Create New Folder</h3>
+            <p id="modalSubtitle">Inside: Master Brand Vault</p>
+            <input type="text" id="modalInput" placeholder="Enter name..." autocomplete="off">
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-submit" id="modalSubmitBtn" onclick="submitModal()">Create</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function switchAdminPhase(evt, phaseId) {
-            // Hide all tab contents
-            const tabContents = document.getElementsByClassName("admin-tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
+        // API Setup
+        const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const API_BASE_URL = isLocal ? 'http://localhost:5001' : 'https://mibc-backend-4.onrender.com';
 
-            // Remove active class from all tab buttons
-            const tabBtns = document.getElementsByClassName("admin-tab-btn");
-            for (let i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].classList.remove("active");
-            }
+        let state = {
+            selectedId: 'root',
+            selectedType: 'folder',
+            folders: [{ id: 'root', name: 'Master Brand Vault', parentId: null, expanded: true }],
+            files: []
+        };
 
-            // Show selected tab content and activate clicked button
-            document.getElementById(phaseId).classList.add("active");
-            evt.currentTarget.classList.add("active");
+        let contextTarget = { id: null, type: null, name: null };
+        let modalMode = 'create'; // 'create', 'rename_folder', 'rename_file'
+
+        // ==========================================
+        // API CALLS
+        // ==========================================
+        async function fetchVaultData() {
+            try {
+                const [folderRes, fileRes] = await Promise.all([
+                    fetch(`${API_BASE_URL}/api/vault/folders`),
+                    fetch(`${API_BASE_URL}/api/vault/files`)
+                ]);
+
+                const folderData = await folderRes.json();
+                const fileData = await fileRes.json();
+
+                const expandedMap = {};
+                state.folders.forEach(f => expandedMap[f.id] = f.expanded);
+
+                let newFolders = [{ id: 'root', name: 'Master Brand Vault', parentId: null, expanded: true }];
+
+                if (folderData.success) {
+                    folderData.folders.forEach(f => {
+                        newFolders.push({
+                            id: f._id, name: f.name, parentId: f.parentId || 'root', expanded: expandedMap[f._id] || false
+                        });
+                    });
+                }
+                state.folders = newFolders;
+
+                if (fileData.success) {
+                    state.files = fileData.files.map(f => ({
+                        id: f._id, name: f.name, type: f.type, size: f.size, url: f.url, folderId: f.folderId || 'root'
+                    }));
+                }
+
+                renderAll();
+            } catch (err) {
+                console.error("Error fetching vault data:", err);
+            }
         }
+
+        // ==========================================
+        // RENDERING
+        // ==========================================
+        function renderAll() {
+            document.getElementById('tree-container').innerHTML = `<ul class="tree-list">${buildTreeHTML('root', 0)}</ul>`;
+
+            const viewerContent = document.getElementById('viewer-content');
+            const breadcrumb = document.getElementById('viewer-breadcrumb');
+
+            if (state.selectedType === 'folder') {
+                const folder = state.folders.find(f => f.id === state.selectedId);
+                breadcrumb.innerHTML = `<i data-feather="folder" style="width: 16px;"></i> <span>${folder ? folder.name : ''}</span>`;
+                viewerContent.innerHTML = buildFolderGridHTML(state.selectedId);
+            } else {
+                const file = state.files.find(f => f.id === state.selectedId);
+                if (file) {
+                    breadcrumb.innerHTML = `<i data-feather="file" style="width: 16px;"></i> <span>${file.name}</span>`;
+                    viewerContent.innerHTML = buildFilePreviewHTML(file);
+                }
+            }
+
+            setTimeout(() => feather.replace(), 10);
+        }
+
+        // Building Tree with Context Menu Support (oncontextmenu)
+        function buildTreeHTML(folderId, depth) {
+            let html = '';
+            const folder = state.folders.find(f => f.id === folderId);
+            if (!folder) return '';
+
+            const isActive = (state.selectedId === folder.id && state.selectedType === 'folder') ? 'active' : '';
+            const chevronClass = folder.expanded ? 'tree-chevron expanded' : 'tree-chevron';
+            const paddingLeft = 15 + (depth * 15);
+
+            // Add oncontextmenu event
+            html += `
+                <li class="tree-item">
+                    <div class="tree-row ${isActive}" style="padding-left: ${paddingLeft}px" 
+                         onclick="selectFolder('${folder.id}', event)" 
+                         oncontextmenu="showContextMenu(event, '${folder.id}', 'folder', '${folder.name.replace(/'/g, "\\'")}')">
+                        <i data-feather="chevron-right" class="${chevronClass}" onclick="toggleFolder('${folder.id}', event)"></i>
+                        <i data-feather="folder" class="tree-icon" style="color: #A98842;"></i>
+                        <span class="tree-name">${folder.name}</span>
+                    </div>
+            `;
+
+            if (folder.expanded) {
+                html += `<ul class="tree-list">`;
+
+                const childFolders = state.folders.filter(f => f.parentId === folder.id);
+                childFolders.forEach(child => { html += buildTreeHTML(child.id, depth + 1); });
+
+                const childFiles = state.files.filter(f => f.folderId === folder.id);
+                childFiles.forEach(file => {
+                    const isFileActive = (state.selectedId === file.id && state.selectedType === 'file') ? 'active' : '';
+                    let fIcon = file.type.includes('image') ? 'image' : 'file-text';
+                    let iconColor = file.type.includes('image') ? '#db2777' : '#3b82f6';
+                    if (file.type.includes('pdf')) iconColor = '#ef4444';
+
+                    html += `
+                        <li class="tree-item">
+                            <div class="tree-row ${isFileActive}" style="padding-left: ${paddingLeft + 22}px" 
+                                 onclick="selectFile('${file.id}', event)"
+                                 oncontextmenu="showContextMenu(event, '${file.id}', 'file', '${file.name.replace(/'/g, "\\'")}')">
+                                <i data-feather="chevron-right" class="tree-chevron hidden"></i>
+                                <i data-feather="${fIcon}" class="tree-icon" style="color: ${iconColor};"></i>
+                                <span class="tree-name">${file.name}</span>
+                            </div>
+                        </li>
+                    `;
+                });
+
+                html += `</ul>`;
+            }
+            html += `</li>`;
+            return html;
+        }
+
+        // Grid HTML
+        function buildFolderGridHTML(folderId) {
+            const childFolders = state.folders.filter(f => f.parentId === folderId);
+            const childFiles = state.files.filter(f => f.folderId === folderId);
+
+            if (childFolders.length === 0 && childFiles.length === 0) {
+                return `<div style="text-align:center; margin-top:80px; color:#a0aec0; font-size:14px;">This folder is empty.<br>Use the + buttons to add items.</div>`;
+            }
+
+            let html = `<div class="fm-grid">`;
+
+            childFolders.forEach(folder => {
+                html += `
+                    <div class="fm-item folder" onclick="selectFolder('${folder.id}', event)" 
+                         oncontextmenu="showContextMenu(event, '${folder.id}', 'folder', '${folder.name.replace(/'/g, "\\'")}')">
+                        <div class="fm-item-icon"><i data-feather="folder"></i></div>
+                        <h4>${folder.name}</h4>
+                        <p>Folder</p>
+                    </div>
+                `;
+            });
+
+            childFiles.forEach(file => {
+                let icon = 'file-text'; let typeClass = 'file';
+                if (file.type.includes('image')) { icon = 'image'; typeClass = 'image'; }
+                if (file.type.includes('pdf')) { typeClass = 'pdf'; }
+
+                html += `
+                    <div class="fm-item ${typeClass}" onclick="selectFile('${file.id}', event)"
+                         oncontextmenu="showContextMenu(event, '${file.id}', 'file', '${file.name.replace(/'/g, "\\'")}')">
+                        <div class="fm-item-icon"><i data-feather="${icon}"></i></div>
+                        <h4>${file.name}</h4>
+                        <p>${file.size}</p>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        // Preview HTML
+        function buildFilePreviewHTML(file) {
+            let icon = 'file-text'; let typeClass = 'pdf';
+            if (file.type.includes('image')) { icon = 'image'; typeClass = 'image'; }
+
+            return `
+                <div class="file-preview-card ${typeClass}">
+                    <div class="big-icon"><i data-feather="${icon}" style="width:40px; height:40px;"></i></div>
+                    <h2>${file.name}</h2>
+                    <p>Size: ${file.size} • Type: ${file.type.split('/')[1] || 'Document'}</p>
+                    
+                    <div class="preview-actions">
+                       
+                        <button class="download-btn" id="dl-btn" onclick="forceDownload('${file.url}', '${file.name}')">
+                            <i data-feather="download"></i> Download Document
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // CONTEXT MENU & MODAL LOGIC (New Features)
+        // ==========================================
+
+        const contextMenu = document.getElementById("contextMenu");
+
+        // Hide menu on outside click
+        document.addEventListener('click', () => { contextMenu.classList.remove("active"); });
+
+        function showContextMenu(e, id, type, name) {
+            e.preventDefault(); // Stop default browser menu
+
+            // Only allow right click if not root folder
+            if (id === 'root') return;
+
+            contextTarget = { id, type, name };
+            contextMenu.style.top = `${e.clientY}px`;
+            contextMenu.style.left = `${e.clientX}px`;
+            contextMenu.classList.add("active");
+        }
+
+        function handleContextRename() {
+            openModal(contextTarget.type === 'folder' ? 'rename_folder' : 'rename_file', contextTarget);
+        }
+
+        async function handleContextDelete() {
+            if (!confirm(`Are you sure you want to delete ${contextTarget.name}?`)) return;
+
+            const endpoint = contextTarget.type === 'folder' ? `/api/vault/folders/${contextTarget.id}` : `/api/vault/files/${contextTarget.id}`;
+
+            try {
+                const res = await fetch(`${API_BASE_URL}${endpoint}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.success) {
+                    if (state.selectedId === contextTarget.id) selectFolder('root'); // reset view if deleted active
+                    await fetchVaultData();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            } catch (e) { alert("Failed to delete."); }
+        }
+
+        // ==========================================
+        // CUSTOM POPUP (MODAL) CONTROLLER
+        // ==========================================
+        function openModal(mode, target = null) {
+            modalMode = mode;
+            const title = document.getElementById("modalTitle");
+            const subtitle = document.getElementById("modalSubtitle");
+            const input = document.getElementById("modalInput");
+            const btn = document.getElementById("modalSubmitBtn");
+
+            if (mode === 'create') {
+                let targetId = state.selectedType === 'file' ? state.files.find(x => x.id === state.selectedId)?.folderId : state.selectedId;
+                targetId = targetId || 'root';
+                const parentFolder = state.folders.find(f => f.id === targetId);
+
+                title.innerText = "Create New Folder";
+                subtitle.innerText = `Inside: ${parentFolder ? parentFolder.name : 'Master Vault'}`;
+                input.value = "";
+                btn.innerText = "Create";
+            }
+            else if (mode === 'rename_folder' || mode === 'rename_file') {
+                title.innerText = `Rename ${mode === 'rename_folder' ? 'Folder' : 'File'}`;
+                subtitle.innerText = `Current Name: ${target.name}`;
+                input.value = target.name;
+                btn.innerText = "Save Changes";
+            }
+
+            document.getElementById("customModal").classList.add("active");
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeModal() {
+            document.getElementById("customModal").classList.remove("active");
+        }
+
+        async function submitModal() {
+            const inputVal = document.getElementById("modalInput").value.trim();
+            if (!inputVal) { alert("Name cannot be empty"); return; }
+
+            const btn = document.getElementById("modalSubmitBtn");
+            btn.innerHTML = '<i data-feather="loader"></i> Saving...';
+            feather.replace();
+
+            try {
+                if (modalMode === 'create') {
+                    let targetId = state.selectedType === 'file' ? state.files.find(x => x.id === state.selectedId)?.folderId : state.selectedId;
+                    targetId = targetId || 'root';
+
+                    const res = await fetch(`${API_BASE_URL}/api/vault/folders`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: inputVal, parentId: targetId })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        state.selectedId = data.folder._id;
+                        state.selectedType = 'folder';
+                        await fetchVaultData();
+                    } else alert("Error: " + data.message);
+                }
+                else if (modalMode === 'rename_folder' || modalMode === 'rename_file') {
+                    const endpoint = modalMode === 'rename_folder' ? `/api/vault/folders/${contextTarget.id}` : `/api/vault/files/${contextTarget.id}`;
+                    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: inputVal })
+                    });
+                    const data = await res.json();
+                    if (data.success) await fetchVaultData();
+                    else alert("Error: " + data.message);
+                }
+            } catch (e) {
+                alert("Server error.");
+            } finally {
+                closeModal();
+            }
+        }
+
+        // ==========================================
+        // OTHER LOGIC (Upload, Download, Selection)
+        // ==========================================
+        function clearSelection(event) {
+            if (event.target.id === 'tree-container' || event.target.tagName.toLowerCase() === 'ul') {
+                selectFolder('root');
+            }
+        }
+
+        function toggleFolder(folderId, event) {
+            event.stopPropagation();
+            const folder = state.folders.find(f => f.id === folderId);
+            if (folder) { folder.expanded = !folder.expanded; renderAll(); }
+        }
+
+        function selectFolder(folderId, event) {
+            if (event) event.stopPropagation();
+            const folder = state.folders.find(f => f.id === folderId);
+            if (folder) folder.expanded = true;
+            state.selectedId = folderId;
+            state.selectedType = 'folder';
+            renderAll();
+        }
+
+        function selectFile(fileId, event) {
+            if (event) event.stopPropagation();
+            state.selectedId = fileId;
+            state.selectedType = 'file';
+            renderAll();
+        }
+
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                let targetFolderId = state.selectedType === 'file' ? (state.files.find(x => x.id === state.selectedId)?.folderId || 'root') : state.selectedId;
+
+                const viewerContent = document.getElementById('viewer-content');
+                viewerContent.innerHTML = `<div style="text-align:center; margin-top:80px; color:#a0aec0;"><i data-feather="loader" style="width:30px;height:30px;margin-bottom:10px;"></i><br>Uploading <b>${file.name}</b>...<br>Please wait.</div>`;
+                feather.replace();
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('folderId', targetFolderId);
+
+                try {
+                    const res = await fetch(`${API_BASE_URL}/api/vault/files`, { method: 'POST', body: formData });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        state.selectedId = data.file._id;
+                        state.selectedType = 'file';
+                        await fetchVaultData();
+                    } else {
+                        alert("Error uploading file: " + data.message);
+                        renderAll();
+                    }
+                } catch (err) {
+                    alert("Upload failed.");
+                    renderAll();
+                }
+            }
+            event.target.value = '';
+        }
+
+        async function forceDownload(url, filename) {
+            const btn = document.getElementById('dl-btn');
+            try {
+                if (btn) btn.innerHTML = '<i data-feather="loader"></i> Downloading...';
+                feather.replace();
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+
+                if (btn) {
+                    btn.innerHTML = '<i data-feather="check"></i> Downloaded';
+                    setTimeout(() => { btn.innerHTML = '<i data-feather="download"></i> Download Document'; feather.replace(); }, 2000);
+                    feather.replace();
+                }
+            } catch (e) { window.open(url, '_blank'); }
+        }
+
+        // INIT
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchVaultData();
+        });
     </script>
 </body>
 
