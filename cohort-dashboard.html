@@ -1,942 +1,946 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MIBC | Accelerator Dashboard</title>
-        <!-- Feather Icons -->
-        <script src="https://unpkg.com/feather-icons"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-            rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIBC | Accelerator Dashboard</title>
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-        <!-- Security Check -->
-        <script>
-            const isLoggedIn = localStorage.getItem("mibc_token");
-            /* UNCOMMENT THIS TO ENABLE REAL SECURITY
-            if(!isLoggedIn) {
-                window.location.replace("Tequila-login.html"); 
-            } 
-            */
-        </script>
+    <!-- Security Check -->
+    <script>
+        const isLoggedIn = localStorage.getItem("mibc_token");
+        /* UNCOMMENT THIS TO ENABLE REAL SECURITY
+        if(!isLoggedIn) {
+            window.location.replace("Tequila-login.html"); 
+        } 
+        */
+    </script>
 
-        <style>
-            :root {
-                --mibc-dark: #121321;
-                --mibc-gold: #A98842;
-                --mibc-gold-light: rgba(169, 136, 66, 0.1);
-                --bg-light: #faf9f6;
-                --card-bg: #ffffff;
-                --border: #eaedf1;
-                --text-muted: #6b7280;
-                --sidebar-width: 260px;
+    <style>
+        :root {
+            --mibc-dark: #121321;
+            --mibc-gold: #A98842;
+            --mibc-gold-light: rgba(169, 136, 66, 0.1);
+            --bg-light: #faf9f6;
+            --card-bg: #ffffff;
+            --border: #eaedf1;
+            --text-muted: #6b7280;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========================================= */
+        /* SIDEBAR (LEFT NAVIGATION)                 */
+        /* ========================================= */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            transition: 0.3s ease;
+        }
+
+        .sidebar-logo {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-logo img {
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            padding: 20px 15px;
+            list-style: none;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav-item:hover {
+            background: #f3f4f6;
+            color: var(--mibc-dark);
+        }
+
+        .nav-item.active {
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            padding: 20px 15px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--mibc-dark);
+        }
+
+        .logout-btn-side {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 5px;
+            transition: 0.3s;
+        }
+
+        .logout-btn-side:hover {
+            color: #b91c1c;
+        }
+
+        /* ========================================= */
+        /* MAIN CONTENT AREA                         */
+        /* ========================================= */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s ease;
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--mibc-dark);
+        }
+
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .badge-green {
+            background: #ecfdf5;
+            color: #10b981;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-join {
+            background-color: var(--mibc-gold);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: #8E7134;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text-box {
+            flex: 1.5;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .hero-text-box h1 {
+            font-size: 32px;
+            color: var(--mibc-dark);
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .hero-text-box p {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 80%;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .hero-stats-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon {
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--mibc-dark);
+        }
+
+        .stat-card p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Tabs Content Area */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            body {
-                margin: 0;
-                font-family: 'Poppins', sans-serif;
-                background-color: var(--bg-light);
-                color: #333;
-                display: flex;
-                height: 100vh;
-                overflow: hidden;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
 
-            /* ========================================= */
-            /* SIDEBAR (LEFT NAVIGATION)                 */
-            /* ========================================= */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--mibc-dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(169, 136, 66, 0.1);
+            border-color: rgba(169, 136, 66, 0.3);
+        }
+
+        .video-embed-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000;
+        }
+
+        .video-embed-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 200px;
+            background-color: #e0e0e0;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(30, 30, 30, 0.85);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            backdrop-filter: blur(2px);
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .video-info {
+            padding: 22px 20px;
+            flex-grow: 1;
+        }
+
+        .pill-tag {
+            display: inline-block;
+            background: #6366f1;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .pill-tag.gold {
+            background: var(--mibc-gold);
+        }
+
+        .video-info h4 {
+            margin: 0 0 8px 0;
+            font-size: 17px;
+            color: var(--mibc-dark);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .video-info p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Doc Grid */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .doc-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-card:hover {
+            border-color: var(--mibc-dark);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .doc-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doc-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--mibc-gold-light);
+            color: var(--mibc-gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .doc-left h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--mibc-dark);
+        }
+
+        .doc-left p {
+            margin: 4px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .download-btn {
+            background: var(--mibc-dark);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: var(--mibc-gold);
+        }
+
+        /* Sub Tabs */
+        .sub-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            width: fit-content;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .sub-tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .sub-tab-btn:hover {
+            background: #f3f4f6;
+            color: var(--mibc-dark);
+        }
+
+        .sub-tab-btn.active {
+            background: var(--mibc-dark);
+            color: var(--mibc-gold);
+        }
+
+        .sub-tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .sub-tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 991px) {
             .sidebar {
-                width: var(--sidebar-width);
-                background: var(--card-bg);
-                border-right: 1px solid var(--border);
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                left: 0;
-                top: 0;
-                z-index: 1000;
-                transition: 0.3s ease;
+                transform: translateX(-100%);
             }
 
-            .sidebar-logo {
-                padding: 25px 20px;
-                border-bottom: 1px solid var(--border);
-                display: flex;
-                align-items: center;
+            .sidebar.mobile-active {
+                transform: translateX(0);
             }
 
-            .sidebar-logo img {
-                height: 40px;
-            }
-
-            .sidebar-nav {
-                flex-grow: 1;
-                padding: 20px 15px;
-                list-style: none;
-                margin: 0;
-                overflow-y: auto;
-            }
-
-            .nav-item {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 12px 18px;
-                margin-bottom: 8px;
-                border-radius: 8px;
-                color: var(--text-muted);
-                font-weight: 500;
-                font-size: 14px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .nav-item i {
-                width: 20px;
-                height: 20px;
-            }
-
-            .nav-item:hover {
-                background: #f3f4f6;
-                color: var(--mibc-dark);
-            }
-
-            .nav-item.active {
-                background: var(--mibc-gold-light);
-                color: var(--mibc-gold);
-                font-weight: 600;
-            }
-
-            .sidebar-footer {
-                padding: 20px 15px;
-                border-top: 1px solid var(--border);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .user-profile {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .avatar {
-                width: 35px;
-                height: 35px;
-                background: var(--mibc-gold-light);
-                color: var(--mibc-gold);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                font-size: 16px;
-            }
-
-            .user-name {
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--mibc-dark);
-            }
-
-            .logout-btn-side {
-                background: none;
-                border: none;
-                color: #ef4444;
-                cursor: pointer;
-                padding: 5px;
-                transition: 0.3s;
-            }
-
-            .logout-btn-side:hover {
-                color: #b91c1c;
-            }
-
-            /* ========================================= */
-            /* MAIN CONTENT AREA                         */
-            /* ========================================= */
             .main-content {
-                margin-left: var(--sidebar-width);
-                width: calc(100% - var(--sidebar-width));
-                height: 100vh;
-                overflow-y: auto;
-                display: flex;
-                flex-direction: column;
-                transition: 0.3s ease;
-            }
-
-            .top-header {
-                background: var(--card-bg);
-                padding: 15px 30px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid var(--border);
-                position: sticky;
-                top: 0;
-                z-index: 999;
+                margin-left: 0;
+                width: 100%;
             }
 
             .mobile-toggle {
-                display: none;
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: var(--mibc-dark);
+                display: block;
             }
 
-            .header-badges {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .badge-green {
-                background: #ecfdf5;
-                color: #10b981;
-                padding: 6px 12px;
-                border-radius: 6px;
-                font-size: 12px;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .btn-join {
-                background-color: var(--mibc-gold);
-                color: #ffffff;
-                text-decoration: none;
-                padding: 8px 20px;
-                border-radius: 6px;
-                font-size: 13px;
-                font-weight: 600;
-                transition: 0.3s;
-            }
-
-            .btn-join:hover {
-                background-color: #8E7134;
-                transform: translateY(-2px);
+            .hero-section {
+                flex-direction: column;
             }
 
             .dashboard-container {
-                padding: 40px;
-                max-width: 1200px;
-                margin: 0 auto;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            /* Hero Section */
-            .hero-section {
-                display: flex;
-                gap: 30px;
-                margin-bottom: 50px;
-                flex-wrap: wrap;
-            }
-
-            .hero-text-box {
-                flex: 1.5;
-                background: var(--card-bg);
-                padding: 40px;
-                border-radius: 16px;
-                border: 1px solid var(--border);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            }
-
-            .hero-text-box h1 {
-                font-size: 32px;
-                color: var(--mibc-dark);
-                margin: 0 0 10px 0;
-                font-weight: 700;
-            }
-
-            .hero-text-box p {
-                color: var(--text-muted);
-                font-size: 15px;
-                max-width: 80%;
-                margin-bottom: 25px;
-                line-height: 1.6;
-            }
-
-            .hero-stats-grid {
-                flex: 1;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-
-            .stat-card {
-                background: var(--card-bg);
-                padding: 25px 20px;
-                border-radius: 16px;
-                border: 1px solid var(--border);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .stat-icon {
-                background: var(--mibc-gold-light);
-                color: var(--mibc-gold);
-                width: 45px;
-                height: 45px;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 12px;
-            }
-
-            .stat-card h3 {
-                margin: 0;
-                font-size: 24px;
-                font-weight: 700;
-                color: var(--mibc-dark);
-            }
-
-            .stat-card p {
-                margin: 5px 0 0 0;
-                font-size: 12px;
-                color: var(--text-muted);
-                font-weight: 500;
-            }
-
-            /* Tabs Content Area */
-            .tab-content {
-                display: none;
-                animation: fadeIn 0.4s;
-            }
-
-            .tab-content.active {
-                display: block;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .section-title {
-                font-size: 20px;
-                font-weight: 700;
-                color: var(--mibc-dark);
-                margin-bottom: 25px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            /* Video Grid */
-            .video-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 30px;
-                margin-bottom: 60px;
-            }
-
-            .video-card {
-                background: var(--card-bg);
-                border-radius: 12px;
-                overflow: hidden;
-                border: 1px solid var(--border);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-                transition: all 0.3s ease;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .video-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(169, 136, 66, 0.1);
-                border-color: rgba(169, 136, 66, 0.3);
-            }
-
-            .video-embed-wrapper {
-                position: relative;
-                width: 100%;
-                padding-top: 56.25%;
-                background-color: #000;
-            }
-
-            .video-embed-wrapper iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-
-            .video-thumb {
-                width: 100%;
-                height: 200px;
-                background-color: #e0e0e0;
-                position: relative;
-                background-size: cover;
-                background-position: center;
-                cursor: pointer;
-            }
-
-            .play-btn {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 55px;
-                height: 55px;
-                background: rgba(30, 30, 30, 0.85);
-                color: white;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 22px;
-                backdrop-filter: blur(2px);
-                transition: 0.3s;
-                pointer-events: none;
-            }
-
-            .video-info {
-                padding: 22px 20px;
-                flex-grow: 1;
-            }
-
-            .pill-tag {
-                display: inline-block;
-                background: #6366f1;
-                color: white;
-                padding: 4px 10px;
-                border-radius: 50px;
-                font-size: 10px;
-                font-weight: 600;
-                text-transform: uppercase;
-                margin-bottom: 10px;
-            }
-
-            .pill-tag.gold {
-                background: var(--mibc-gold);
-            }
-
-            .video-info h4 {
-                margin: 0 0 8px 0;
-                font-size: 17px;
-                color: var(--mibc-dark);
-                font-weight: 700;
-                line-height: 1.4;
-            }
-
-            .video-info p {
-                margin: 0;
-                font-size: 13px;
-                color: var(--text-muted);
-            }
-
-            /* Doc Grid */
-            .doc-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                gap: 25px;
-                margin-bottom: 60px;
-            }
-
-            .doc-card {
-                background: var(--card-bg);
-                border-radius: 12px;
                 padding: 20px;
-                border: 1px solid var(--border);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                transition: 0.3s;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             }
+        }
+    </style>
+</head>
 
-            .doc-card:hover {
-                border-color: var(--mibc-dark);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-                transform: translateY(-3px);
-            }
+<body>
 
-            .doc-left {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem("mibc_user") || "Partner";
+            const initial = userName.charAt(0).toUpperCase();
+            document.querySelectorAll(".userNameDisplay").forEach(el => el.innerText = userName);
+            document.querySelectorAll(".userFirstName").forEach(el => el.innerText = userName.split(" ")[0]);
+            document.querySelectorAll(".userAvatarTxt").forEach(el => el.innerText = initial);
+            feather.replace();
+        });
+    </script>
 
-            .doc-icon {
-                width: 45px;
-                height: 45px;
-                background: var(--mibc-gold-light);
-                color: var(--mibc-gold);
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 20px;
-            }
-
-            .doc-left h4 {
-                margin: 0;
-                font-size: 15px;
-                font-weight: 700;
-                color: var(--mibc-dark);
-            }
-
-            .doc-left p {
-                margin: 4px 0 0 0;
-                font-size: 12px;
-                color: var(--text-muted);
-            }
-
-            .download-btn {
-                background: var(--mibc-dark);
-                color: white;
-                border: none;
-                width: 35px;
-                height: 35px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: 0.3s;
-                text-decoration: none;
-            }
-
-            .download-btn:hover {
-                background: var(--mibc-gold);
-            }
-
-            /* Sub Tabs */
-            .sub-tabs {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 25px;
-                background: var(--card-bg);
-                padding: 8px;
-                border-radius: 8px;
-                border: 1px solid var(--border);
-                width: fit-content;
-                overflow-x: auto;
-                max-width: 100%;
-            }
-
-            .sub-tab-btn {
-                background: transparent;
-                border: none;
-                padding: 8px 20px;
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--text-muted);
-                border-radius: 6px;
-                cursor: pointer;
-                transition: 0.3s;
-                white-space: nowrap;
-            }
-
-            .sub-tab-btn:hover {
-                background: #f3f4f6;
-                color: var(--mibc-dark);
-            }
-
-            .sub-tab-btn.active {
-                background: var(--mibc-dark);
-                color: var(--mibc-gold);
-            }
-
-            .sub-tab-content {
-                display: none;
-                animation: fadeIn 0.4s;
-            }
-
-            .sub-tab-content.active {
-                display: block;
-            }
-
-            @media (max-width: 991px) {
-                .sidebar {
-                    transform: translateX(-100%);
-                }
-
-                .sidebar.mobile-active {
-                    transform: translateX(0);
-                }
-
-                .main-content {
-                    margin-left: 0;
-                    width: 100%;
-                }
-
-                .mobile-toggle {
-                    display: block;
-                }
-
-                .hero-section {
-                    flex-direction: column;
-                }
-
-                .dashboard-container {
-                    padding: 20px;
-                }
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const userName = localStorage.getItem("mibc_user") || "Partner";
-                const initial = userName.charAt(0).toUpperCase();
-                document.querySelectorAll(".userNameDisplay").forEach(el => el.innerText = userName);
-                document.querySelectorAll(".userFirstName").forEach(el => el.innerText = userName.split(" ")[0]);
-                document.querySelectorAll(".userAvatarTxt").forEach(el => el.innerText = initial);
-                feather.replace();
-            });
-        </script>
-
-        <!-- ============================================== -->
-        <!-- LEFT SIDEBAR NAVIGATION                        -->
-        <!-- ============================================== -->
-        <aside class="sidebar" id="sidebar">
+    <!-- ============================================== -->
+    <!-- LEFT SIDEBAR NAVIGATION                        -->
+    <!-- ============================================== -->
+    <aside class="sidebar" id="sidebar">
+        <a href="tequila-accelerator.html">
             <div class="sidebar-logo">
                 <img src="assets/images/logo/logo-dark.png" alt="MIBC Logo">
             </div>
+        </a>
 
-            <ul class="sidebar-nav">
-                <li
-                    style="margin: 15px 0 5px 15px; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px;">
-                    Modules</li>
-                <li class="nav-item active" onclick="switchSidebarPhase(event, 'phase1')">
-                    <i data-feather="grid"></i> Phase 1: Market Entry
-                </li>
-                <li class="nav-item" onclick="switchSidebarPhase(event, 'phase2')">
-                    <i data-feather="check-square"></i> Phase 2: Compliance
-                </li>
-                <li class="nav-item" onclick="switchSidebarPhase(event, 'phase3')">
-                    <i data-feather="briefcase"></i> Phase 3: Execution
-                </li>
 
-                <li
-                    style="margin: 15px 0 5px 15px; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px;">
-                    Library</li>
-                <!-- NEW DOCUMENT VAULT TAB -->
-                <li class="nav-item" onclick="switchSidebarPhase(event, 'documents')">
-                    <i data-feather="folder"></i> Documents
-                </li>
-                
-            </ul>
+        <ul class="sidebar-nav">
+            <li
+                style="margin: 15px 0 5px 15px; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px;">
+                Modules</li>
+            <li class="nav-item active" onclick="switchSidebarPhase(event, 'phase1')">
+                <i data-feather="grid"></i> Phase 1: Market Entry
+            </li>
+            <li class="nav-item" onclick="switchSidebarPhase(event, 'phase2')">
+                <i data-feather="check-square"></i> Phase 2: Compliance
+            </li>
+            <li class="nav-item" onclick="switchSidebarPhase(event, 'phase3')">
+                <i data-feather="briefcase"></i> Phase 3: Execution
+            </li>
 
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="avatar userAvatarTxt">P</div>
-                    <div class="user-name userNameDisplay">Partner</div>
-                </div>
-                <button class="logout-btn-side" onclick="logout()" title="Logout">
-                    <i data-feather="power"></i>
-                </button>
+            <li
+                style="margin: 15px 0 5px 15px; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px;">
+                Library</li>
+            <!-- NEW DOCUMENT VAULT TAB -->
+            <li class="nav-item" onclick="switchSidebarPhase(event, 'documents')">
+                <i data-feather="folder"></i> Documents
+            </li>
+
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar userAvatarTxt">P</div>
+                <div class="user-name userNameDisplay">Partner</div>
             </div>
-        </aside>
+            <button class="logout-btn-side" onclick="logout()" title="Logout">
+                <i data-feather="power"></i>
+            </button>
+        </div>
+    </aside>
 
-        <!-- ============================================== -->
-        <!-- MAIN CONTENT AREA                              -->
-        <!-- ============================================== -->
-        <main class="main-content" id="mainContent">
+    <!-- ============================================== -->
+    <!-- MAIN CONTENT AREA                              -->
+    <!-- ============================================== -->
+    <main class="main-content" id="mainContent">
 
-            <!-- Top Header -->
-            <header class="top-header">
-                <button class="mobile-toggle" onclick="toggleSidebar()"><i data-feather="menu"></i></button>
-                <div class="header-badges d-none d-md-flex">
-                    <div class="badge-green"><i data-feather="activity" style="width: 14px;"></i> Status: Active Cohort
-                    </div>
+        <!-- Top Header -->
+        <header class="top-header">
+            <button class="mobile-toggle" onclick="toggleSidebar()"><i data-feather="menu"></i></button>
+            <div class="header-badges d-none d-md-flex">
+                <div class="badge-green"><i data-feather="activity" style="width: 14px;"></i> Status: Active Cohort
                 </div>
-                <div class="header-right">
-                    <a href="membership.html" class="btn-join">JOIN MIBC</a>
-                </div>
-            </header>
-
-            <div class="dashboard-container">
-
-                <!-- Hero Section -->
-                <div class="hero-section" id="heroSection">
-                    <div class="hero-text-box">
-                        <h1>Hi, <span class="userFirstName">Partner</span>! 👋</h1>
-                        <p>Ready to uplift your export journey with MIBC Tequila Accelerator? Discover modules, complete
-                            compliance, and achieve your global goals seamlessly.</p>
-                        <button class="btn-join" style="padding: 12px 24px; font-size: 14px;"
-                            onclick="document.getElementById('modulesTarget').scrollIntoView({behavior: 'smooth'})">Explore
-                            Modules</button>
-                    </div>
-                    <div class="hero-stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon"><i data-feather="file-text"></i></div>
-                            <h3>4+</h3>
-                            <p>Action Documents</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon"><i data-feather="video"></i></div>
-                            <h3>12+</h3>
-                            <p>Video Modules</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== PHASE 1 CONTENT (Videos Only) ==================== -->
-                <div id="phase1" class="tab-content active">
-                    <h3 class="section-title" id="modulesTarget">Phase 1: Market Entry Modules</h3>
-
-                    <div class="video-grid">
-                        <!-- Embedded YouTube -->
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                <iframe src="https://www.youtube.com/embed/M7egtlMkypI?si=uExgxS06DnlOwvrz"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <span class="pill-tag">Foundation</span>
-                                <h4>Indian Market Overview 2026</h4>
-                                <p>Duration: 1 hr 10 mins</p>
-                            </div>
-                        </div>
-
-                        <!-- Embedded YouTube -->
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                <iframe src="https://www.youtube.com/embed/jFXGd3k4tDg?si=69tGzE4QPCHwcEng"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <span class="pill-tag gold">Advanced</span>
-                                <h4>Pricing & Margin Structures</h4>
-                                <p>Duration: 56 mins</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== PHASE 2 CONTENT (Videos Only) ==================== -->
-                <div id="phase2" class="tab-content">
-                    <h3 class="section-title">Phase 2: Compliance Modules</h3>
-                    <div class="video-grid">
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                <iframe src="https://www.youtube.com/embed/jFXGd3k4tDg?si=69tGzE4QPCHwcEng"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <span class="pill-tag">Legal</span>
-                                <h4>Compliance & Licensing</h4>
-                                <p>Duration: 56 min</p>
-                            </div>
-                        </div>
-
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                <iframe src="https://www.youtube.com/embed/41PDgIefcGY?si=bs5S_6ZTRZFc-KYV"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <span class="pill-tag gold">Critical</span>
-                                <h4>Labelling, Import Custom</h4>
-                                <p>Duration: 1 hr 3 min</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==================== PHASE 3 CONTENT ==================== -->
-                <div id="phase3" class="tab-content">
-                    <h3 class="section-title">Phase 3: Execution Strategy</h3>
-                    <div class="video-grid">
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                <iframe src="https://www.youtube.com/embed/pwO2dSZjdtk?si=8uPmeP2BeRPRRf0U"
-                                    allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <span class="pill-tag">Networking</span>
-                                <h4>Meeting the Importers</h4>
-                                <p>Duration: 53 min</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============================================== -->
-                <!-- NEW: DOCUMENT VAULT CONTENT WITH SUB-TABS      -->
-                <!-- ============================================== -->
-                <div id="documents" class="tab-content">
-                    <h3 class="section-title"><i data-feather="folder"></i> Phase-Wise Documents</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 25px;">Access and download all your phase-wise
-                        templates, questionnaires, and guidelines here.</p>
-
-                    <div class="sub-tabs">
-                        <button class="sub-tab-btn active" onclick="switchDocPhase(event, 'doc-phase1')">Phase 1
-                            Docs</button>
-                        <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase2')">Phase 2 Docs</button>
-                        <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase3')">Phase 3 Docs</button>
-                    </div>
-
-                    <!-- PHASE 1 DOCS -->
-                    <div id="doc-phase1" class="sub-tab-content active">
-                        <div class="doc-grid">
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="file"></i></div>
-                                    <div>
-                                        <h4>India opportunity OnePager</h4>
-                                        <p>PDF Document</p>
-                                    </div>
-                                </div>
-                                <a href="assets/pdf/Taquila_Accelator/Phase-1/India_opportunity_One_Pager (2).pdf"
-                                    download="India_opportunity_One_Pager.pdf" class="download-btn"><i
-                                        data-feather="download" style="width:16px;"></i></a>
-                            </div>
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="file-text"></i></div>
-                                    <div>
-                                        <h4>Prelim Questionnaire</h4>
-                                        <p>Word Doc</p>
-                                    </div>
-                                </div>
-                                <a href="assets/pdf/Taquila_Accelator/Phase-1/Prelim Questionnaire-Teq Acc.docx"
-                                    download="Prelim Questionnaire-Teq Acc.docx" class="download-btn"><i
-                                        data-feather="download" style="width:16px;"></i></a>
-                            </div>
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="list"></i></div>
-                                    <div>
-                                        <h4>Phase 1 Questionnaire</h4>
-                                        <p>Word Doc</p>
-                                    </div>
-                                </div>
-                                <a href="assets/pdf/Taquila_Accelator/Phase-1/Phase 1 Questionnaire.docx"
-                                    download="Phase 1 Questionnaire.docx" class="download-btn"><i data-feather="download"
-                                        style="width:16px;"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PHASE 2 DOCS -->
-                    <div id="doc-phase2" class="sub-tab-content">
-                        <div class="doc-grid">
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="check-circle"></i></div>
-                                    <div>
-                                        <h4>Labeling Guidelines Checklist</h4>
-                                        <p>PDF Document • 1.8 MB</p>
-                                    </div>
-                                </div>
-                                <a href="#" class="download-btn"><i data-feather="download" style="width:16px;"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PHASE 3 DOCS -->
-                    <div id="doc-phase3" class="sub-tab-content">
-                        <div class="doc-grid">
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="file-text"></i></div>
-                                    <div>
-                                        <h4>Phase 3 Questionnaire</h4>
-                                        <p>Word Doc</p>
-                                    </div>
-                                </div>
-                                <a href="assets/pdf/Taquila_Accelator/Phase-3/Phase_3_Questionnaire.docx" 
-                                    download="Phase_3_Questionnaire.docx" class="download-btn"><i data-feather="download" style="width:16px;"></i></a>
-                            </div>
-                            
-                            <div class="doc-card">
-                                <div class="doc-left">
-                                    <div class="doc-icon"><i data-feather="pie-chart"></i></div>
-                                    <div>
-                                        <h4>Market Entry Strategy</h4>
-                                        <p>PDF Document • 2.4 MB</p>
-                                    </div>
-                                </div>
-                                <a href="#" class="download-btn"><i data-feather="download" style="width:16px;"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
             </div>
-        </main>
+            <div class="header-right">
+                <a href="membership.html" class="btn-join">JOIN MIBC</a>
+            </div>
+        </header>
 
-        <!-- SCRIPTS -->
-        <script>
-            // Sidebar Toggle
-            function toggleSidebar() {
-                document.getElementById("sidebar").classList.toggle("mobile-active");
+        <div class="dashboard-container">
+
+            <!-- Hero Section -->
+            <div class="hero-section" id="heroSection">
+                <div class="hero-text-box">
+                    <h1>Hi, <span class="userFirstName">Partner</span>! 👋</h1>
+                    <p>Ready to uplift your export journey with MIBC Tequila Accelerator? Discover modules, complete
+                        compliance, and achieve your global goals seamlessly.</p>
+                    <button class="btn-join" style="padding: 12px 24px; font-size: 14px;"
+                        onclick="document.getElementById('modulesTarget').scrollIntoView({behavior: 'smooth'})">Explore
+                        Modules</button>
+                </div>
+                <div class="hero-stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-feather="file-text"></i></div>
+                        <h3>4+</h3>
+                        <p>Action Documents</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-feather="video"></i></div>
+                        <h3>12+</h3>
+                        <p>Video Modules</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PHASE 1 CONTENT (Videos Only) ==================== -->
+            <div id="phase1" class="tab-content active">
+                <h3 class="section-title" id="modulesTarget">Phase 1: Market Entry Modules</h3>
+
+                <div class="video-grid">
+                    <!-- Embedded YouTube -->
+                    <div class="video-card">
+                        <div class="video-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/M7egtlMkypI?si=uExgxS06DnlOwvrz"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="pill-tag">Foundation</span>
+                            <h4>Indian Market Overview 2026</h4>
+                            <p>Duration: 1 hr 10 mins</p>
+                        </div>
+                    </div>
+
+                    <!-- Embedded YouTube -->
+                    <div class="video-card">
+                        <div class="video-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/jFXGd3k4tDg?si=69tGzE4QPCHwcEng"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="pill-tag gold">Advanced</span>
+                            <h4>Pricing & Margin Structures</h4>
+                            <p>Duration: 56 mins</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PHASE 2 CONTENT (Videos Only) ==================== -->
+            <div id="phase2" class="tab-content">
+                <h3 class="section-title">Phase 2: Compliance Modules</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/jFXGd3k4tDg?si=69tGzE4QPCHwcEng"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="pill-tag">Legal</span>
+                            <h4>Compliance & Licensing</h4>
+                            <p>Duration: 56 min</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/41PDgIefcGY?si=bs5S_6ZTRZFc-KYV"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="pill-tag gold">Critical</span>
+                            <h4>Labelling, Import Custom</h4>
+                            <p>Duration: 1 hr 3 min</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PHASE 3 CONTENT ==================== -->
+            <div id="phase3" class="tab-content">
+                <h3 class="section-title">Phase 3: Execution Strategy</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-embed-wrapper">
+                            <iframe src="https://www.youtube.com/embed/pwO2dSZjdtk?si=8uPmeP2BeRPRRf0U"
+                                allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span class="pill-tag">Networking</span>
+                            <h4>Meeting the Importers</h4>
+                            <p>Duration: 53 min</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- NEW: DOCUMENT VAULT CONTENT WITH SUB-TABS      -->
+            <!-- ============================================== -->
+            <div id="documents" class="tab-content">
+                <h3 class="section-title"><i data-feather="folder"></i> Phase-Wise Documents</h3>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Access and download all your phase-wise
+                    templates, questionnaires, and guidelines here.</p>
+
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" onclick="switchDocPhase(event, 'doc-phase1')">Phase 1
+                        Docs</button>
+                    <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase2')">Phase 2 Docs</button>
+                    <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase3')">Phase 3 Docs</button>
+                </div>
+
+                <!-- PHASE 1 DOCS -->
+                <div id="doc-phase1" class="sub-tab-content active">
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="file"></i></div>
+                                <div>
+                                    <h4>India opportunity OnePager</h4>
+                                    <p>PDF Document</p>
+                                </div>
+                            </div>
+                            <a href="assets/pdf/Taquila_Accelator/Phase-1/India_opportunity_One_Pager (2).pdf"
+                                download="India_opportunity_One_Pager.pdf" class="download-btn"><i
+                                    data-feather="download" style="width:16px;"></i></a>
+                        </div>
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="file-text"></i></div>
+                                <div>
+                                    <h4>Prelim Questionnaire</h4>
+                                    <p>Word Doc</p>
+                                </div>
+                            </div>
+                            <a href="assets/pdf/Taquila_Accelator/Phase-1/Prelim Questionnaire-Teq Acc.docx"
+                                download="Prelim Questionnaire-Teq Acc.docx" class="download-btn"><i
+                                    data-feather="download" style="width:16px;"></i></a>
+                        </div>
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="list"></i></div>
+                                <div>
+                                    <h4>Phase 1 Questionnaire</h4>
+                                    <p>Word Doc</p>
+                                </div>
+                            </div>
+                            <a href="assets/pdf/Taquila_Accelator/Phase-1/Phase 1 Questionnaire.docx"
+                                download="Phase 1 Questionnaire.docx" class="download-btn"><i data-feather="download"
+                                    style="width:16px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHASE 2 DOCS -->
+                <div id="doc-phase2" class="sub-tab-content">
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="check-circle"></i></div>
+                                <div>
+                                    <h4>Labeling Guidelines Checklist</h4>
+                                    <p>PDF Document • 1.8 MB</p>
+                                </div>
+                            </div>
+                            <a href="#" class="download-btn"><i data-feather="download" style="width:16px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHASE 3 DOCS -->
+                <div id="doc-phase3" class="sub-tab-content">
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="file-text"></i></div>
+                                <div>
+                                    <h4>Phase 3 Questionnaire</h4>
+                                    <p>Word Doc</p>
+                                </div>
+                            </div>
+                            <a href="assets/pdf/Taquila_Accelator/Phase-3/Phase_3_Questionnaire.docx"
+                                download="Phase_3_Questionnaire.docx" class="download-btn"><i data-feather="download"
+                                    style="width:16px;"></i></a>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="doc-left">
+                                <div class="doc-icon"><i data-feather="pie-chart"></i></div>
+                                <div>
+                                    <h4>Market Entry Strategy</h4>
+                                    <p>PDF Document • 2.4 MB</p>
+                                </div>
+                            </div>
+                            <a href="#" class="download-btn"><i data-feather="download" style="width:16px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("mobile-active");
+        }
+
+        // Main Sidebar Navigation
+        function switchSidebarPhase(evt, phaseId) {
+            document.querySelectorAll(".dashboard-container > .tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll(".sidebar-nav .nav-item").forEach(b => b.classList.remove("active"));
+            document.getElementById(phaseId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            // Hero visibility
+            if (phaseId === 'phase1') {
+                document.getElementById('heroSection').style.display = 'flex';
+            } else {
+                document.getElementById('heroSection').style.display = 'none';
             }
 
-            // Main Sidebar Navigation
-            function switchSidebarPhase(evt, phaseId) {
-                document.querySelectorAll(".dashboard-container > .tab-content").forEach(c => c.classList.remove("active"));
-                document.querySelectorAll(".sidebar-nav .nav-item").forEach(b => b.classList.remove("active"));
-                document.getElementById(phaseId).classList.add("active");
-                evt.currentTarget.classList.add("active");
-
-                // Hero visibility
-                if (phaseId === 'phase1') {
-                    document.getElementById('heroSection').style.display = 'flex';
-                } else {
-                    document.getElementById('heroSection').style.display = 'none';
-                }
-
-                if (window.innerWidth <= 991) {
-                    document.getElementById("sidebar").classList.remove("mobile-active");
-                }
+            if (window.innerWidth <= 991) {
+                document.getElementById("sidebar").classList.remove("mobile-active");
             }
+        }
 
-            // Document Sub-Tabs
-            function switchDocPhase(evt, subPhaseId) {
-                document.querySelectorAll("#documents .sub-tab-content").forEach(c => c.classList.remove("active"));
-                document.querySelectorAll("#documents .sub-tab-btn").forEach(b => b.classList.remove("active"));
-                document.getElementById(subPhaseId).classList.add("active");
-                evt.currentTarget.classList.add("active");
-            }
+        // Document Sub-Tabs
+        function switchDocPhase(evt, subPhaseId) {
+            document.querySelectorAll("#documents .sub-tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll("#documents .sub-tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById(subPhaseId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
 
-            // Recording Sub-Tabs
-            function switchRecPhase(evt, subPhaseId) {
-                document.querySelectorAll("#recordings .sub-tab-content").forEach(c => c.classList.remove("active"));
-                document.querySelectorAll("#recordings .sub-tab-btn").forEach(b => b.classList.remove("active"));
-                document.getElementById(subPhaseId).classList.add("active");
-                evt.currentTarget.classList.add("active");
-            }
+        // Recording Sub-Tabs
+        function switchRecPhase(evt, subPhaseId) {
+            document.querySelectorAll("#recordings .sub-tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll("#recordings .sub-tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById(subPhaseId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
 
-            function loadYouTubeVideo(wrapperId, thumbId, videoId) {
-                document.getElementById(thumbId).style.display = 'none';
-                const wrapper = document.getElementById(wrapperId);
-                wrapper.style.display = 'block';
-                wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-            }
+        function loadYouTubeVideo(wrapperId, thumbId, videoId) {
+            document.getElementById(thumbId).style.display = 'none';
+            const wrapper = document.getElementById(wrapperId);
+            wrapper.style.display = 'block';
+            wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+        }
 
-            function logout() {
-                localStorage.removeItem("mibc_token");
-                localStorage.removeItem("mibc_user");
-                window.location.replace("Tequila-login.html");
-            }
-        </script>
-    </body>
+        function logout() {
+            localStorage.removeItem("mibc_token");
+            localStorage.removeItem("mibc_user");
+            window.location.replace("Tequila-login.html");
+        }
+    </script>
+</body>
 
-    </html>
+</html>
