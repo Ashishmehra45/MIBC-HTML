@@ -13,11 +13,11 @@
     <!-- Security Check -->
     <script>
         const isLoggedIn = localStorage.getItem("mibc_token");
-        //  UNCOMMENT THIS TO ENABLE REAL SECURITY
+        
         if (!isLoggedIn) {
             window.location.replace("Tequila-login.html");
         }
-
+        
     </script>
 
     <style>
@@ -398,10 +398,6 @@
             margin-bottom: 10px;
         }
 
-        .pill-tag.gold {
-            background: var(--mibc-gold);
-        }
-
         .video-info h4 {
             margin: 0 0 8px 0;
             font-size: 17px;
@@ -569,6 +565,17 @@
 
 <body>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem("mibc_user") || "Partner";
+            const initial = userName.charAt(0).toUpperCase();
+            document.querySelectorAll(".userNameDisplay").forEach(el => el.innerText = userName);
+            document.querySelectorAll(".userFirstName").forEach(el => el.innerText = userName.split(" ")[0]);
+            document.querySelectorAll(".userAvatarTxt").forEach(el => el.innerText = initial);
+            feather.replace();
+        });
+    </script>
+
     <!-- ============================================== -->
     <!-- LEFT SIDEBAR NAVIGATION                        -->
     <!-- ============================================== -->
@@ -592,10 +599,14 @@
             <li class="nav-item" onclick="switchSidebarPhase(event, 'phase3')">
                 <i data-feather="briefcase"></i> Phase 3: Execution
             </li>
+            <li class="nav-item" onclick="switchSidebarPhase(event, 'phase4')">
+                <i data-feather="briefcase"></i> Phase 4: Market Launch
+            </li>
 
             <li
                 style="margin: 15px 0 5px 15px; font-size: 11px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px;">
                 Library</li>
+            <!-- NEW DOCUMENT VAULT TAB -->
             <li class="nav-item" onclick="switchSidebarPhase(event, 'documents')">
                 <i data-feather="folder"></i> Documents
             </li>
@@ -671,6 +682,12 @@
                 <div class="video-grid" id="video-grid-phase3"></div>
             </div>
 
+            <!-- NAYA PHASE 4 CONTAINER YAHAN ADD KIYA HAI -->
+            <div id="phase4" class="tab-content">
+                <h3 class="section-title">Phase 4: Market Launch</h3>
+                <div class="video-grid" id="video-grid-phase4"></div>
+            </div>
+
             <!-- ============================================== -->
             <!-- DOCUMENT VAULT CONTENT WITH SUB-TABS           -->
             <!-- ============================================== -->
@@ -684,6 +701,7 @@
                         Docs</button>
                     <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase2')">Phase 2 Docs</button>
                     <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase3')">Phase 3 Docs</button>
+                    <button class="sub-tab-btn" onclick="switchDocPhase(event, 'doc-phase4')">Phase 4 Docs</button>
                 </div>
 
                 <div id="doc-phase1" class="sub-tab-content active">
@@ -696,6 +714,10 @@
 
                 <div id="doc-phase3" class="sub-tab-content">
                     <div class="doc-grid" id="doc-grid-phase3"></div>
+                </div>
+
+                <div id="doc-phase4" class="sub-tab-content">
+                    <div class="doc-grid" id="doc-grid-phase4"></div>
                 </div>
             </div>
 
@@ -714,7 +736,7 @@
                 phase: "phase1",
                 youtubeId: "M7egtlMkypI",
                 tag: "Foundation",
-                tagColor: "var(--mibc-dark)", // Optional custom color
+                tagColor: "var(--mibc-dark)",
                 title: "Indian Market Overview 2026",
                 duration: "1 hr 10 mins"
             },
@@ -728,7 +750,7 @@
             },
             {
                 phase: "phase2",
-                youtubeId: "jFXGd3k4tDg", // Replace with correct phase 2 ID later
+                youtubeId: "jFXGd3k4tDg",
                 tag: "Legal",
                 tagColor: "var(--mibc-dark)",
                 title: "Compliance & Licensing",
@@ -749,8 +771,15 @@
                 tagColor: "var(--mibc-dark)",
                 title: "Meeting the Importers",
                 duration: "53 min"
+            },
+            {
+                phase: "phase4",
+                youtubeId: "5j6UaVYwGqQ",
+                tag: "Launch",
+                tagColor: "var(--mibc-gold)",
+                title: "Session 1",
+                duration: "40 min"
             }
-            // Future me bas naya object yahan daalna hai aur wo automatic UI pe dikhega
         ];
 
         // DOCUMENTS ARRAY
@@ -810,7 +839,7 @@
                 icon: "file-text",
                 title: "Phase-2 Session_3",
                 type: "PPT Document",
-                url: "assets/pdf/phase-wise-ppt/Phase-2 Session_3 (1).pptx", // Add link later
+                url: "assets/pdf/phase-wise-ppt/Phase-2 Session_3 (1).pptx",
                 fileName: "Phase-2 Session_3 (1).pptx"
             },
             {
@@ -835,10 +864,9 @@
                 icon: "pie-chart",
                 title: "Phase 3 Session_6",
                 type: "PPT Document",
-                url: "assets/pdf/phase-wise-ppt/Phase-3 Session_6.pptx", // Add link later
+                url: "assets/pdf/phase-wise-ppt/Phase-3 Session_6.pptx",
                 fileName: "Phase-3 Session_6.pptx"
             }
-            // Future documents bas yahan add hote jayenge
         ];
 
         // ==========================================
@@ -846,18 +874,16 @@
         // ==========================================
 
         function renderContent() {
-            // Update Stat Counters dynamically
             document.getElementById('doc-count').innerText = documentsData.length + "+";
             document.getElementById('video-count').innerText = videosData.length + "+";
 
-            // 1. Render Videos
-            ['phase1', 'phase2', 'phase3'].forEach(phaseId => {
+            // 1. Render Videos (Added phase4 in loop)
+            ['phase1', 'phase2', 'phase3', 'phase4'].forEach(phaseId => {
                 const grid = document.getElementById(`video-grid-${phaseId}`);
                 const phaseVideos = videosData.filter(v => v.phase === phaseId);
 
                 let videoHTML = "";
                 phaseVideos.forEach(v => {
-                    // Extract video ID safely handling full URLs if provided by mistake
                     const videoId = v.youtubeId.includes("youtube.com") || v.youtubeId.includes("youtu.be")
                         ? extractVideoID(v.youtubeId)
                         : v.youtubeId;
@@ -879,7 +905,7 @@
             });
 
             // 2. Render Documents
-            ['phase1', 'phase2', 'phase3'].forEach(phaseId => {
+            ['phase1', 'phase2', 'phase3', 'phase4'].forEach(phaseId => {
                 const grid = document.getElementById(`doc-grid-${phaseId}`);
                 const phaseDocs = documentsData.filter(d => d.phase === phaseId);
 
@@ -903,18 +929,15 @@
                 if (grid) grid.innerHTML = docHTML;
             });
 
-            // Init icons after DOM generation
             feather.replace();
         }
 
-        // Helper function if user pastes full URL instead of ID
         function extractVideoID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Initialize User Data & Render
         document.addEventListener("DOMContentLoaded", () => {
             const userName = localStorage.getItem("mibc_user") || "Partner";
             const initial = userName.charAt(0).toUpperCase();
@@ -922,7 +945,6 @@
             document.querySelectorAll(".userFirstName").forEach(el => el.innerText = userName.split(" ")[0]);
             document.querySelectorAll(".userAvatarTxt").forEach(el => el.innerText = initial);
 
-            // Run the generation logic
             renderContent();
         });
 
